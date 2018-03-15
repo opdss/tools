@@ -1,84 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="author" content="{{ author|default(site.author) }}">
     <meta name="keyword" content="{{ keyword|default(site.keyword) }}">
     <meta name="description" content="{{ description|default(site.description) }}">
-    <link rel="icon" href="{{base_url()}}/favicon.ico">
+    <link rel="icon" href="#">
 
-    <title>{{ title|default(site.title) }}</title>
+    <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{base_url()}}/statics/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="{{base_url()}}/statics/css/main.css" rel="stylesheet">
+    <link href="{{base_url()}}/statics/css/layout.css" rel="stylesheet">
     {% block css %}
         {# 额外添加的css #}
     {% endblock %}
+    <![endif]-->
 </head>
 <body>
+
 {% block navbar %}
-    <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="{{base_url()}}">{{ site.title }}</a>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    {% for item in menus %}
+                        <li class="actives  "><a href="{{ item.url }}">{{ item.name }}</a></li>
+                    {% endfor %}
                     <li class="dropdown">
-                        <a><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><span><input type="text" class="form-inline" placeholder="搜索相关"></span></li>
-                        </ul>-->
-                    </li>
-                    <li><a href="{% if userInfo %}{{ path_for('article.edit') }}{% else %}javascript:void(0){% endif %}" {% if userInfo == null %}class="btn-login-modal" data-act="login"{% endif %} data-act="register">新建笔记</a></li>
-                    {% if userInfo == null %}
-                    <li><a href="javascript:void(0)" class="btn-login-modal" data-act="register">注册</a></li>
-                    <li><a href="javascript:void(0)" class="btn-login-modal" data-act="login">登录</a></li>
-                    {% else %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" id="my_menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ userInfo.nickname }} <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">我的设置</a></li>
-                            <li><a href="{{ path_for('ucenter') }}">个人中心</a></li>
+                            <li><a href="#">Action</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0)" class="btn-signout">安全退出</a></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
-                    {% endif %}
                 </ul>
+            </div><!--/.nav-collapse -->
 
+            {#<div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
                 <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" id="keyword" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search...">
                 </form>
-            </div><!-- /.navbar-collapse -->
+            </div>#}
         </div>
     </nav>
-    <!-- navbar -->
 {% endblock %}
 
-{% block container %}
-    <div class="container" style="text-align: center;padding:20%"><h1>啥也没有- -！....</h1></div>
-{% endblock %}
+<div class="container-fluid">
+    <div class="row">
+        {% block leftnavi %}
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">json美化</a></li>
+                    <li><a href="#">xml美化</a></li>
+                    <li><a href="#">html美化</a></li>
+                    <li><a href="#">css美化</a></li>
+                    <li><a href="#">js美化</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Nav item</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        {% block container %}
+            <div class="container-fluid" style="text-align: center;padding:20%"><h1>啥也没有- -！....</h1></div>
+        {% endblock %}
+        </div>
+    </div>
+</div>
 
 {% block footer %}
-<!-- 尾部start -->
-<footer id="copyright">
-    <p>{{ site.copyright|raw }} | {{ site.icp|raw }} | 联系人：{{ site.contact|raw }}</p>
-</footer>
-<!-- 尾部end -->
+    <!-- 尾部start -->
+    <footer id="copyright" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <p>{{ site.copyright|raw }} | {{ site.icp|raw }} | 联系人：{{ site.contact|raw }}</p>
+    </footer>
+    <!-- 尾部end -->
 {% endblock %}
 
-<script src="{{base_url()}}/statics/js/jquery-3.2.1.min.js"></script>
+<script src="{{base_url()}}/statics/js/jquery-3.2.1.js"></script>
 <script src="{{base_url()}}/statics/bootstrap/js/bootstrap.min.js"></script>
-<script src="{{base_url()}}/statics/js/jquery.cxselect.min.js"></script>
 <script src="{{base_url()}}/statics/js/main.js"></script>
+
 {% block script %}
     {# js代码 #}
 {% endblock %}

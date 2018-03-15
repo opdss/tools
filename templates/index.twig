@@ -1,136 +1,37 @@
 {% extends "layout.twig" %}
 
 {% block container %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="custom_data">
-                    <form class="form-inline">
-                        <select class="first form-control"></select>
-                        <select class="second form-control"></select>
-                        <select class="third form-control"></select>
-                        <select class="fourth form-control"></select>
-                        <select class="fifth form-control"></select>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- 左侧列表开始 -->
-            <div class="col-md-9">
-                {% for item in article_list %}
-                <div class="bg-block">
-                    <h4><a href="/article/{{ item['aid'] }}">{{ item['title'] }}</a></h4>
-                    <p>
-                        <span>分类：<a href="#">{{ item.category.title }}</a></span>&nbsp;&nbsp;
-                        <span>作者：<a href="#">{{ item.user.nickname }}</a></span>&nbsp;&nbsp;
-                        <span>阅读：{{ item['views'] }}</span>&nbsp;&nbsp;
-                        {#<span>评论：{{ item['comments_count'] }}</span>&nbsp;&nbsp;#}
-                        <span>创建时间：{{ item['created_at'] }}</span>
-                    </p>
-                </div>
-                {% endfor %}
-                <div class="text-center">
-                    {{ pagination|raw  }}
-                </div>
-            </div>
-            <!-- 左侧列表结束 -->
+    <h1 class="page-header">Dashboard</h1>
 
-            <!-- 右侧开始 -->
-            <div class="col-md-3">
-                <div style="margin-top: 20px;"></div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">热门标签</div>
-                    <div class="panel-body hot-tags">
-                        <a href="#"><span class="label">redis</span></a>
-                        <a href="#"><span class="label">mongo</span></a>
-                        <a href="#"><span class="label">大数据</span></a>
-                        <a href="#"><span class="label">p</span></a>
-                        <a href="#"><span class="label">Danger</span></a>
-                        <a href="#"><span class="label">php</span></a>
-                        <a href="#"><span class="label">mysql</span></a>
-                        <a href="#"><span class="label">系统安全</span></a>
-                        <a href="#"><span class="label">java</span></a>
-                        <a href="#"><span class="label">大数据</span></a>
-                        <a href="#"><span class="label">p</span></a>
-                        <a href="#"><span class="label">Danger</span></a>
-                        <a href="#"><span class="label">linux</span></a>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">文章分类</div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">14</span>
-                                Redis
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">156</span>
-                                系统安全
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">54</span>
-                                Mongo
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">4</span>
-                                随手写的
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">1</span>
-                                测试
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        文章分类
-                    </a>
-                    <a href="#" class="list-group-item">随手写的</a>
-                    <a href="#" class="list-group-item">Morbi</a>
-                    <a href="#" class="list-group-item">测试</a>
-                    <a href="#" class="list-group-item">Vestibulue</a>
-                </div>
-            </div>
-            <!-- 右侧结束 -->
+    <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholder">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+            <h4>Label</h4>
+            <span class="text-muted">Something else</span>
         </div>
     </div>
+
+    <h2 class="sub-header">Section title</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1,003</td>
+                <td>Integer</td>
+                <td>nec</td>
+                <td>odio</td>
+                <td>Praesent</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
-
-
-{% block script %}
-    <script>
-        var menu = [
-            {'id':1, 'pid':0, 'name':'一'},
-            {'id':2, 'pid':1, 'name':'二'},
-            {'id':3, 'pid':1, 'name':'三'},
-            {'id':4, 'pid':1, 'name':'四'},
-            {'id':5, 'pid':2, 'name':'五'},
-            {'id':6, 'pid':2, 'name':'六'},
-            {'id':7, 'pid':5, 'name':'七'},
-            {'id':8, 'pid':0, 'name':'八'},
-            {'id':9, 'pid':0, 'name':'九'},
-            {'id':10, 'pid':9, 'name':'十'},
-        ];
-        var tree_conf = {'id':'id', 'pid':'pid', 'child':'sub', 'title':'name'};
-        //树形
-        var tree = myTree(menu, tree_conf);
-        $('#keyword').val(JSON.stringify(tree.leaf()));
-        console.log(tree.html(function(obj, loop, has_child){
-            return '<a href="'+(has_child?'#':'?id='+obj['id'])+'" data-loop="'+loop+'">'+obj['name']+'</a>';
-        }));
-        //下拉框联动
-        $('#custom_data').cxSelect({
-            selects: ['first', 'second', 'third', 'fourth', 'fifth'],
-            required: true,
-            jsonName: tree_conf.title,
-            jsonValue: tree_conf.id,
-            jsonSub: tree_conf.child,
-            emptyStyle: 'none',
-            data: tree.leaf()
-        });
-    </script>
-{% endblock %}
-

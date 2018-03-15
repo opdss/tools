@@ -27,6 +27,17 @@ class Index extends Base
 		return $this->view('index.twig');
 	}
 
+    /**
+     * @pattern /test[/]
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     */
+    public function test(Request $request, Response $response, $args)
+    {
+        return $this->view('layout.twig', []);
+    }
+
 	/**
 	 * routes
 	 * @pattern /routes

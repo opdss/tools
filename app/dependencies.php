@@ -20,7 +20,7 @@ $container['view'] = function ($c) {
 	return $view;
 };
 
-// monolog
+//monolog
 $container['logger'] = function ($c) {
 	//初始化日志类
 	$lineFormatter = new Monolog\Formatter\LineFormatter("[%datetime%] %channel%.%level_name% => %message% %context% %extra%\n", "Y-m-d H:i:s.u");

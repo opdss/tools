@@ -21,6 +21,8 @@ class Base
 
 	protected $settings;
 
+	protected $menus;
+
 	/**
 	 * Ctrl constructor.
 	 * @param Container $ci
@@ -29,25 +31,23 @@ class Base
 	{
 		$this->ci = $ci;
 		$this->settings = $this->ci->get('settings');
+		$this->menus = $this->getMenus();
 	}
 
 	protected function getMenus()
 	{
 		$routes = $this->ci->routes;
 		$menus = [];
-		$i = 0;
 		foreach ($routes as $route) {
 			$sub = $route['subInfo'];
 			if (isset($sub['menu']) && $sub['menu']) {
 				$arr = explode('|', $sub['menu'], 2);
 				if (!isset($menus[$arr[0]])) {
-					$menus[$i] = array('name'=>$arr[0], 'url'=>$this->ci->router->pathFor($route['name']), 'sub'=>[]);
+					$menus[$arr[0]] = array('name'=>$arr[0], 'url'=>$this->ci->router->pathFor($route['name']), 'sub'=>[]);
 				}
-				$menus[$i]['sub'][] = ['name'=>$arr[1], 'url'=>$this->ci->router->pathFor($route['name'])];
+				$menus[$arr[0]]['sub'][$arr[1]] = ['name'=>$arr[1], 'url'=>$this->ci->router->pathFor($route['name'])];
 			}
-			$i++ ;
 		}
-		var_dump($menus);
 		return $menus;
 	}
 
@@ -69,7 +69,8 @@ class Base
 
 	protected function view($tpl, $data = array())
 	{
-		$render_data = Config::get('siter');
+		$render_data['site'] = Config::get('site');
+		$render_data['menus'] = $this->menus;
 		$render_data = array_merge($render_data, $data);
 		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}

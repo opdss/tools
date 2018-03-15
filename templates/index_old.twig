@@ -1,0 +1,126 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 左侧列表开始 -->
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Reports</a></li>
+                    <li><a href="#">Analytics</a></li>
+                    <li><a href="#">Export</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Nav item</a></li>
+                    <li><a href="">Nav item again</a></li>
+                    <li><a href="">One more nav</a></li>
+                    <li><a href="">Another nav item</a></li>
+                    <li><a href="">More navigation</a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    <li><a href="">Nav item again</a></li>
+                    <li><a href="">One more nav</a></li>
+                    <li><a href="">Another nav item</a></li>
+                </ul>
+            </div>
+            <!-- 左侧列表结束 -->
+
+            <!-- 右侧开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div style="margin-top: 20px;"></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">热门标签</div>
+                    <div class="panel-body hot-tags">
+                        <a href="#"><span class="label">redis</span></a>
+                        <a href="#"><span class="label">mongo</span></a>
+                        <a href="#"><span class="label">大数据</span></a>
+                        <a href="#"><span class="label">p</span></a>
+                        <a href="#"><span class="label">Danger</span></a>
+                        <a href="#"><span class="label">php</span></a>
+                        <a href="#"><span class="label">mysql</span></a>
+                        <a href="#"><span class="label">系统安全</span></a>
+                        <a href="#"><span class="label">java</span></a>
+                        <a href="#"><span class="label">大数据</span></a>
+                        <a href="#"><span class="label">p</span></a>
+                        <a href="#"><span class="label">Danger</span></a>
+                        <a href="#"><span class="label">linux</span></a>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">文章分类</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge">14</span>
+                                Redis
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">156</span>
+                                系统安全
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">54</span>
+                                Mongo
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">4</span>
+                                随手写的
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge">1</span>
+                                测试
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        文章分类
+                    </a>
+                    <a href="#" class="list-group-item">随手写的</a>
+                    <a href="#" class="list-group-item">Morbi</a>
+                    <a href="#" class="list-group-item">测试</a>
+                    <a href="#" class="list-group-item">Vestibulue</a>
+                </div>
+            </div>
+            <!-- 右侧结束 -->
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        var menu = [
+            {'id':1, 'pid':0, 'name':'一'},
+            {'id':2, 'pid':1, 'name':'二'},
+            {'id':3, 'pid':1, 'name':'三'},
+            {'id':4, 'pid':1, 'name':'四'},
+            {'id':5, 'pid':2, 'name':'五'},
+            {'id':6, 'pid':2, 'name':'六'},
+            {'id':7, 'pid':5, 'name':'七'},
+            {'id':8, 'pid':0, 'name':'八'},
+            {'id':9, 'pid':0, 'name':'九'},
+            {'id':10, 'pid':9, 'name':'十'},
+        ];
+        var tree_conf = {'id':'id', 'pid':'pid', 'child':'sub', 'title':'name'};
+        //树形
+        var tree = myTree(menu, tree_conf);
+        $('#keyword').val(JSON.stringify(tree.leaf()));
+        console.log(tree.html(function(obj, loop, has_child){
+            return '<a href="'+(has_child?'#':'?id='+obj['id'])+'" data-loop="'+loop+'">'+obj['name']+'</a>';
+        }));
+        //下拉框联动
+        $('#custom_data').cxSelect({
+            selects: ['first', 'second', 'third', 'fourth', 'fifth'],
+            required: true,
+            jsonName: tree_conf.title,
+            jsonValue: tree_conf.id,
+            jsonSub: tree_conf.child,
+            emptyStyle: 'none',
+            data: tree.leaf()
+        });
+    </script>
+{% endblock %}
+

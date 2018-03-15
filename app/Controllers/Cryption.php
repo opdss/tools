@@ -28,4 +28,17 @@ class Cryption extends Base
 
 	}
 
+    /**
+     * 随机密码
+     * @pattern /cryption/pwd
+     * @menu cyption|index
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     */
+    public function toPwd(Request $request, Response $response, $args)
+    {
+
+    }
+
 }
