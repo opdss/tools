@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="author" content="{{ author|default(site.author) }}">
+    <meta name="keyword" content="{{ keyword|default(site.keyword) }}">
+    <meta name="description" content="{{ description|default(site.description) }}">
+    <link rel="icon" href="{{base_url()}}/favicon.ico">
+
+    <title>{{ title|default(site.title) }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{base_url()}}/statics/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="{{base_url()}}/statics/css/main.css" rel="stylesheet">
+    {% block css %}
+        {# 额外添加的css #}
+    {% endblock %}
+</head>
+<body>
+{% block navbar %}
+    <!-- navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{base_url()}}">{{ site.title }}</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><span><input type="text" class="form-inline" placeholder="搜索相关"></span></li>
+                        </ul>-->
+                    </li>
+                    <li><a href="{% if userInfo %}{{ path_for('article.edit') }}{% else %}javascript:void(0){% endif %}" {% if userInfo == null %}class="btn-login-modal" data-act="login"{% endif %} data-act="register">新建笔记</a></li>
+                    {% if userInfo == null %}
+                    <li><a href="javascript:void(0)" class="btn-login-modal" data-act="register">注册</a></li>
+                    <li><a href="javascript:void(0)" class="btn-login-modal" data-act="login">登录</a></li>
+                    {% else %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="my_menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ userInfo.nickname }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">我的设置</a></li>
+                            <li><a href="{{ path_for('ucenter') }}">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:void(0)" class="btn-signout">安全退出</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" id="keyword" placeholder="Search">
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- navbar -->
+{% endblock %}
+
+{% block container %}
+    <div class="container" style="text-align: center;padding:20%"><h1>啥也没有- -！....</h1></div>
+{% endblock %}
+
+{% block footer %}
+<!-- 尾部start -->
+<footer id="copyright">
+    <p>{{ site.copyright|raw }} | {{ site.icp|raw }} | 联系人：{{ site.contact|raw }}</p>
+</footer>
+<!-- 尾部end -->
+{% endblock %}
+
+<script src="{{base_url()}}/statics/js/jquery-3.2.1.min.js"></script>
+<script src="{{base_url()}}/statics/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{base_url()}}/statics/js/jquery.cxselect.min.js"></script>
+<script src="{{base_url()}}/statics/js/main.js"></script>
+{% block script %}
+    {# js代码 #}
+{% endblock %}
+<!-- Piwik -->
+<script type="text/javascript">
+    var _paq = _paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u="//piwik.istimer.com/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+</script>
+<!-- End Piwik Code -->
+</body>
+</html>
