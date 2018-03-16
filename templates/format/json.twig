@@ -1,37 +1,67 @@
 {% extends "layout.twig" %}
 
 {% block container %}
-<h1 class="page-header">Dashboard</h1>
+    <h3 class="page-header">在线Json格式化、在线格式化Json代码、Json代码美化器、Json在线压缩、Json \uxxxx格式解码</h3>
 
-<div class="row">
-    <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>Label</h4>
-        <span class="text-muted">Something else</span>
+    {#<blockquote>
+        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
+    </blockquote>#}
+    <div class="well">
+        Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json
     </div>
-</div>
+    <p class="text-muted">
+        待格式化JSON代码：
+        <button type="button" class="btn btn-default btn-xs" onclick="copyInput('src_text')" data-toggle="tooltip" data-placement="top" title="复制文本内容">
+            <span class="glyphicon glyphicon-copy"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" onclick="removeInput('src_text')" data-toggle="tooltip" data-placement="top" title="清除文本内容">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" onclick="getUrl('src_text')" data-toggle="tooltip" data-placement="top" title="读取地址内容">
+            <span class="glyphicon glyphicon-cloud"></span>
+        </button>
+    </p>
+    <textarea class="form-control" rows="10" id="src_text"></textarea>
+    <div style="margin: 10px 0px;"></div>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary">JSON格式化&美化</button>
+        <button type="button" class="btn btn-success">检查&压缩JSON</button>
+        {#<button type="button" class="btn btn-info">test</button>#}
+    </div>
+    <p class="text-muted">
+        格式化化之后的JSON代码：
+        <button type="button" class="btn btn-default btn-xs" onclick="copyInput('dist_text')" data-toggle="tooltip" data-placement="top" title="复制文本内容">
+            <span class="glyphicon glyphicon-copy"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" onclick="removeInput('dist_text')" data-toggle="tooltip" data-placement="top" title="清除文本内容">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" onclick="repeatInput('dist_text', 'src_text')" data-toggle="tooltip" data-placement="top" title="上下文交换">
+            <span class="glyphicon glyphicon-retweet"></span>
+        </button>
+    </p>
+    <textarea class="form-control" rows="10" id="dist_text"></textarea>
 
-<h2 class="sub-header">Section title</h2>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Header</th>
-            <th>Header</th>
-            <th>Header</th>
-            <th>Header</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1,003</td>
-            <td>Integer</td>
-            <td>nec</td>
-            <td>odio</td>
-            <td>Praesent</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        function copyInput(id) {
+            val = $('#'+id).val()
+            alert(val);
+        }
+
+        function removeInput(id) {
+            $('#'+id).val('');
+        }
+        function getUrl(id) {
+            alert(id)
+        }
+        function repeatInput(src, dist) {
+            tmp = $('#'+src).val();
+            $('#'+src).val($('#'+dist).val())
+            $('#'+dist).val(tmp)
+        }
+    </script>
 {% endblock %}

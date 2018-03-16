@@ -11,6 +11,7 @@ namespace App\Controllers;
 use App\Functions;
 use App\Libraries\Config;
 use Slim\Container;
+use Slim\Http\Request;
 
 class Base
 {
@@ -49,6 +50,18 @@ class Base
 			}
 		}
 		return $menus;
+	}
+
+	protected function getCurrentRouteInfo(Request $request)
+	{
+		$currentRouteName = $request->getAttribute('route')->getName();
+		$routes = $this->ci->routes;
+		foreach ($routes as $route) {
+			if ($route['name'] == $currentRouteName) {
+				return $route['subInfo'];
+			}
+		}
+		return false;
 	}
 
 	/**

@@ -38,6 +38,8 @@ class Format extends Base
 	 */
 	public function toJson(Request $request, Response $response, $args)
 	{
+		//$subInfo = $this->getCurrentRouteInfo($request);
+		//$data['subInfo'] = explode('|', 'format|json');
 		return $this->view('format/json.twig');
 	}
 

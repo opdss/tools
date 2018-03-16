@@ -1,0 +1,46 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">在线XML格式化、在线格式化XML代码、XML代码美化器、XML在线压缩</h3>
+
+    {#<blockquote>
+        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
+    </blockquote>#}
+    <div class="well">
+        提供自动修复XML代码错误，混乱XML代码进行美化、格式化、纠正错误。 也可以进行XML代码压缩处理，减少XML代码大小，加快加载、下载速度！
+    </div>
+    <p class="text-muted">
+        待格式化XML代码：
+        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="复制文本内容">
+            <span class="glyphicon glyphicon-copy"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="清除文本内容">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="读取地址内容">
+            <span class="glyphicon glyphicon-cloud"></span>
+        </button>
+    </p>
+    <textarea class="form-control" rows="10"></textarea>
+    <div style="margin: 10px 0px;"></div>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary">XML格式化&美化</button>
+        <button type="button" class="btn btn-success">压缩XML</button>
+        {#<button type="button" class="btn btn-info">test</button>#}
+    </div>
+    <p class="text-muted">
+        格式化化之后的XML代码：
+        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="复制文本内容">
+            <span class="glyphicon glyphicon-copy"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="清除文本内容">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="上下文交换">
+            <span class="glyphicon glyphicon-retweet"></span>
+        </button>
+    </p>
+    <textarea class="form-control" rows="10"></textarea>
+
+
+{% endblock %}
