@@ -1,0 +1,80 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">生成随机字符串密码</h3>
+
+    {#<blockquote>
+        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
+    </blockquote>#}
+    <div class="well">
+        请选择以下选项生成随机字符串密码
+    </div>
+    <p class="text-muted">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="num">密码位数：</label>
+                <input type="text" class="form-control" id="num" value="16">
+            </div>
+            <div class="form-group">
+                <label for="tesu">是否包含特俗字符：</label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="teshu" value="0"> 否
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="teshu" value="1"> 是(~!@#$%^&*()_+={}|\][<>?/)
+                </label>
+            </div>
+            <button class="btn btn-primary" id="submit" style="margin-left: 20px">生成密码</button>
+        </form>
+    </p>
+    <p class="text-muted">
+        格式化化之后的JSON代码：
+        <button type="button" class="btn btn-default btn-xs" id="btn_copy" title="复制文本内容">
+            <span class="glyphicon glyphicon-copy"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-xs" onclick="return removeInput('dist_text')" data-toggle="tooltip" data-placement="top" title="清除文本内容">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </p>
+    <textarea class="form-control" rows="10" id="dist_text"></textarea>
+
+
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $("#btn_copy").zclip({
+            path: "/statics/zclip/ZeroClipboard.swf",
+            copy: function(){
+                return $('#dist_text').val();
+            },
+            afterCopy: function () { alert('OK'); } /* 复制成功后的操作 */
+        });
+
+        function genPwd(id) {
+            $('#'+id).val(genRandStr(24, true));
+            return false;
+        }
+        $('#submit').click(function () {
+            genPwd('dist_text');
+            return false;
+        })
+
+        function genRandStr($num, $has)
+        {
+            $num = $num || 16;
+            $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
+            $str1 = '~!@#$%^&*()_+={}|][<>?/';
+            if ($has) {
+                $str += $str1;
+            }
+            $len = $str.length
+            $res = '';
+            for ($i=0; $i<$num; $i++) {
+                $res += $str[Math.floor(Math.random()*$len)];
+            }
+            return $res;
+        }
+    </script>
+{% endblock %}

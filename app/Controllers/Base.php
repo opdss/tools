@@ -52,13 +52,13 @@ class Base
 		return $menus;
 	}
 
-	protected function getCurrentRouteInfo(Request $request)
+	protected function getCurrentMenu(Request $request)
 	{
 		$currentRouteName = $request->getAttribute('route')->getName();
 		$routes = $this->ci->routes;
 		foreach ($routes as $route) {
 			if ($route['name'] == $currentRouteName) {
-				return $route['subInfo'];
+				return isset($route['subInfo']['menu']) && $route['subInfo']['menu'] ? explode('|', $route['subInfo']['menu']) : [];
 			}
 		}
 		return false;

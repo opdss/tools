@@ -40,7 +40,7 @@
                 <ul class="nav navbar-nav">
 
                     {% for item in menus %}
-                        <li class="actives  "><a href="{{ item.url }}">{{ item.name }}</a></li>
+                        <li class="{% if item.name == current_menu[0] %}active{% endif %}"><a href="{{ item.url }}">{{ item.name }}</a></li>
                     {% endfor %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -73,21 +73,18 @@
 <div class="container-fluid">
     <div class="row">
         {% block leftnavi %}
-            <div class="col-sm-2 col-md-1 sidebar">
+            <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">json美化</a></li>
-                    <li><a href="#">xml美化</a></li>
-                    <li><a href="#">html美化</a></li>
-                    <li><a href="#">css美化</a></li>
-                    <li><a href="#">js美化</a></li>
+                    {% for item in menus[current_menu[0]]['sub'] %}
+                        <li class="{% if item.name == current_menu[1] %}active{% endif %}"><a href="{{ item.url }}">{{ item.name }}</a></li>
+                    {% endfor %}
                 </ul>
                 <ul class="nav nav-sidebar">
                     <li><a href="">Nav item</a></li>
                 </ul>
             </div>
         {% endblock %}
-        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         {% block container %}
             <div class="container-fluid" style="text-align: center;padding:20%"><h1>啥也没有- -！....</h1></div>
         {% endblock %}
@@ -97,7 +94,7 @@
 
 {% block footer %}
     <!-- 尾部start -->
-    <footer id="copyright" class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main">
+    <footer id="copyright" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <p>{{ site.copyright|raw }} | {{ site.icp|raw }} | 联系人：{{ site.contact|raw }}</p>
     </footer>
     <!-- 尾部end -->
@@ -106,6 +103,8 @@
 <script src="{{base_url()}}/statics/js/jquery-3.2.1.js"></script>
 <script src="{{base_url()}}/statics/bootstrap/js/bootstrap.min.js"></script>
 <script src="{{base_url()}}/statics/js/main.js"></script>
+<script src="{{base_url()}}/statics/js/clipboard.js"></script>
+<script src="{{base_url()}}/statics/zclip/jquery.zclip.min.js"></script>
 
 {% block script %}
     {# js代码 #}

@@ -31,7 +31,7 @@ class Format extends Base
 	/**
 	 * to_json
 	 * @pattern /format/json
-	 * @menu format|json
+	 * @menu 格式化工具|json格式化
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -40,11 +40,17 @@ class Format extends Base
 	{
 		//$subInfo = $this->getCurrentRouteInfo($request);
 		//$data['subInfo'] = explode('|', 'format|json');
-		return $this->view('format/json.twig');
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        //$menus =  $this->getMenus();
+        //$res =$menus[$data['current_menu'][0]]['sub'];
+        //var_dump($menus);
+        //var_dump($res);exit;
+		return $this->view('format/json.twig', $data);
 	}
 
     /**
      * @pattern /format/xml
+     * @menu 格式化工具|xml格式化
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -52,12 +58,14 @@ class Format extends Base
      */
     public function toXml(Request $request, Response $response, $args)
     {
-        return $this->view('format/xml.twig');
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        return $this->view('format/xml.twig', $data);
     }
 
 
     /**
      * @pattern /format/html
+     * @menu 格式化工具|html格式化
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -65,11 +73,13 @@ class Format extends Base
      */
     public function toHtml(Request $request, Response $response, $args)
     {
-        return $this->view('format/html.twig');
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        return $this->view('format/html.twig', $data);
     }
 
     /**
      * @pattern /format/js
+     * @menu 格式化工具|js格式化
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -77,11 +87,13 @@ class Format extends Base
      */
     public function toJs(Request $request, Response $response, $args)
     {
-        return $this->view('format/html.twig');
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        return $this->view('format/html.twig', $data);
     }
 
     /**
      * @pattern /format/css
+     * @menu 格式化工具|css格式化
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -89,6 +101,7 @@ class Format extends Base
      */
     public function toCss(Request $request, Response $response, $args)
     {
-        return $this->view('format/html.twig');
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        return $this->view('format/html.twig', $data);
     }
 }
