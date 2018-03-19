@@ -12,31 +12,30 @@
     <p class="text-muted">
         <form class="form-inline">
             <div class="form-group">
-                <label for="num">密码位数：</label>
-                <input type="text" class="form-control" id="num" value="16">
+                <label for="num">密码长度：</label>
+                <input type="text" class="form-control" id="number" value="16">
             </div>
             <div class="form-group">
-                <label for="tesu">是否包含特俗字符：</label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="teshu" value="0"> 否
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="teshu" value="1"> 是(~!@#$%^&*()_+={}|\][<>?/)
-                </label>
+                <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox" id="special_check">
+                          <label for="special_check">特殊字符</label>
+                      </span>
+                    <input type="text" class="form-control" aria-label="..." id="special" value="!@#$%^&*()_+=-" readonly>
+                </div>
             </div>
-            <button class="btn btn-primary" id="submit" style="margin-left: 20px">生成密码</button>
+            {% for button in buttons %}
+                {{ button|raw }}
+            {% endfor %}
         </form>
     </p>
     <p class="text-muted">
         格式化化之后的JSON代码：
-        <button type="button" class="btn btn-default btn-xs" id="btn_copy" title="复制文本内容">
-            <span class="glyphicon glyphicon-copy"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="return removeInput('dist_text')" data-toggle="tooltip" data-placement="top" title="清除文本内容">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
+        {% for tool in result_tools %}
+            {{ tool|raw }}
+        {% endfor %}
     </p>
-    <textarea class="form-control" rows="10" id="dist_text"></textarea>
+    {{ result_textarea|raw }}
 
 
 
@@ -44,37 +43,27 @@
 
 {% block script %}
     <script type="text/javascript">
-        $("#btn_copy").zclip({
-            path: "/statics/zclip/ZeroClipboard.swf",
-            copy: function(){
-                return $('#dist_text').val();
-            },
-            afterCopy: function () { alert('OK'); } /* 复制成功后的操作 */
-        });
+        var special_str = '!@#$%^&*()_+=-'
 
-        function genPwd(id) {
-            $('#'+id).val(genRandStr(24, true));
-            return false;
-        }
         $('#submit').click(function () {
-            genPwd('dist_text');
+            var obj = $(this).data('obj');
+            if (!obj) {
+                console.log('remove operation obj error', obj);
+                return false;
+            }
+            var number = _.parseInt($('#number').val()) || 16;
+            var has = $('#special_check').prop('checked');
+            var special = $('#special').val() || special_str;
+            $(obj).val(genRandStr(number, has, special));
             return false;
         })
 
-        function genRandStr($num, $has)
-        {
-            $num = $num || 16;
-            $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-            $str1 = '~!@#$%^&*()_+={}|][<>?/';
-            if ($has) {
-                $str += $str1;
+        $('#special_check').change(function () {
+            if($(this).prop('checked')) {
+                $('#special').prop('readonly', false);
+            } else {
+                $('#special').prop('readonly', true);
             }
-            $len = $str.length
-            $res = '';
-            for ($i=0; $i<$num; $i++) {
-                $res += $str[Math.floor(Math.random()*$len)];
-            }
-            return $res;
-        }
+        });
     </script>
 {% endblock %}

@@ -200,7 +200,8 @@ class Functions
 	{
 		$num = intval($num) ?: 16;
 		$str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-		$str1 = '~!@#$%^&*()_+={}|\][<>?/';
+		#$str1 = '~!@#$%^&*()_+={}|\][<>?/';
+		$str1 = '!@#$%^&*()_+=-';
 		if ($has) {
 			$str .= $str1;
 		}

@@ -1,0 +1,67 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">md5计算</h3>
+
+    {#<blockquote>
+        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
+    </blockquote>#}
+    <div class="well">
+        MD5 散列值计算
+    </div>
+    <p>
+        是否大写：
+        <label class="radio-inline">
+            <input type="radio" name="uplow" value="1"> 是
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="uplow" value="0"> 否
+        </label>
+    </p>
+    <p class="text-muted">
+        待计算字符串：
+        {% for tool in origin_tools %}
+            {{ tool|raw }}
+        {% endfor %}
+    </p>
+    {{ origin_textarea|raw }}
+    <div style="margin: 10px 0px;"></div>
+    <div class="text-center">
+        {% for button in buttons %}
+            {{ button|raw }}
+        {% endfor %}
+    </div>
+    <p class="text-muted">
+        md5计算结果：
+        {% for tool in result_tools %}
+            {{ tool|raw }}
+        {% endfor %}
+    </p>
+    {{ result_textarea|raw }}
+
+
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+
+        $('#submit').click(function () {
+            var obj = $(this).data('obj');
+            if (!obj) {
+                console.log('submit operation obj error', obj);
+                return false;
+            }
+            var arr = obj.split('|');
+            if (arr.length != 2){
+                console.log('submit operation arr error', obj);
+                return false;
+            }
+            var val = $(arr[0]).val();
+            if (val) {
+                $(arr[1]).val($.md5(val));
+            }
+        })
+
+    </script>
+{% endblock %}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "84ed666b25f2dea32926212b9b9c0250",
+    "content-hash": "58f81aff9d0d0c726f304cd79613e947",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -661,16 +661,16 @@
         },
         {
             "name": "opdss/nroute",
-            "version": "v0.1.4",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opdss/Nroute.git",
-                "reference": "5ba9aba0c7eadec9a68c4f76d06a9ade463c3985"
+                "reference": "7aa8345acce4a115f37cccb7a67816072f4b3b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/opdss/Nroute/5ba9aba0c7eadec9a68c4f76d06a9ade463c3985.zip",
-                "reference": "5ba9aba0c7eadec9a68c4f76d06a9ade463c3985",
+                "url": "https://files.phpcomposer.com/files/opdss/Nroute/7aa8345acce4a115f37cccb7a67816072f4b3b4c.zip",
+                "reference": "7aa8345acce4a115f37cccb7a67816072f4b3b4c",
                 "shasum": ""
             },
             "require": {
@@ -701,7 +701,7 @@
                 "router",
                 "slim"
             ],
-            "time": "2018-02-24T09:51:58+00:00"
+            "time": "2018-03-15T07:20:59+00:00"
         },
         {
             "name": "paragonie/random_compat",

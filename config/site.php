@@ -7,9 +7,9 @@
  */
 
 return array(
-        'title' => '不负春光',
-        'author' => '不负春光',
-        'keyword' => '博客',
+        'title' => '工具箱',
+        'author' => '1tools',
+        'keyword' => '工具箱',
         'description' => '这是一个神奇的网站！！！',
         'copyright' => 'Copyright © 2017  istimer.com </br>技术支持：<a href="mailto:wux@tsingning.com" style="color: #2a76fe	;">@阿新</a>',
         'page_number' => 6,

@@ -9,6 +9,7 @@
 namespace App\Controllers;
 
 use App\Functions;
+use App\Libraries\Bootstrap;
 use App\Libraries\Config;
 use Slim\Container;
 use Slim\Http\Request;
@@ -23,6 +24,18 @@ class Base
 	protected $settings;
 
 	protected $menus;
+
+	protected $css = array(
+		'/statics/bootstrap/css/bootstrap.min.css',
+		'/statics/css/layout.css'
+	);
+	protected $js = array(
+		'/statics/js/jquery-3.2.1.js',
+		'/statics/bootstrap/js/bootstrap.min.js',
+		'/statics/js/main.js',
+		'/statics/js/lodash.js',
+		'/statics/zclip/jquery.zclip.min.js',
+	);
 
 	/**
 	 * Ctrl constructor.
@@ -64,6 +77,18 @@ class Base
 		return false;
 	}
 
+	protected function addJs($file, $version=0)
+	{
+		array_push($this->js, $version ? $file.'?'.$version : $file);
+		return $this->js;
+	}
+
+	protected function addCss($file, $version=0)
+	{
+		array_push($this->css, $version ? $file.'?'.$version : $file);
+		return $this->css;
+	}
+
 	/**
 	 * 返回json
 	 * @param $param
@@ -84,8 +109,10 @@ class Base
 	{
 		$render_data['site'] = Config::get('site');
 		$render_data['menus'] = $this->menus;
+		$render_data['statics'] = array('css'=>$this->css, 'js'=>$this->js);
 		$render_data = array_merge($render_data, $data);
 		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
+
 
 }

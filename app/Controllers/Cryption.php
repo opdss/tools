@@ -7,6 +7,7 @@
  */
 namespace App\Controllers;
 
+use App\Libraries\Bootstrap;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -39,6 +40,12 @@ class Cryption extends Base
     public function genPwd(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
+		$data['buttons'] = array(Bootstrap::button(array('id'=>'submit', 'data-obj'=>'#result_textarea'), '生成密码'));
+		$data['result_textarea'] = Bootstrap::textarea('result_textarea');
+		$data['result_tools'] = array(
+			Bootstrap::iconBtn('copy', array('data-obj'=>'#result_textarea')),
+			Bootstrap::iconBtn('remove', array('data-obj'=>'#result_textarea')),
+		);
         return $this->view('cryption/pwd.twig', $data);
     }
 
@@ -53,7 +60,21 @@ class Cryption extends Base
     public function md5(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('cryption/pwd.twig', $data);
+        $this->addJs('/statics/js/jquery.md5.js');
+		$data['buttons'] = array(Bootstrap::button(array('id'=>'submit', 'data-obj'=>'#origin_textarea|#result_textarea'), 'MD5'));
+		$data['origin_textarea'] = Bootstrap::textarea('origin_textarea');
+        $data['origin_tools'] = array(
+			Bootstrap::iconBtn('copy', array('data-obj'=>'#origin_textarea')),
+			Bootstrap::iconBtn('remove', array('data-obj'=>'#origin_textarea')),
+			Bootstrap::iconBtn('cloud', array('data-obj'=>'#origin_textarea')),
+		);
+		$data['result_textarea'] = Bootstrap::textarea('result_textarea');
+		$data['result_tools'] = array(
+			Bootstrap::iconBtn('copy', array('data-obj'=>'#result_textarea')),
+			Bootstrap::iconBtn('remove', array('data-obj'=>'#result_textarea')),
+			Bootstrap::iconBtn('retweet', array('data-obj'=>'#origin_textarea|#result_textarea')),
+		);
+        return $this->view('cryption/md5.twig', $data);
     }
 
     /**
