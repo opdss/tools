@@ -14,7 +14,7 @@ class Format
     public static function compressJson($json)
     {
         $json = json_decode($json);
-        isJson()
+        //isJson()
         if ($json) {
             return json_encode($json);
         }

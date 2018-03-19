@@ -23,9 +23,8 @@ class Format extends Base
 
 	/**
 	 * to_json
-	 * @pattern /api/format
-	 * @method POST
-	 * @menu format|json
+	 * @pattern /api/format[/]
+	 * @method POST|GET
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args

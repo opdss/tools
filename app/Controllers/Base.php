@@ -32,9 +32,9 @@ class Base
 	protected $js = array(
 		'/statics/js/jquery-3.2.1.js',
 		'/statics/bootstrap/js/bootstrap.min.js',
-		'/statics/js/main.js',
 		'/statics/js/lodash.js',
 		'/statics/zclip/jquery.zclip.min.js',
+        '/statics/js/main.js',
 	);
 
 	/**

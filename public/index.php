@@ -48,7 +48,7 @@ if (PHP_SAPI == 'cli') {
 // 根据注释注册路由
 $nroute = \Opdss\Nroute\Nroute::factory(array('cacheDir'=>CACHE_DIR));
 $nroute->attachSub('menu');
-$nroute->register($app, array(APP_DIR . 'Controllers' => 'App\\Controllers'));
+$nroute->register($app, array(APP_DIR . 'Controllers' => 'App\\Controllers', APP_DIR . 'Api' => 'App\\Api'));
 //\Opdss\Nroute\Nroute::factory(array('cacheDir'=>CACHE_DIR))->register($app, array(APP_DIR . 'Controllers' => 'App\\Controllers'));
 
 $app->run();

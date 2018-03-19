@@ -41,10 +41,8 @@ $('.btn-retweet').click(function () {
     $(arr[1]).val(tmp);
 });
 
-
 function genRandStr($num, $has, special)
 {
-    console.log($num, $has, special);
     $num = $num || 16;
     $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
     $str1 = $has ? (special ? special : '!@#$%^&*()_+=-') : '';

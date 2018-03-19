@@ -7,7 +7,7 @@
  */
 namespace App\Libraries;
 
-class Format {
+class Formats{
 
     /**
      * Array output format
