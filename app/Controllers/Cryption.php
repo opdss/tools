@@ -24,10 +24,10 @@ class Cryption extends Base
 	 * @param Response $response
 	 * @param $args
 	 */
-	public function index(Request $request, Response $response, $args)
+	/*public function index(Request $request, Response $response, $args)
 	{
         return self::genPwd($request, $response, $args);
-	}
+	}*/
 
     /**
      * 随机密码
@@ -40,12 +40,6 @@ class Cryption extends Base
     public function genPwd(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-		$data['buttons'] = array(Bootstrap::button(array('id'=>'submit', 'data-obj'=>'#result_textarea'), '生成密码'));
-		$data['result_textarea'] = Bootstrap::textarea('result_textarea');
-		$data['result_tools'] = array(
-			Bootstrap::iconBtn('copy', array('data-obj'=>'#result_textarea')),
-			Bootstrap::iconBtn('remove', array('data-obj'=>'#result_textarea')),
-		);
         return $this->view('cryption/pwd.twig', $data);
     }
 
@@ -61,19 +55,6 @@ class Cryption extends Base
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
         $this->addJs('/statics/js/jquery.md5.js');
-		$data['buttons'] = array(Bootstrap::button(array('id'=>'submit', 'data-obj'=>'#origin_textarea|#result_textarea'), 'MD5'));
-		$data['origin_textarea'] = Bootstrap::textarea('origin_textarea');
-        $data['origin_tools'] = array(
-			Bootstrap::iconBtn('copy', array('data-obj'=>'#origin_textarea')),
-			Bootstrap::iconBtn('remove', array('data-obj'=>'#origin_textarea')),
-			Bootstrap::iconBtn('cloud', array('data-obj'=>'#origin_textarea')),
-		);
-		$data['result_textarea'] = Bootstrap::textarea('result_textarea');
-		$data['result_tools'] = array(
-			Bootstrap::iconBtn('copy', array('data-obj'=>'#result_textarea')),
-			Bootstrap::iconBtn('remove', array('data-obj'=>'#result_textarea')),
-			Bootstrap::iconBtn('retweet', array('data-obj'=>'#origin_textarea|#result_textarea')),
-		);
         return $this->view('cryption/md5.twig', $data);
     }
 
@@ -88,7 +69,7 @@ class Cryption extends Base
     public function des(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('cryption/pwd.twig', $data);
+        return $this->view('cryption/des.twig', $data);
     }
 
     /**

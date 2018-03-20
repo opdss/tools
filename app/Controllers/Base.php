@@ -27,14 +27,14 @@ class Base
 
 	protected $css = array(
 		'/statics/bootstrap/css/bootstrap.min.css',
-		'/statics/css/layout.css'
+		'/statics/css/sweet-alert.css',
 	);
 	protected $js = array(
 		'/statics/js/jquery-3.2.1.js',
 		'/statics/bootstrap/js/bootstrap.min.js',
 		'/statics/js/lodash.js',
+		'/statics/js/sweet-alert.min.js',
 		'/statics/zclip/jquery.zclip.min.js',
-        '/statics/js/main.js',
 	);
 
 	/**
@@ -46,6 +46,8 @@ class Base
 		$this->ci = $ci;
 		$this->settings = $this->ci->get('settings');
 		$this->menus = $this->getMenus();
+		$this->addJs('/statics/js/main.js', time());
+		$this->addCss('/statics/css/layout.css', time());
 	}
 
 	protected function getMenus()
@@ -59,7 +61,9 @@ class Base
 				if (!isset($menus[$arr[0]])) {
 					$menus[$arr[0]] = array('name'=>$arr[0], 'url'=>$this->ci->router->pathFor($route['name']), 'sub'=>[]);
 				}
-				$menus[$arr[0]]['sub'][$arr[1]] = ['name'=>$arr[1], 'url'=>$this->ci->router->pathFor($route['name'])];
+				if (isset($arr[1])) {
+					$menus[$arr[0]]['sub'][$arr[1]] = ['name' => $arr[1], 'url' => $this->ci->router->pathFor($route['name'])];
+				}
 			}
 		}
 		return $menus;
@@ -110,6 +114,7 @@ class Base
 		$render_data['site'] = Config::get('site');
 		$render_data['menus'] = $this->menus;
 		$render_data['statics'] = array('css'=>$this->css, 'js'=>$this->js);
+		$render_data['Bootstrap'] = new Bootstrap;
 		$render_data = array_merge($render_data, $data);
 		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}

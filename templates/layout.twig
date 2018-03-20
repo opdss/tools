@@ -71,19 +71,30 @@
 
 <div class="container-fluid">
     <div class="row">
+
+        {% if menus[current_menu[0]]['sub'] %}
+            {% set _sm = 3 %}
+            {% set _md = 2 %}
+            {% set left_dis = '' %}
+        {% else %}
+            {% set _sm = 0 %}
+            {% set _md = 0 %}
+            {% set left_dis = 'None' %}
+        {% endif %}
+        <div class="col-sm-{{ _sm }} col-md-{{ _md }} sidebar" style="display: {{ left_dis }}">
         {% block leftnavi %}
-            <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     {% for item in menus[current_menu[0]]['sub'] %}
                         <li class="{% if item.name == current_menu[1] %}active{% endif %}"><a href="{{ item.url }}">{{ item.name }}</a></li>
                     {% endfor %}
                 </ul>
-                <ul class="nav nav-sidebar">
+                {#<ul class="nav nav-sidebar">
                     <li><a href="">Nav item</a></li>
-                </ul>
-            </div>
+                </ul>#}
         {% endblock %}
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        </div>
+
+        <div class="col-sm-{{ 12-_sm }} col-sm-offset-{{ _sm }} col-md-{{ 12-_md }} col-md-offset-{{ _md }} main">
         {% block container %}
             <div class="container-fluid" style="text-align: center;padding:20%"><h1>啥也没有- -！....</h1></div>
         {% endblock %}

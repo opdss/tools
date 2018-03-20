@@ -41,15 +41,25 @@ class Bootstrap
 		return $html;
 	}
 
-	public static function button($arr, $name='提交')
+	public static function button($arr, $name='提交', $style='primary')
 	{
 		$class = '';
+		if (isset($arr['class'])) {
+			$class = $arr['class'];
+			unset($arr['class']);
+		}
+		$attr = '';
 		if ($arr) {
 			foreach ($arr as $k => $v) {
-				$class .= ' '.$k.'="'.$v.'"';
+				$attr .= ' '.$k.'="'.$v.'"';
 			}
 		}
-		$html = '<button class="btn btn-primary" '.$class.' style="margin-left: 20px">'.$name.'</button>';
+		$html = '<button class="btn btn-'.$style.' '.$class.'" '.$attr.' >'.$name.'</button>';
 		return $html;
+	}
+
+	public static function select(array $arr, array $opts)
+	{
+
 	}
 }

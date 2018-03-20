@@ -10,6 +10,7 @@ return array(
         'template_path' => TPL_DIR,
         'options' => array(
             'cache' => CACHE_DIR,
+            //'debug' => false,
             'debug' => RUN_ENV == 'development' ? true : false,
         )
 );

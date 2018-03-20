@@ -9,20 +9,20 @@
     <div class="well">
         MD5 散列值计算
     </div>
-    <div class="form-opts">
-        <form class="form-inline">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="strup"> 转换成大写
-                </label>
-            </div>
-        </form>
-    </div>
+    <p>
+        是否大写：
+        <label class="radio-inline">
+            <input type="radio" name="uplow" value="1"> 是
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="uplow" value="0"> 否
+        </label>
+    </p>
     <p class="text-muted">
         待计算字符串：
         {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
         {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
-        {#{{ Bootstrap.iconBtn('cloud', {'data-obj':'#origin_textarea'})|raw }}#}
+        {{ Bootstrap.iconBtn('cloud', {'data-obj':'#origin_textarea'})|raw }}
     </p>
     {{ Bootstrap.textarea('origin_textarea')|raw }}
     <div style="margin: 10px 0px;"></div>
@@ -54,20 +54,10 @@
                 return false;
             }
             var val = $(arr[0]).val();
-            var up = $('#strup').prop('checked');
             if (val) {
-                var v = $.md5(val);
-                $(arr[1]).val(up ? v.toUpperCase() : v);
+                $(arr[1]).val($.md5(val));
             }
         })
-        $('#strup').click(function () {
-            var obj = $('#result_textarea');
-            if ($(this).prop('checked')) {
-                obj.val(obj.val().toUpperCase())
-            } else {
-                obj.val(obj.val().toLowerCase())
-            }
-        });
 
     </script>
 {% endblock %}

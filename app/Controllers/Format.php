@@ -17,8 +17,7 @@ use Slim\Http\Response;
 class Format extends Base
 {
 	/**
-	 * @pattern /format.html
-	 * @menu 格式化工具|index
+	 * @pattern /format
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -38,13 +37,7 @@ class Format extends Base
 	 */
 	public function toJson(Request $request, Response $response, $args)
 	{
-		//$subInfo = $this->getCurrentRouteInfo($request);
-		//$data['subInfo'] = explode('|', 'format|json');
         $data['current_menu'] = $this->getCurrentMenu($request);
-        //$menus =  $this->getMenus();
-        //$res =$menus[$data['current_menu'][0]]['sub'];
-        //var_dump($menus);
-        //var_dump($res);exit;
 		return $this->view('format/json.twig', $data);
 	}
 
