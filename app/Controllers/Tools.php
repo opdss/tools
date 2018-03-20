@@ -23,6 +23,7 @@ class Tools extends Base
 	public function qrCode(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addJs('/statics/js/qrcode.min.js');
 		return $this->view('tools/qrcode.twig', $data);
 	}
 
