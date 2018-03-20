@@ -27,7 +27,7 @@ class Base
 
 	protected $css = array(
 		'/statics/bootstrap/css/bootstrap.min.css',
-		'/statics/css/sweet-alert.css',
+		'/stati cs/css/sweet-alert.css',
 	);
 	protected $js = array(
 		'/statics/js/jquery-3.2.1.js',
@@ -116,7 +116,8 @@ class Base
 		$render_data['statics'] = array('css'=>$this->css, 'js'=>$this->js);
 		$render_data['Bootstrap'] = new Bootstrap;
 		$render_data = array_merge($render_data, $data);
-		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
+        $render_data['title'] = isset($render_data['current_menu']) ? implode('-',$render_data['current_menu']) : $render_data['site']['title'];
+        return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
 
 

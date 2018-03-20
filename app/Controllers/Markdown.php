@@ -13,7 +13,7 @@ use Slim\Http\Response;
 class Markdown extends Base
 {
 	/**
-	 * @pattern /markdown
+	 * @pattern /markdown.html
 	 * @menu MD在线编辑
 	 * @param Request $request
 	 * @param Response $response

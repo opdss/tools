@@ -29,7 +29,7 @@ class Format extends Base
 
 	/**
 	 * to_json
-	 * @pattern /format/json
+	 * @pattern /format/json.html
 	 * @menu 格式化工具|json格式化
 	 * @param Request $request
 	 * @param Response $response
@@ -42,7 +42,7 @@ class Format extends Base
 	}
 
     /**
-     * @pattern /format/xml
+     * @pattern /format/xml.html
      * @menu 格式化工具|xml格式化
      * @param Request $request
      * @param Response $response
@@ -57,7 +57,7 @@ class Format extends Base
 
 
     /**
-     * @pattern /format/html
+     * @pattern /format/html.html
      * @menu 格式化工具|html格式化
      * @param Request $request
      * @param Response $response
@@ -71,7 +71,7 @@ class Format extends Base
     }
 
     /**
-     * @pattern /format/js
+     * @pattern /format/js.html
      * @menu 格式化工具|js格式化
      * @param Request $request
      * @param Response $response
@@ -85,7 +85,7 @@ class Format extends Base
     }
 
     /**
-     * @pattern /format/css
+     * @pattern /format/css.html
      * @menu 格式化工具|css格式化
      * @param Request $request
      * @param Response $response

@@ -31,7 +31,7 @@ class Cryption extends Base
 
     /**
      * 随机密码
-     * @pattern /cryption/pwd
+     * @pattern /cryption/pwd.html
      * @menu 加解密工具|生成随机密码
      * @param Request $request
      * @param Response $response
@@ -44,7 +44,7 @@ class Cryption extends Base
     }
 
     /**
-     * @pattern /cryption/md5
+     * @pattern /cryption/md5.html
      * @menu 加解密工具|md5摘要
      * @param Request $request
      * @param Response $response
@@ -59,7 +59,36 @@ class Cryption extends Base
     }
 
     /**
-     * @pattern /cryption/des
+     * @pattern /cryption/base64.html
+     * @menu 加解密工具|base64编解码
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
+    public function base64(Request $request, Response $response, $args)
+    {
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        $this->addJs('/statics/js/base64.js', time());
+        return $this->view('cryption/base64.twig', $data);
+    }
+
+    /**
+     * @pattern /cryption/urlcode.html
+     * @menu 加解密工具|url编解码
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     * @return mixed
+     */
+    public function urlcode(Request $request, Response $response, $args)
+    {
+        $data['current_menu'] = $this->getCurrentMenu($request);
+        return $this->view('cryption/urlcode.twig', $data);
+    }
+
+    /**
+     * @pattern /cryption/des.html
      * @menu 加解密工具|des加解密
      * @param Request $request
      * @param Response $response

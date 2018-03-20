@@ -31,7 +31,7 @@ class Conversion extends Base
 
     /**
      * @pattern /conversion/base64
-     * @menu 编码转换|Base64编码
+     * @@menu 编码转换|Base64编码
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -45,7 +45,7 @@ class Conversion extends Base
 
     /**
      * @pattern /conversion/urlcode
-     * @menu 编码转换|url编码
+     * @@menu 编码转换|url编码
      * @param Request $request
      * @param Response $response
      * @param $args
