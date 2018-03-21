@@ -31,24 +31,17 @@
 
 {% block script %}
     <script type="text/javascript">
-        var qrcode = null;
+        var qrcode = new QRCode("qrcode", {
+                width: 180,
+                height: 180,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
         $('#submit').click(function () {
             var val = $('#origin_textarea').val();
-            if (val) {
-                if (qrcode) {
-                    qrcode.clear();
-                    qrcode.makeCode(val);
-                } else {
-                    qrcode = new QRCode("qrcode", {
-                        text: val,
-                        width: 180,
-                        height: 180,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                }
-            }
+            qrcode.clear();
+            qrcode.makeCode(val);
         });
     </script>
 {% endblock %}

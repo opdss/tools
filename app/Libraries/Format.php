@@ -9,7 +9,12 @@ namespace App\Libraries;
 
 class Format
 {
-    public static $errMsg = array();
+    private static $errMsg = array();
+
+    public static function getErrMsg()
+	{
+    	return self::$errMsg;
+	}
 
     public static function compressJson($json)
     {
@@ -97,4 +102,60 @@ class Format
         }
         return $result;
     }
+
+	/**
+	 * 美化HTML显示
+	 *
+	 * @param string $str html内容
+	 * @param boolean $strip_attr 是否过滤标签属性
+	 * @return string
+	 */
+    public static function formatHtml($str, $strip_attr = false)
+	{
+			if (empty($str)) {
+				return '';
+			}
+			preg_match_all('/(\<[\/]?\w+([^>]*)>)([^\<]*)/', $str, $matchs);
+			$beauty_str = '';  // 格式后html
+			$space = "   ";  // 空格符
+			$space_times = 0;  // 空格数量
+			foreach ($matchs[1] as $key => $value) {
+				if (strpos($value, '</') === 0) {  // 结束标签
+					$space_times --;  // 空格 -1
+					$beauty_str .= str_repeat($space, $space_times) . $value . PHP_EOL;
+					continue;
+				}
+				if ($strip_attr === true) {  // 过滤标签属性
+					$style = $matchs[2][$key];
+					$replace = '';
+					if (strpos($value, '<img') === 0) {  // 处理图片
+						preg_match('/(src=\S+)/', $style, $style_matchs);
+						$replace = ' ' . $style_matchs[0];
+					}
+					$value = str_replace($style, $replace, $value);
+				}
+				$beauty_str .= str_repeat($space, $space_times) . $value;  // 开始标签
+				if (strpos($value, '<img') === 0 || strpos($value, '<br') === 0) {  // 图片/br换行
+					$beauty_str .= PHP_EOL;
+					continue;  // 没有内容,直接跳过循环
+				}
+				// 判断是否换行
+				if (!isset($matchs[3][$key]) || empty($matchs[3][$key])) {  // 没有内容/空内容
+					if (strpos($matchs[1][$key + 1], '</') === false) {  // 下一个标签不是结束标签
+						$beauty_str .= PHP_EOL;
+					}
+					$space_times ++;
+					continue;
+				} else if (!empty($matchs[3][$key])) {  // 有内容
+					$beauty_str .= PHP_EOL;
+				} else if (isset($matchs[1][$key + 1])) {
+					if (strpos($matchs[1][$key + 1], '</') === false) {  // 下一个标签不是结束标签
+						$beauty_str .= PHP_EOL;
+					}
+				}
+				$beauty_str .= str_repeat($space, $space_times + 1) . $matchs[3][$key] . PHP_EOL;  // 内容显示
+				$space_times ++;  // 空格 +1
+			}
+			return $beauty_str;
+	}
 }

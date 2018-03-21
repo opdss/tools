@@ -27,7 +27,7 @@ class Base
 
 	protected $css = array(
 		'/statics/bootstrap/css/bootstrap.min.css',
-		'/stati cs/css/sweet-alert.css',
+		'/statics/css/sweet-alert.css',
 	);
 	protected $js = array(
 		'/statics/js/jquery-3.2.1.js',

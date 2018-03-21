@@ -9,63 +9,78 @@
     <div class="well">
         Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json
     </div>
-    <p>
-        gaewaew
-    </p>
     <p class="text-muted">
         待格式化JSON代码：
-        {{ Bootstrap.iconBtn('copy', {'title':'gaegageaewg'})|raw }}
-        <button type="button" class="btn btn-default btn-xs" onclick="copyInput('src_text')" data-toggle="tooltip" data-placement="top" title="复制文本内容">
-            <span class="glyphicon glyphicon-copy"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="removeInput('src_text')" data-toggle="tooltip" data-placement="top" title="清除文本内容">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="getUrl('src_text')" data-toggle="tooltip" data-placement="top" title="读取地址内容">
-            <span class="glyphicon glyphicon-cloud"></span>
-        </button>
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
+        {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
     </p>
-    <textarea class="form-control" rows="10" id="src_text"></textarea>
+    {{ Bootstrap.textarea('origin_textarea')|raw }}
     <div style="margin: 10px 0px;"></div>
     <div class="text-center">
-        <button type="button" class="btn btn-primary">JSON格式化&美化</button>
-        <button type="button" class="btn btn-success">检查&压缩JSON</button>
-        {#<button type="button" class="btn btn-info">test</button>#}
+        {{ Bootstrap.button({'id':'submit', 'data-obj':'#origin_textarea|#result_textarea'}, 'JSON格式化&美化')|raw }}
+        {{ Bootstrap.button({'id':'resubmit', 'data-obj':'#origin_textarea|#result_textarea'}, '检查&压缩JSON')|raw }}
     </div>
     <p class="text-muted">
         格式化化之后的JSON代码：
-        <button type="button" class="btn btn-default btn-xs" onclick="copyInput('dist_text')" data-toggle="tooltip" data-placement="top" title="复制文本内容">
-            <span class="glyphicon glyphicon-copy"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="removeInput('dist_text')" data-toggle="tooltip" data-placement="top" title="清除文本内容">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="repeatInput('dist_text', 'src_text')" data-toggle="tooltip" data-placement="top" title="上下文交换">
-            <span class="glyphicon glyphicon-retweet"></span>
-        </button>
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
+        {{ Bootstrap.iconBtn('remove', {'data-obj':'#result_textarea'})|raw }}
+        {{ Bootstrap.iconBtn('retweet', {'data-obj':'#origin_textarea|#result_textarea'})|raw }}
     </p>
-    <textarea class="form-control" rows="10" id="dist_text"></textarea>
+    {{ Bootstrap.textarea('result_textarea')|raw }}
 
 
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript">
-        function copyInput(id) {
-            val = $('#'+id).val()
-            alert(val);
-        }
-
-        function removeInput(id) {
-            $('#'+id).val('');
-        }
-        function getUrl(id) {
-            alert(id)
-        }
-        function repeatInput(src, dist) {
-            tmp = $('#'+src).val();
-            $('#'+src).val($('#'+dist).val())
-            $('#'+dist).val(tmp)
-        }
+        $('#submit').click(function () {
+            var obj = $(this).data('obj');
+            if (!obj) {
+                console.log('submit operation obj error', obj);
+                return false;
+            }
+            var arr = obj.split('|');
+            if (arr.length != 2){
+                console.log('submit operation arr error', obj);
+                return false;
+            }
+            $.post(
+                '/api/format',
+                {'type':'json', 'action':'format', 'data':$(arr[0]).val()},
+                function (res) {
+                    if (res.errCode == 0) {
+                        $(arr[1]).val(res.data.result);
+                    }else {
+                        swal(res.errMsg);
+                    }
+                },
+                'json'
+            );
+        });
+        
+        $('#resubmit').click(function () {
+            var obj = $(this).data('obj');
+            if (!obj) {
+                console.log('submit operation obj error', obj);
+                return false;
+            }
+            var arr = obj.split('|');
+            if (arr.length != 2){
+                console.log('submit operation arr error', obj);
+                return false;
+            }
+            $.post(
+                '/api/format',
+                {'type':'json', 'action':'compress', 'data':$(arr[0]).val()},
+                function (res) {
+                    if (res.errCode == 0) {
+                        $(arr[1]).val(res.data.result);
+                    }else {
+                        swal(res.errMsg);
+                    }
+                },
+                'json'
+            );
+        });
     </script>
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">{{ current_menu[1] }}</h3>
+
+    {#<blockquote>
+        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
+    </blockquote>#}
+    {#<div class="well">
+        将一个字符串生成验证码
+    </div>#}
+    <p class="text-muted">
+        输入身份证号码：
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
+        {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
+        <span class="label label-info" id="result">请输入身份证号码</span>
+    </p>
+    {{  Bootstrap.textarea('origin_textarea')|raw }}
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $('#origin_textarea').keyup(function(event){
+            var spans = {'info':'请输入身份证号码', 'success':'正确的身份证号！', 'warning':'错误的身份证号！'}
+                var val = $(this).val();
+                var obj = $('#result');
+                var t = 'info';
+                if (val) {
+                    if (isIC(val)) {
+                        t = 'success';
+                    } else {
+                        t = 'warning';
+                    }
+                }
+                obj.text(spans[t]);
+                obj.prop('class', 'label label-'+t);
+        });
+    </script>
+{% endblock %}
