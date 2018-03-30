@@ -35,6 +35,15 @@ class Format extends Base
 		$data = $request->getParam('data');
 		$action = $request->getParam('action');
 		$method = $action.ucfirst($type);
-		return call_user_func_array(array('\App\Libraries\Format', $method), $data);
+		$format = new \App\Libraries\Format;
+		if (!method_exists($format, $method)) {
+			return false;
+		}
+		$res = call_user_func(array($format, $method), $data);
+		if (!$res) {
+			$errMsg = $format::getErrMsg();
+			return $this->json(1, end($errMsg));
+		}
+		return $this->json(array('result'=>$res));
 	}
 }

@@ -58,8 +58,9 @@ class Bootstrap
 		return $html;
 	}
 
-	public static function select(array $arr, array $opts)
+	public static function span($name, $label='success', $id='')
 	{
-
+		$html = '<span class="label label-'.$label.'" id="'.$id.'">'.$name.'</span>';
+		return $html;
 	}
 }

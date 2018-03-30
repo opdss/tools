@@ -27,4 +27,18 @@ class Tools extends Base
 		return $this->view('tools/qrcode.twig', $data);
 	}
 
+	/**
+	 * 身份证校验
+	 * @pattern /idcard.html
+	 * @menu 实用工具|身份证校验
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function idCard(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/idcard.twig', $data);
+	}
+
 }
