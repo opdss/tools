@@ -27,7 +27,7 @@ class Base
 
 	protected $css = array(
 		'/statics/bootstrap/css/bootstrap.min.css',
-		'/stati cs/css/sweet-alert.css',
+		'/statics/css/sweet-alert.css',
 	);
 	protected $js = array(
 		'/statics/js/jquery-3.2.1.js',
@@ -55,7 +55,7 @@ class Base
 		$routes = $this->ci->routes;
 		$menus = [];
 		foreach ($routes as $route) {
-			$sub = $route['subInfo'];
+			$sub = $route['info'];
 			if (isset($sub['menu']) && $sub['menu']) {
 				$arr = explode('|', $sub['menu'], 2);
 				if (!isset($menus[$arr[0]])) {
@@ -75,7 +75,7 @@ class Base
 		$routes = $this->ci->routes;
 		foreach ($routes as $route) {
 			if ($route['name'] == $currentRouteName) {
-				return isset($route['subInfo']['menu']) && $route['subInfo']['menu'] ? explode('|', $route['subInfo']['menu']) : [];
+				return isset($route['info']['menu']) && $route['info']['menu'] ? explode('|', $route['info']['menu']) : [];
 			}
 		}
 		return false;
@@ -102,7 +102,7 @@ class Base
 	protected function json($param, $data = array())
 	{
 		$extra = array();
-		$extra['runTime'] = Functions::runTime('run', 1);
+		//$extra['runTime'] = Functions::runTime('run', 1);
 		if (func_num_args() == 1) {
 			$data = $extra;
 		}
@@ -117,6 +117,7 @@ class Base
 		$render_data['Bootstrap'] = new Bootstrap;
 		$render_data = array_merge($render_data, $data);
         $render_data['title'] = isset($render_data['current_menu']) ? implode('-',$render_data['current_menu']) : $render_data['site']['title'];
+        $render_data['runtime'] = \App\Functions::runTime('run', true);
         return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
 
