@@ -55,7 +55,7 @@ class Base
 		$routes = $this->ci->routes;
 		$menus = [];
 		foreach ($routes as $route) {
-			$sub = $route['subInfo'];
+			$sub = $route['info'];
 			if (isset($sub['menu']) && $sub['menu']) {
 				$arr = explode('|', $sub['menu'], 2);
 				if (!isset($menus[$arr[0]])) {
@@ -75,7 +75,7 @@ class Base
 		$routes = $this->ci->routes;
 		foreach ($routes as $route) {
 			if ($route['name'] == $currentRouteName) {
-				return isset($route['subInfo']['menu']) && $route['subInfo']['menu'] ? explode('|', $route['subInfo']['menu']) : [];
+				return isset($route['info']['menu']) && $route['info']['menu'] ? explode('|', $route['info']['menu']) : [];
 			}
 		}
 		return false;
