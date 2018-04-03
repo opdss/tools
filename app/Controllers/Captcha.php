@@ -16,6 +16,7 @@ class Captcha extends Base
 {
 	/**
 	 * url直接输出验证码
+     *
 	 * @pattern /captcha[/{w:[0-9]+}[/{h:[0-9]+}]]
 	 * @param Request $request
 	 * @param Response $response

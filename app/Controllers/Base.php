@@ -102,7 +102,7 @@ class Base
 	protected function json($param, $data = array())
 	{
 		$extra = array();
-		$extra['runTime'] = Functions::runTime('run', 1);
+		//$extra['runTime'] = Functions::runTime('run', 1);
 		if (func_num_args() == 1) {
 			$data = $extra;
 		}
@@ -117,6 +117,7 @@ class Base
 		$render_data['Bootstrap'] = new Bootstrap;
 		$render_data = array_merge($render_data, $data);
         $render_data['title'] = isset($render_data['current_menu']) ? implode('-',$render_data['current_menu']) : $render_data['site']['title'];
+        $render_data['runtime'] = \App\Functions::runTime('run', true);
         return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
 
