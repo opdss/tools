@@ -115,6 +115,7 @@ class Base
 		$render_data['menus'] = $this->menus;
 		$render_data['statics'] = array('css'=>$this->css, 'js'=>$this->js);
 		$render_data['Bootstrap'] = new Bootstrap;
+		$render_data['Functions'] = new Functions;
 		$render_data = array_merge($render_data, $data);
         $render_data['title'] = isset($render_data['current_menu']) ? implode('-',$render_data['current_menu']) : $render_data['site']['title'];
         $render_data['runtime'] = \App\Functions::runTime('run', true);

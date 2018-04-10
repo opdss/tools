@@ -1,0 +1,24 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">WEB标准颜色</h3>
+    <blockquote>
+        <p>WEB标准颜色是指可以直接以英文名称形式在网页脚本中使用的一组RGB颜色，该颜色由W3C组织定义。</p>
+        <p>WEB标准色共计140种，Aqua与Cyan异名同色（青色），Fuchsia与Magenta异名同色（洋红），所以实际上共有138种。WEB标准颜色是命名颜色的一个子集。</p>
+        <p>由于历史原因，WEB标准色中的个别颜色并非其单词本义，备注如下：Aqua本为水色(175, 223, 238)，Fuchsia本为品红(244, 0, 161)，Azure在Web色中是一种浅色但本为湛蓝(0, 127, 255)。</p>
+    </blockquote>
+    {#<div>
+        <p>1、忠于英文原意，同时兼顾汉语表达习惯；</p>
+        <p>2、除单色和两个单色构成的颜色名以及部分指代色外，不加“色”字后缀；</p>
+        <p>3、指代色是指以植物、动物、景物等命名的颜色，这类颜色名酌情将色调带出；</p>
+        <p>4、“light-, dark-, pale-”一律译成“浅-，深-，白-”，仅灰色例外；</p>
+        <p>5、如果存在美术术语，则优先使用术语（如湖蓝、品蓝、藏青）。</p>
+    </div>#}
+    <div class="row">
+        {% for item in color %}
+        <div class="col-md-1" style="background-color: {{ item[0] }}; height: 60px">
+            <span style="color: {{ Functions.genFontColor(item[2])}};">{{ item[1] }}</span>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

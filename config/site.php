@@ -7,13 +7,14 @@
  */
 
 return array(
-        'title' => '工具箱',
-        'author' => '1tools',
-        'keyword' => '工具箱',
-        'description' => '这是一个神奇的网站！！！',
-        'copyright' => 'Copyright © 2017  istimer.com </br>技术支持：<a href="mailto:wux@tsingning.com" style="color: #2a76fe	;">@阿新</a>',
-        'page_number' => 6,
-        'copyright' => '<a href="http://www.istimer.com">istimer.com</a>',
-        'icp' => '<a href="http://www.miibeian.gov.cn/">粤ICP备17068889号</a>',
-        'contact' => '<a href="mailto:opdss@qq.com">阿新</a>'
+	'title' => '工具箱',
+	'author' => '1tools',
+	'keyword' => '工具箱',
+	'description' => '这是一个神奇的网站！！！',
+	//'copyright' => 'Copyright © 2017  istimer.com </br>技术支持：<a href="mailto:wux@tsingning.com" style="color: #2a76fe	;">@阿新</a>',
+	'copyright' => '© 2017  1tools.net',
+	'page_number' => 6,
+	'copyright' => '<a href="http://www.1tools.net">1tools.net</a>',
+	'icp' => '<a href="http://www.miibeian.gov.cn/">粤ICP备17068889号</a>',
+	'contact' => '<a href="mailto:opdss@qq.com">阿新</a>',
 );

@@ -41,4 +41,31 @@ class Tools extends Base
 		return $this->view('tools/idcard.twig', $data);
 	}
 
+	/**
+	 * 时间戳
+	 * @pattern /time.html
+	 * @menu 实用工具|时间戳
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function time(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/genic.twig', $data);
+	}
+
+	/**
+	 * 生成随机有效身份证号
+	 * @pattern /genic.html
+	 * @menu 实用工具|身份证生成
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function genIC(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/genic.twig', $data);
+	}
 }
