@@ -29,6 +29,8 @@ class Color extends Base
 	public function index(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
+		//var_dump(Functions::genFontColor('#000000'));exit;
+		//var_dump(Functions::genFontColor('#3fef44'));exit;
 		$data['color'] = Config::get('color');
 		return $this->view('color/index.twig', $data);
 	}
@@ -44,6 +46,7 @@ class Color extends Base
 	public function picker(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addJs('/statics/js/colorpicker.min.js');
 		return $this->view('color/picker.twig', $data);
 	}
 

@@ -274,15 +274,13 @@ class Functions
 
 	public static function genFontColor($color)
 	{
-		$color = str_replace('#', '0x', $color);
-		$new_color = dechex((hexdec($color)+255));
-		if (strlen($new_color) > 6) {
-			$new_color = substr($new_color, -6);
-		} elseif (strlen($new_color) < 6) {
-			$len = 6 - strlen($new_color);
-			$new_color = str_repeat('0', $len).$new_color;
-		}
-		return '#'.$new_color;
+		$color = str_replace('#', '', $color);
+		$arr = str_split($color, 2);
+		$res = [];
+		foreach ($arr as $item) {
+            $res[] = substr(dechex(hexdec($item)+96), -2);
+        }
+		return '#'.implode('', $res);
 	}
 
 }

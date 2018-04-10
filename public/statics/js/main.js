@@ -119,7 +119,7 @@ function swal_osc(text) {
 }
 
 $('document').ready(function () {
-    $('.btn-copy').zclip({
+    /*$('.btn-copy').zclip({
         path: "/statics/zclip/ZeroClipboard.swf",
         copy: function(){
             var obj = $(this).data('obj');
@@ -129,6 +129,30 @@ $('document').ready(function () {
             }
             return $(obj).val();
         },
-        afterCopy: function () { swal_osc("复制成功！"); } /* 复制成功后的操作 */
+        afterCopy: function () { swal_osc("复制成功！"); } /!* 复制成功后的操作 *!/
+    });*/
+
+    /*var clipboard_btn_copy = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+            return $($(trigger).data('obj'))[0];
+        }
+    });*/
+    var clipboard_btn_copy = new ClipboardJS('.btn-copy', {
+        text: function(trigger) {
+            return $($(trigger).data('obj')).val();
+        }
+    });
+
+    clipboard_btn_copy.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        e.clearSelection();
+        swal_osc("复制成功！");
+    });
+
+    clipboard_btn_copy.on('error', function(e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
     });
 });
