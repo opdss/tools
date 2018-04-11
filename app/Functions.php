@@ -214,24 +214,6 @@ class Functions
 		return $res;
 	}
 
-	/**
-	 * 匹配身份证号
-	 * @param $test
-	 * @return bool
-	 */
-	public static function isIC($test)
-	{
-		if (strlen($test) != 18) {
-			return false;
-		}
-		$r = array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
-		$sum = 0;
-		for ($i = 0; $i < 17; $i++) {
-			$sum += $test[$i] * $r[$i];
-		}
-		$t = array(1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2);
-		return strtolower($test[17]) == $t[$sum % 11];
-	}
 
 	public static function getMicroTime()
 	{
@@ -274,17 +256,13 @@ class Functions
 
 	public static function genFontColor($color)
 	{
-		$color = str_replace('#', '0x', $color);
-		$arr = str_split($color,2);
-
-		$new_color = dechex((hexdec($color)+255));
-		if (strlen($new_color) > 6) {
-			$new_color = substr($new_color, -6);
-		} elseif (strlen($new_color) < 6) {
-			$len = 6 - strlen($new_color);
-			$new_color = str_repeat('0', $len).$new_color;
-		}
-		return '#'.$new_color;
+		$color = str_replace('#', '', $color);
+		$arr = str_split($color, 2);
+		$res = [];
+		foreach ($arr as $item) {
+            $res[] = substr(dechex(hexdec($item)+96), -2);
+        }
+		return '#'.implode('', $res);
 	}
 
 }

@@ -19,15 +19,33 @@
 {% block script %}
     <script>
         var editor = initEditorMd('md-edit');
-        $('#copy_md').zclip({
+        /*$('#copy_md').zclip({
             path: "/statics/zclip/ZeroClipboard.swf",
             copy: function(){return editor.getMarkdown();},
-            afterCopy: function () { swal_osc("复制成功！");} /* 复制成功后的操作 */
+            afterCopy: function () { swal_osc("复制成功！");} /!* 复制成功后的操作 *!/
         });
         $('#copl_h5').zclip({
             path: "/statics/zclip/ZeroClipboard.swf",
             copy: function(){return editor.getHTML();},
-            afterCopy: function () { swal_osc("复制成功！"); } /* 复制成功后的操作 */
-        });
+            afterCopy: function () { swal_osc("复制成功！"); } /!* 复制成功后的操作 *!/
+        });*/
+
+        var copy_md = new ClipboardJS('#copy_md', {
+            text: function(trigger) {
+                return editor.getMarkdown();
+            }
+        }).on('success', function (e) {
+            swal_osc("复制成功！");
+            e.clearSelection();
+        })
+
+        var copl_h5 = new ClipboardJS('#copl_h5', {
+            text: function(trigger) {
+                return editor.getHTML();
+            },
+        }).on('success', function (e) {
+            swal_osc("复制成功！");
+            e.clearSelection();
+        })
     </script>
 {% endblock %}

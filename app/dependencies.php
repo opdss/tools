@@ -4,12 +4,11 @@
 $container = $app->getContainer();
 
 // Service factory for the ORM
-/*$capsule = new \Illuminate\Database\Capsule\Manager;
-
-$capsule->addConnection($container->get('settings')['mysql']);
+$capsule = new \Illuminate\Database\Capsule\Manager;
+$capsule->addConnection(\App\Libraries\Config::get('mysql'));
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
-$container['db'] = $capsule;*/
+$container['db'] = $capsule;
 
 $container['view'] = function ($c) {
 	$settings = \App\Libraries\Config::get('twig');

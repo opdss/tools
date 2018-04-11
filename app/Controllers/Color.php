@@ -8,6 +8,7 @@
 namespace App\Controllers;
 use App\Functions;
 use App\Libraries\Config;
+use App\Models\IdcardAreazone;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -29,6 +30,8 @@ class Color extends Base
 	public function index(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
+		//var_dump(Functions::genFontColor('#000000'));exit;
+		//var_dump(Functions::genFontColor('#3fef44'));exit;
 		$data['color'] = Config::get('color');
 		return $this->view('color/index.twig', $data);
 	}
@@ -43,7 +46,14 @@ class Color extends Base
 	 */
 	public function picker(Request $request, Response $response, $args)
 	{
+		$arr = IdcardAreazone::all()->toArray();
+		$data = [];
+		foreach ($arr as $item) {
+			$data[$item['zone']] = $item['areazone'];
+		}
+		file_put_contents(CACHE_DIR.'areazone.php', "<?php \nreturn ".var_export($data, 1).';');exit;
 		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addJs('/statics/js/colorpicker.min.js');
 		return $this->view('color/picker.twig', $data);
 	}
 

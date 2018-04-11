@@ -16,9 +16,30 @@
     </div>#}
     <div class="row">
         {% for item in color %}
-        <div class="col-md-1" style="background-color: {{ item[0] }}; height: 60px">
-            <span style="color: {{ Functions.genFontColor(item[2])}};">{{ item[1] }}</span>
+        <div class="col-md-2 col-sm-3 copy-color" style="background-color: {{ item[0] }}; height: 60px" data-clipboard-text="{{ item[2] }}" title="{{ item[1] }}" data-toggle="tooltip" data-placement="top">
+            <span style="color: {{ Functions.genFontColor(item[2])}};">{{ item[0] }}</span><br/>
+            <span style="color: {{ Functions.genFontColor(item[2])}};">HEX:{{ item[2] }}</span><br/>
+            <span style="color: {{ Functions.genFontColor(item[2])}};">RGB:{{ item[3] }}</span>
         </div>
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    var clipboard = new ClipboardJS('.copy-color');
+
+    clipboard.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        swal_osc('复制成功:'+e.text);
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+</script>
 {% endblock %}

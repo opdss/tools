@@ -1,4 +1,37 @@
 {% extends "layout.twig" %}
 
+{% block css %}
+    <style type="text/css">
+        #picker { width: 200px; height: 200px }
+        #slider { width: 30px; height: 200px }
+    </style>
+{% endblock %}
+
 {% block container %}
+    <h3 class="page-header">调色板</h3>
+    {#<div>
+        <p>1、忠于英文原意，同时兼顾汉语表达习惯；</p>
+        <p>2、除单色和两个单色构成的颜色名以及部分指代色外，不加“色”字后缀；</p>
+        <p>3、指代色是指以植物、动物、景物等命名的颜色，这类颜色名酌情将色调带出；</p>
+        <p>4、“light-, dark-, pale-”一律译成“浅-，深-，白-”，仅灰色例外；</p>
+        <p>5、如果存在美术术语，则优先使用术语（如湖蓝、品蓝、藏青）。</p>
+    </div>#}
+    <div class="row">
+            <div id="picker"></div>
+            <div id="slider"></div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        ColorPicker(
+            document.getElementById('slider'),
+            document.getElementById('picker'),
+            function(hex, hsv, rgb) {
+                console.log(hex);         // [0-359], [0-1], [0-1]
+                console.log(hsv.h, hsv.s, hsv.v);         // [0-359], [0-1], [0-1]
+                console.log(rgb.r, rgb.g, rgb.b);         // [0-255], [0-255], [0-255]
+                document.body.style.backgroundColor = hex;        // #HEX
+            });
+    </script>
 {% endblock %}

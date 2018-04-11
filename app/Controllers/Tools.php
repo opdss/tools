@@ -44,7 +44,7 @@ class Tools extends Base
 	/**
 	 * 时间戳
 	 * @pattern /time.html
-	 * @menu 实用工具|时间戳
+	 * @menu 实用工具|身份证生成
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args

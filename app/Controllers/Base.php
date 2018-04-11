@@ -35,6 +35,8 @@ class Base
 		'/statics/js/lodash.js',
 		'/statics/js/sweet-alert.min.js',
 		'/statics/zclip/jquery.zclip.min.js',
+		'/statics/js/clipboard.min.js',
+		'/statics/js/utils.js',
 	);
 
 	/**

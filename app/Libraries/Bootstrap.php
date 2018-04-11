@@ -41,6 +41,12 @@ class Bootstrap
 		return $html;
 	}
 
+	public static function input($id)
+	{
+		$html = '<input class="form-control" id="'.$id.'"></input>';
+		return $html;
+	}
+
 	public static function button($arr, $name='提交', $style='primary')
 	{
 		$class = '';
