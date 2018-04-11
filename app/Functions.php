@@ -275,6 +275,8 @@ class Functions
 	public static function genFontColor($color)
 	{
 		$color = str_replace('#', '0x', $color);
+		$arr = str_split($color,2);
+
 		$new_color = dechex((hexdec($color)+255));
 		if (strlen($new_color) > 6) {
 			$new_color = substr($new_color, -6);
