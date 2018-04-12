@@ -8,6 +8,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Config;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -51,7 +52,7 @@ class Tools extends Base
 	/**
 	 * 时间戳
 	 * @pattern /timestamp.html
-	 * @menu 实用工具|时间戳处理
+	 * @menu 实用工具|Unix时间处理
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -61,6 +62,7 @@ class Tools extends Base
 		$data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addJs('/statics/bootstrap-select/bootstrap-select.js');
 		$this->addCss('/statics/bootstrap-select/bootstrap-select.css');
+		$data['timezone'] = Config::get('timezone');
 		return $this->view('tools/timestamp.twig', $data);
 	}
 }

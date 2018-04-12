@@ -9,11 +9,11 @@ namespace App\Libraries;
 
 class Format
 {
-    private static $errMsg = array();
+    private static $errInfo = array();
 
-    public static function getErrMsg()
+    public static function getErrInfo()
 	{
-    	return self::$errMsg;
+    	return self::$errInfo;
 	}
 
     public static function compressJson($json)
@@ -23,7 +23,7 @@ class Format
         if ($json) {
             return json_encode($json);
         }
-        array_push(self::$errMsg, json_last_error_msg());
+        array_push(self::$errInfo, json_last_error_msg());
         return false;
     }
 
@@ -31,7 +31,7 @@ class Format
     {
         $json = json_decode($json);
         if (!$json) {
-            array_push(self::$errMsg, json_last_error_msg());
+            array_push(self::$errInfo, json_last_error_msg());
             return false;
         }
         $json = json_encode($json);

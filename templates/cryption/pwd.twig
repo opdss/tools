@@ -24,6 +24,15 @@
                 </div>
             </div>
             <input type="text" class="form-control" aria-label="..." id="special" value="!@#$%^&*()_+=-">
+
+            {#<div class="input-group">
+                <span class="input-group-addon">
+                    <label>
+                    <input type="checkbox" aria-label="">&nbsp;yes
+                        </label>
+                </span>
+                <input type="text" class="form-control"  value="!@#$%^&*()_+=-">
+            </div>#}
             {{ Bootstrap.button({'id':'submit', 'data-obj':'#result_textarea'}, '生成密码')|raw }}
         </form>
     </div>
@@ -32,7 +41,7 @@
         {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
         {{ Bootstrap.iconBtn('remove', {'data-obj':'#result_textarea'})|raw }}
     </p>
-    {{  Bootstrap.textarea('result_textarea')|raw }}
+    {{ Bootstrap.textarea('result_textarea')|raw }}
 
 
 
@@ -40,23 +49,21 @@
 
 {% block script %}
     <script type="text/javascript">
-        var special_str = '!@#$%^&*()_+=-'
-
         $('#submit').click(function () {
             var obj = $(this).data('obj');
             if (!obj) {
                 console.log('remove operation obj error', obj);
                 return false;
             }
-            var number = _.parseInt($('#number').val()) || 16;
+            var number = parseInt($('#number').val()) || 16;
             var has = $('#special_check').prop('checked');
-            var special = $('#special').val() || special_str;
-            $(obj).val(genRandStr(number, has, special));
+            var special = $('#special').val() || utils.specialStr;
+            $(obj).val(utils.genRandStr(number, has, special));
             return false;
         })
 
         $('#special_check').change(function () {
-            if($(this).prop('checked')) {
+            if ($(this).prop('checked')) {
                 $('#special').css('display', '');
             } else {
                 $('#special').css('display', 'none');

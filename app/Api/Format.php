@@ -41,8 +41,8 @@ class Format extends Base
 		}
 		$res = call_user_func(array($format, $method), $data);
 		if (!$res) {
-			$errMsg = $format::getErrMsg();
-			return $this->json(1, end($errMsg));
+			$errInfo = $format::getErrInfo();
+			return $this->json(1, end($errInfo));
 		}
 		return $this->json(array('result'=>$res));
 	}

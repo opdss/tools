@@ -88,7 +88,7 @@ class Cryption extends Base
     }
 
     /**
-     * @pattern /cryption/des.html
+     * //@pattern /cryption/des.html
      * @menu 加解密工具|des加解密
      * @param Request $request
      * @param Response $response
@@ -102,7 +102,7 @@ class Cryption extends Base
     }
 
     /**
-     * @pattern /cryption/aes
+     * //@pattern /cryption/aes
      * @menu 加解密工具|aes加解密
      * @param Request $request
      * @param Response $response

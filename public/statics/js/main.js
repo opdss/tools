@@ -26,36 +26,6 @@ $('.btn-retweet').click(function () {
     $(arr[1]).val(tmp);
 });
 
-function genRandStr($num, $has, special)
-{
-    $num = $num || 16;
-    $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-    $str1 = $has ? (special ? special : '!@#$%^&*()_+=-') : '';
-    if ($has) {
-        $str += $str1;
-    }
-    $len = $str.length
-    $res = '';
-    for ($i=0; $i<$num; $i++) {
-        $res += $str[Math.floor(Math.random()*$len)];
-    }
-    return $res;
-}
-
-function isIC($test)
-{
-    if ($test.length != 18) {
-        return false;
-    }
-    $r = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
-    $sum = 0;
-    for ($i = 0; $i < 17; $i++) {
-        $sum += $test[$i] * $r[$i];
-    }
-    $t = [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2];
-    return $test[17].toLowerCase()== $t[$sum % 11];
-}
-
 /**
  * 初始化markdown 编辑器
  * @param div_id

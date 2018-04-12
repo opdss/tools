@@ -17,7 +17,7 @@ use Slim\Http\Response;
 class Conversion extends Base
 {
 	/**
-	 * @pattern /conversion.html
+	 * //@pattern /conversion.html
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -30,7 +30,7 @@ class Conversion extends Base
 	}
 
     /**
-     * @pattern /conversion/base64
+     * //@pattern /conversion/base64
      * @menu 编码转换|Base64编码
      * @param Request $request
      * @param Response $response
@@ -44,7 +44,7 @@ class Conversion extends Base
     }
 
     /**
-     * @pattern /conversion/urlcode
+     * //@pattern /conversion/urlcode
      * @menu 编码转换|url编码
      * @param Request $request
      * @param Response $response

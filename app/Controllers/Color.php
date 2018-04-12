@@ -38,7 +38,7 @@ class Color extends Base
 
 	/**
 	 * 调色板
-	 * @menu 色彩工具|调色板
+	 * //@menu 色彩工具|调色板
 	 * @pattern /color/picker.html
 	 * @param Request $request
 	 * @param Response $response

@@ -1,5 +1,6 @@
 var utils = {
 
+    specialStr : '!@#$%^&*()_+=-',
     /**
      * 生成随机字符串
      * @param $num 长度
@@ -7,19 +8,19 @@ var utils = {
      * @param special 特俗字符
      * @returns {string}
      */
-    genRandStr: function genRandStr($num, $has, special) {
-        $num = $num || 16;
-        $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-        $str1 = $has ? (special ? special : '!@#$%^&*()_+=-') : '';
-        if ($has) {
-            $str += $str1;
+    genRandStr: function genRandStr(num, has, special) {
+        num = num || 16;
+        var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
+        var specialStr = has ? (special ? special : utils.specialStr) : '';
+        if (has) {
+            str += specialStr;
         }
-        $len = $str.length
-        $res = '';
-        for ($i = 0; $i < $num; $i++) {
-            $res += $str[Math.floor(Math.random() * $len)];
+        var len = str.length
+        var res = '';
+        for (var i = 0; i < num; i++) {
+            res += str[Math.floor(Math.random() * len)];
         }
-        return $res;
+        return res;
     },
 
     /**
@@ -42,30 +43,39 @@ var utils = {
     },
 
     /*get : function (url, succFunc) {
-        $.get(url,)
-    },
-    post : function () {
-        
-    }*/
-    getNowDateTime: function () {
-        var date = new Date();
-        var seperator1 = "-";
-        var seperator2 = ":";
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
+     $.get(url,)
+     },
+     post : function () {
+
+     }*/
+    getFmtDateTime: function (timestamp) {
+        var date = timestamp && typeof timestamp == 'number' ? new Date(timestamp) : new Date();
+        var s1 = "-";
+        var s2 = ":";
+        var pad = function(num) {
+            return num < 10 ? "0" + num.toString() : num;
         }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
-        return currentdate;
+        return date.getFullYear() + s1 + pad(date.getMonth()+1) + s1 + pad(date.getDate()) + " " + pad(date.getHours()) + s2 + pad(date.getMinutes()) + s2 + pad(date.getSeconds());
     },
 
-    getTimestamp : function () {
-        return Date.parse(new Date())/1000;
+    getTimestamp: function (fmtDate) {
+        if (fmtDate) {
+            return Date.parse(new Date(fmtDate)) / 1000;
+        }
+        return Date.parse(new Date()) / 1000;
+    },
+
+    //得到标准时区的时间的函数
+    getZoneTime: function (timezone) {
+        //参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
+        if (typeof timezone !== 'number') {
+            timezone = 8;
+        }
+        var dt = new Date();
+        //本地时间与GMT时间的时间偏移差
+        var offset = dt.getTimezoneOffset() * 60000;
+        //得到现在的格林尼治时间
+        var utcTime = dt.getTime() + offset + 3600000 * timezone;
+        return utils.getFmtDateTime(utcTime);
     }
 }

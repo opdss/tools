@@ -1,5 +1,13 @@
 {% extends "layout.twig" %}
 
+{% block css %}
+    <style type="text/css">
+        .input-group-addon:hover {
+            background-color: transparent;
+        }
+    </style>
+{% endblock %}
+
 {% block container %}
     <h3 class="page-header">{{ current_menu[1] }}</h3>
     <blockquote>
@@ -11,7 +19,7 @@
             <label>现在的当地时间为：</label>
             <input type="text" class="form-control" id="local-time" readonly>
         </div>
-        <button type="submit" class="btn btn-info">暂停</button>
+        <button class="btn btn-primary" id="stop-btn">暂停</button>
     </form>
     <br/>
     <form class="form-inline">
@@ -24,10 +32,14 @@
     <form class="form-inline">
         <div class="form-group">
             <label>其他时区当前时间：</label>
-            <select class="selectpicker"><option>test</option></select>
+            <select class="selectpicker" id="timezone">
+                {% for k,name in timezone %}
+                <option value="{{ k }}">{{ name }}</option>
+                {% endfor %}
+            </select>
         </div>
 
-        <input type="text" class="form-control" name="bothday" placeholder="选择日期" readonly>
+        <input type="text" class="form-control" id="zone-time" readonly>
     </form>
 
 
@@ -37,9 +49,15 @@
     </blockquote>
 
     <form class="form-inline">
-        <input type="text" class="form-control" name="bothday" placeholder="选择日期" readonly>
-        <button type="submit" class="btn btn-info">转换</button>
-        <input type="text" class="form-control" name="bothday" placeholder="选择日期" readonly>
+        <input type="text" class="form-control" placeholder="Unix时间戳(秒)">
+        <button class="btn btn-primary trans-btn" data-type=0>转换</button>
+        <input type="text" class="form-control" placeholder="当地时间" readonly>
+        {#<div class="input-group">
+            <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-copy"></span>
+            </span>
+        </div>#}
     </form>
 
     <br/>
@@ -48,21 +66,49 @@
     </blockquote>
 
     <form class="form-inline">
-        <input type="text" class="form-control" name="bothday" placeholder="选择日期" readonly>
-        <button type="submit" class="btn btn-info">转换</button>
-        <input type="text" class="form-control" name="bothday" placeholder="选择日期" readonly>
+        <input type="text" class="form-control" placeholder="yyyy-mmm-dd hh:ii:ss">
+        <button class="btn btn-primary trans-btn" data-type=1>转换</button>
+        <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
+        {#<div class="input-group">
+            <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-copy"></span>
+            </span>
+        </div>#}
     </form>
 
 {% endblock %}
 
 {% block script %}
     <script>
-        function utime()
-        {
-            $('#local-time').val(utils.getNowDateTime());
+        console.log($('#timezone').val());
+        function utime() {
+            $('#local-time').val(utils.getFmtDateTime());
             $('#timestamp').val(utils.getTimestamp());
-            setInterval(utime, 1000);
+            $('#zone-time').val(utils.getZoneTime(parseInt($('#timezone').val())));
         }
-        utime();
+        var utp = setInterval(utime, 1000);
+        $('#stop-btn').click(function () {
+            if (utp) {
+                clearInterval(utp);
+                utp = null;
+                $(this).text('开始');
+            } else {
+                utp = setInterval(utime, 1000);
+                $(this).text('暂停');
+            }
+            return false;
+        })
+        $('.trans-btn').click(function () {
+            var type = $(this).data('type');
+            var val = $(this).prev().val();
+            var obj = $(this).next();
+            if (!type) {
+                obj.val(utils.getFmtDateTime(parseInt(val)*1000));
+            } else {
+                obj.val(utils.getTimestamp(val));
+            }
+            return false;
+        })
     </script>
 {% endblock %}
