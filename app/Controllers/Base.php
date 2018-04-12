@@ -36,7 +36,6 @@ class Base
 		'/statics/js/sweet-alert.min.js',
 		'/statics/zclip/jquery.zclip.min.js',
 		'/statics/js/clipboard.min.js',
-		'/statics/js/utils.js',
 	);
 
 	/**
@@ -50,6 +49,7 @@ class Base
 		$this->menus = $this->getMenus();
 		$this->addJs('/statics/js/main.js', time());
 		$this->addCss('/statics/css/layout.css', time());
+		$this->addJs('/statics/js/utils.js', time());
 	}
 
 	protected function getMenus()

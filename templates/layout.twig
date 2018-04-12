@@ -21,7 +21,7 @@
     <![endif]-->
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?80436984ca8f6751c9c798a987c094d8";
             var s = document.getElementsByTagName("script")[0];
@@ -35,23 +35,26 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{base_url()}}">{{ site.title }}</a>
+                <a class="navbar-brand" href="{{ base_url() }}">{{ site.title }}</a>
             </div>
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
 
                     {% for item in menus %}
-                        <li class="{% if item.name == current_menu[0] %}active{% endif %}"><a href="{{ item.url }}">{{ item.name }}</a></li>
+                        <li class="{% if item.name == current_menu[0] %}active{% endif %}"><a
+                                    href="{{ item.url }}">{{ item.name }}</a></li>
                     {% endfor %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">留着 <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">留着 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">参考用</a></li>
                             <li role="separator" class="divider"></li>
@@ -91,22 +94,23 @@
             {% set left_dis = 'None' %}
         {% endif %}
         <div class="col-sm-{{ _sm }} col-md-{{ _md }} sidebar" style="display: {{ left_dis }}">
-        {% block leftnavi %}
+            {% block leftnavi %}
                 <ul class="nav nav-sidebar">
                     {% for item in menus[current_menu[0]]['sub'] %}
-                        <li class="{% if item.name == current_menu[1] %}active{% endif %}"><a href="{{ item.url }}">{{ item.name }}</a></li>
+                        <li class="{% if item.name == current_menu[1] %}active{% endif %}"><a
+                                    href="{{ item.url }}">{{ item.name }}</a></li>
                     {% endfor %}
                 </ul>
                 {#<ul class="nav nav-sidebar">
                     <li><a href="">Nav item</a></li>
                 </ul>#}
-        {% endblock %}
+            {% endblock %}
         </div>
 
         <div class="col-sm-{{ 12-_sm }} col-sm-offset-{{ _sm }} col-md-{{ 12-_md }} col-md-offset-{{ _md }} main">
-        {% block container %}
-            <div class="container-fluid" style="text-align: center;padding:20%"><h1>好像啥也没有。。。</h1></div>
-        {% endblock %}
+            {% block container %}
+                <div class="container-fluid" style="text-align: center;padding:20%"><h1>好像啥也没有。。。</h1></div>
+            {% endblock %}
         </div>
     </div>
 </div>

@@ -24,6 +24,12 @@ class Index extends Base
 	 */
 	public function index(Request $request, Response $response, $args)
 	{
+		//var_dump();exit;
+		/*$routes = $this->ci->get('routes');
+		foreach ($routes as $item) {
+
+		}
+		$data = [];*/
 		return $this->view('index.twig');
 	}
 

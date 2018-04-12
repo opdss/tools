@@ -7,7 +7,7 @@ var utils = {
      * @param special 特俗字符
      * @returns {string}
      */
-    genRandStr : function genRandStr($num, $has, special) {
+    genRandStr: function genRandStr($num, $has, special) {
         $num = $num || 16;
         $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
         $str1 = $has ? (special ? special : '!@#$%^&*()_+=-') : '';
@@ -16,8 +16,8 @@ var utils = {
         }
         $len = $str.length
         $res = '';
-        for ($i=0; $i<$num; $i++) {
-            $res += $str[Math.floor(Math.random()*$len)];
+        for ($i = 0; $i < $num; $i++) {
+            $res += $str[Math.floor(Math.random() * $len)];
         }
         return $res;
     },
@@ -27,7 +27,7 @@ var utils = {
      * @param idcard
      * @returns {boolean}
      */
-    isIC : function (idcard) {
+    isIC: function (idcard) {
         if (idcard.length != 18) {
             return false;
         }
@@ -38,7 +38,7 @@ var utils = {
             $sum += idcard[$i] * $r[$i];
         }
         $t = [1, 0, 'x', 9, 8, 7, 6, 5, 4, 3, 2];
-        return idcard[17].toLowerCase()== $t[$sum % 11];
+        return idcard[17].toLowerCase() == $t[$sum % 11];
     },
 
     /*get : function (url, succFunc) {
@@ -47,4 +47,25 @@ var utils = {
     post : function () {
         
     }*/
+    getNowDateTime: function () {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    },
+
+    getTimestamp : function () {
+        return Date.parse(new Date())/1000;
+    }
 }
