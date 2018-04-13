@@ -21,6 +21,7 @@ class Color extends Base
 
 	/**
 	 * web颜色
+	 * http://www.bootcss.com/p/websafecolors/
 	 * @pattern /color.html
 	 * @menu 色彩工具|web颜色
 	 * @param Request $request

@@ -31,7 +31,8 @@ class Cryption extends Base
 
     /**
      * 随机密码
-     * @pattern /cryption/pwd.html
+	 * http://tool.oschina.net/htpasswd
+     * @pattern /cryption/passwd.html
      * @menu 加解密工具|生成随机密码
      * @param Request $request
      * @param Response $response
@@ -40,12 +41,15 @@ class Cryption extends Base
     public function genPwd(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('cryption/pwd.twig', $data);
+		$this->addJs('/statics/js/sha1.js');
+		$this->addJs('/statics/js/javacrypt.js');
+		$this->addStaticsDir('bootstrap-select');
+        return $this->view('cryption/passwd.twig', $data);
     }
 
     /**
      * @pattern /cryption/md5.html
-     * @menu 加解密工具|md5摘要
+     * @menu 加解密工具|散列/哈希
      * @param Request $request
      * @param Response $response
      * @param $args

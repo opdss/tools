@@ -41,11 +41,9 @@ class Tools extends Base
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addJs('/statics/js/bootstrap.autocomplete.js');
-		$this->addJs('/statics/bootstrap-select/bootstrap-select.js');
-		$this->addCss('/statics/bootstrap-select/bootstrap-select.css');
-		$this->addJs('/statics/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js');
+		$this->addStaticsDir('bootstrap-select');
+		$this->addStaticsDir('bootstrap-datetimepicker');
 		$this->addJs('/statics/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js');
-		$this->addCss('/statics/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css');
 		return $this->view('tools/idcard.twig', $data);
 	}
 
@@ -60,9 +58,38 @@ class Tools extends Base
 	public function timestamp(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
-		$this->addJs('/statics/bootstrap-select/bootstrap-select.js');
-		$this->addCss('/statics/bootstrap-select/bootstrap-select.css');
+		$this->addStaticsDir('bootstrap-select');
 		$data['timezone'] = Config::get('timezone');
 		return $this->view('tools/timestamp.twig', $data);
+	}
+
+	/**
+	 * 时间戳
+	 * https://www.bejson.com/othertools/keycodes/
+	 * @pattern /keycode.html
+	 * @menu 实用工具|获取键盘按键值
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function keyCode(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/keycode.twig', $data);
+	}
+
+	/**
+	 * 文件对比
+	 * @pattern /diff.html
+	 * http://tool.oschina.net/diff
+	 * @menu 实用工具|文件对比
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function diff(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/diff.twig', $data);
 	}
 }

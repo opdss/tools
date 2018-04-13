@@ -11,6 +11,7 @@ namespace App\Controllers;
 use App\Functions;
 use App\Libraries\Bootstrap;
 use App\Libraries\Config;
+use App\Libraries\File;
 use Slim\Container;
 use Slim\Http\Request;
 
@@ -32,9 +33,7 @@ class Base
 	protected $js = array(
 		'/statics/js/jquery-3.2.1.js',
 		'/statics/bootstrap/js/bootstrap.min.js',
-		'/statics/js/lodash.js',
 		'/statics/js/sweet-alert.min.js',
-		'/statics/zclip/jquery.zclip.min.js',
 		'/statics/js/clipboard.min.js',
 	);
 
@@ -61,7 +60,7 @@ class Base
 			if (isset($sub['menu']) && $sub['menu']) {
 				$arr = explode('|', $sub['menu'], 2);
 				if (!isset($menus[$arr[0]])) {
-					$menus[$arr[0]] = array('name'=>$arr[0], 'url'=>$this->ci->router->pathFor($route['name']), 'sub'=>[]);
+					$menus[$arr[0]] = array('name' => $arr[0], 'url' => $this->ci->router->pathFor($route['name']), 'sub' => []);
 				}
 				if (isset($arr[1])) {
 					$menus[$arr[0]]['sub'][$arr[1]] = ['name' => $arr[1], 'url' => $this->ci->router->pathFor($route['name'])];
@@ -83,16 +82,32 @@ class Base
 		return false;
 	}
 
-	protected function addJs($file, $version=0)
+	protected function addJs($file, $version = 0)
 	{
-		array_push($this->js, $version ? $file.'?'.$version : $file);
+		array_push($this->js, $version ? $file . '?' . $version : $file);
 		return $this->js;
 	}
 
-	protected function addCss($file, $version=0)
+	protected function addCss($file, $version = 0)
 	{
-		array_push($this->css, $version ? $file.'?'.$version : $file);
+		array_push($this->css, $version ? $file . '?' . $version : $file);
 		return $this->css;
+	}
+
+	protected function addStaticsDir($dir, $dep = 1, $version = 0)
+	{
+		$path = PUBLIC_DIR . 'statics/'.ltrim($dir, '/');
+		$files = File::getFileNames($path, 1, $dep);
+		if ($files) {
+			foreach ($files as $item) {
+				if (substr($item, -3) == '.js') {
+					$this->addJs(str_replace(PUBLIC_DIR, '/', $item), $version);
+				} elseif (substr($item, -4) == '.css') {
+					$this->addCss(str_replace(PUBLIC_DIR, '/', $item), $version);
+				}
+			}
+		}
+		return $files;
 	}
 
 	/**
@@ -115,13 +130,13 @@ class Base
 	{
 		$render_data['site'] = Config::get('site');
 		$render_data['menus'] = $this->menus;
-		$render_data['statics'] = array('css'=>$this->css, 'js'=>$this->js);
+		$render_data['statics'] = array('css' => $this->css, 'js' => $this->js);
 		$render_data['Bootstrap'] = new Bootstrap;
 		$render_data['Functions'] = new Functions;
 		$render_data = array_merge($render_data, $data);
-        $render_data['title'] = isset($render_data['current_menu']) ? implode('-',$render_data['current_menu']) : $render_data['site']['title'];
-        $render_data['runtime'] = \App\Functions::runTime('run', true);
-        return $this->ci->view->render($this->ci->response, $tpl, $render_data);
+		$render_data['title'] = isset($render_data['current_menu']) ? implode('-', $render_data['current_menu']) : $render_data['site']['title'];
+		$render_data['runtime'] = \App\Functions::runTime('run', true);
+		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
 
 
