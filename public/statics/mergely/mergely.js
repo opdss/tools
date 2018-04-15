@@ -1734,4 +1734,4 @@
 // make the mergely widget
     jQuery.pluginMaker(Mgly.mergely);
 
-})(require('jquery'), require('CodeMirror'));
+})(jQueryuery, require('CodeMirror'));

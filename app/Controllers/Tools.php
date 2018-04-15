@@ -90,6 +90,7 @@ class Tools extends Base
 	public function diff(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
+        //$this->addStaticsDir('mergely');
 		return $this->view('tools/diff.twig', $data);
 	}
 }
