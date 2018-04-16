@@ -26,16 +26,8 @@ class Base
 
 	protected $menus;
 
-	protected $css = array(
-		'/statics/bootstrap/css/bootstrap.min.css',
-		'/statics/css/sweet-alert.css',
-	);
-	protected $js = array(
-		'/statics/js/jquery-3.2.1.js',
-		'/statics/bootstrap/js/bootstrap.min.js',
-		'/statics/js/sweet-alert.min.js',
-		'/statics/js/clipboard.min.js',
-	);
+	protected $css = array();
+	protected $js = array();
 
 	/**
 	 * Ctrl constructor.
@@ -46,9 +38,9 @@ class Base
 		$this->ci = $ci;
 		$this->settings = $this->ci->get('settings');
 		$this->menus = $this->getMenus();
-		$this->addJs('/statics/js/main.js', time());
-		$this->addCss('/statics/css/layout.css', time());
-		$this->addJs('/statics/js/utils.js', time());
+		$this->addJs('/statics/js/main.js');
+		$this->addCss('/statics/css/layout.css');
+		$this->addJs('/statics/js/utils.js');
 	}
 
 	protected function getMenus()
@@ -101,9 +93,11 @@ class Base
 		if ($files) {
 			foreach ($files as $item) {
 				if (substr($item, -3) == '.js') {
-					$this->addJs(str_replace(PUBLIC_DIR, '/', $item), $version);
+					$f = str_replace(PUBLIC_DIR, '/', $item);
+					$this->addJs($f, $version);
 				} elseif (substr($item, -4) == '.css') {
-					$this->addCss(str_replace(PUBLIC_DIR, '/', $item), $version);
+					$f = str_replace(PUBLIC_DIR, '/', $item);
+					$this->addCss($f, $version);
 				}
 			}
 		}
@@ -135,7 +129,9 @@ class Base
 		$render_data['Functions'] = new Functions;
 		$render_data = array_merge($render_data, $data);
 		$render_data['title'] = isset($render_data['current_menu']) ? implode('-', $render_data['current_menu']) : $render_data['site']['title'];
-		$render_data['runtime'] = \App\Functions::runTime('run', true);
+		$render_data['keyword'] = isset($render_data['current_menu']) ? implode(',', $render_data['current_menu']).',工具箱' : $render_data['site']['keyword'];
+		$render_data['description'] = $render_data['keyword'];
+		$render_data['runtime'] = round(\App\Functions::runTime('run', true), 6);
 		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
 

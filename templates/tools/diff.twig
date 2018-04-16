@@ -2,17 +2,52 @@
 
 {% block container %}
     <h3 class="page-header">{{ current_menu[1] }}</h3>
-    <div class="mergely-full-screen-8">
-        <div class="mergely-resizer">
-            <div id="mergely"></div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="">左边文件：</label>
+                    <input type="file" class="form-control" onchange="fileSelect(this.files, 'left')">
+                </div>
 
+                <div class="form-group">
+                    <label>编码：</label>
+                    <select class="selectpicker" name="l_encode" onchange="setEncode('left')">
+                        <option value="UTF-8">UTF-8</option>
+                        <option value="GBK">GBK</option>
+                        <option value="GB2312">GB2312</option>
+                        <option value="GB18030">GB18030</option>
+                        <option value="ISO-8859-2">ISO-8859-2</option>
+                    </select>
+                </div>
+            </form>
         </div>
         <div class="col-md-6">
-
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="">右边文件：</label>
+                    <input type="file" class="form-control"  onchange="fileSelect(this.files, 'right')">
+                </div>
+                <div class="form-group">
+                    <label>编码：</label>
+                    <select class="selectpicker" name="r_encode" onchange="setEncode('right')">
+                        <option value="UTF-8">UTF-8</option>
+                        <option value="GBK">GBK</option>
+                        <option value="GB2312">GB2312</option>
+                        <option value="GB18030">GB18030</option>
+                        <option value="ISO-8859-2">ISO-8859-2</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <blockquote>
+        由于IE全系列对HTML5的Canvas以及File API支持不好，推荐使用Chrome、Firefox浏览器，另外请选择正确的文件编码方式以免出现乱码或者显示错误。
+    </blockquote>
+    <div class="row">
+        <div id="mergely-resizer">
+            <div id="diff">
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -20,12 +55,50 @@
 
 {% block script %}
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/addon/search/searchcursor.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css" />
     <script>
         $(document).ready(function () {
-            $('#mergely').mergely();
+            $('#diff').mergely({
+                width: 'auto',
+                height: '600', // containing div must be given a height
+                cmsettings: {
+                    readOnly: false,
+                    lineWrapping: true
+                }
+            });
         });
+        var left_file, right_file;
+        function fileSelect(files, type) {
+            if (type == 'left') {
+                left_file = files;
+            } else {
+                right_file = files;
+            }
+            setFile(files, type);
+        }
+        function setFile(files, type) {
+            f=files[0];
+            var mhs = 'lhs';
+            var ev = '#l_encode';
+            if (type != 'left') {
+                mhs = 'rhs';
+                ev = '#r_encode';
+            }
+            var reader = new FileReader();
+            reader.onload = (function(file) {
+                return function(e) {
+                    $('#diff').mergely(mhs, this.result);
+                }
+            })(f);
+            reader.readAsText(f, $(ev).val());
+        }
+        function setEncode(type) {
+            var file = left_file;
+            if (type != 'left') {
+                file = right_file;
+            }
+            if (file) {
+                setFile(file, type);
+            }
+        }
     </script>
 {% endblock %}

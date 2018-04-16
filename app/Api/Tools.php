@@ -66,6 +66,7 @@ class Tools extends Base
 
 	/**
 	 * @pattern /api/ic/zone
+	 * @method get|post
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args

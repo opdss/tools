@@ -43,7 +43,8 @@ class Cryption extends Base
         $data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addJs('/statics/js/sha1.js');
 		$this->addJs('/statics/js/javacrypt.js');
-		$this->addStaticsDir('bootstrap-select');
+		$this->addCss("https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css");
+		$this->addJs("https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js");
         return $this->view('cryption/passwd.twig', $data);
     }
 
@@ -73,7 +74,7 @@ class Cryption extends Base
     public function base64(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        $this->addJs('/statics/js/base64.js', time());
+        $this->addJs('/statics/js/base64.js');
         return $this->view('cryption/base64.twig', $data);
     }
 

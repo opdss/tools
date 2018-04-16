@@ -40,8 +40,11 @@ class Tools extends Base
 	public function idCard(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
-		$this->addJs('/statics/js/bootstrap.autocomplete.js');
-		$this->addStaticsDir('bootstrap-select');
+		$this->addCss("https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css");
+		$this->addJs("https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js");
+
+		$this->addJs("https://cdn.bootcss.com/ajax-bootstrap-select/1.4.3/js/ajax-bootstrap-select.min.js");
+
 		$this->addStaticsDir('bootstrap-datetimepicker');
 		$this->addJs('/statics/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js');
 		return $this->view('tools/idcard.twig', $data);
@@ -58,7 +61,8 @@ class Tools extends Base
 	public function timestamp(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
-		$this->addStaticsDir('bootstrap-select');
+		$this->addCss("https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css");
+		$this->addJs("https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js");
 		$data['timezone'] = Config::get('timezone');
 		return $this->view('tools/timestamp.twig', $data);
 	}
@@ -90,7 +94,9 @@ class Tools extends Base
 	public function diff(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
-        //$this->addStaticsDir('mergely');
+		$this->addCss("https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css");
+		$this->addJs("https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js");
+        $this->addStaticsDir('mergely');
 		return $this->view('tools/diff.twig', $data);
 	}
 }

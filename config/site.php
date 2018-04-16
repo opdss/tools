@@ -13,7 +13,7 @@ return array(
 	'description' => '这是一个神奇的网站！！！',
 	//'copyright' => 'Copyright © 2017  istimer.com </br>技术支持：<a href="mailto:wux@tsingning.com" style="color: #2a76fe	;">@阿新</a>',
 	'page_number' => 6,
-	'copyright' => '©2017 <a href="http://www.1tools.net">1tools.net</a>',
+	'copyright' => '©2018 <a href="http://www.1tools.net">1tools.net</a>',
 	'icp' => '<a href="http://www.miibeian.gov.cn/">粤ICP备17068889号-3</a>',
 	'contact' => '<a href="mailto:opdss@qq.com">阿新</a>',
 );

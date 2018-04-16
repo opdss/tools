@@ -8,10 +8,13 @@
     <meta name="author" content="{{ author|default(site.author) }}">
     <meta name="keyword" content="{{ keyword|default(site.keyword) }}">
     <meta name="description" content="{{ description|default(site.description) }}">
+    <meta name="baidu-site-verification" content="4hTtFRZbky" />
     <link rel="icon" href="#">
 
     <title>{{ title }}</title>
 
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
     {% for css in statics.css %}
         <link href="{{ css }}" rel="stylesheet">
     {% endfor %}
@@ -118,11 +121,15 @@
 {% block footer %}
     <!-- 尾部start -->
     <footer id="copyright" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main text-right">
-        <p>{{ site.copyright|raw }} | {{ site.icp|raw }} | 联系人：{{ site.contact|raw }} | 运行时间:{{ runtime }}</p>
+        <p>{{ site.copyright|raw }} | {{ site.icp|raw }} {#| 联系人：{{ site.contact|raw }}#}{# | 运行时间:{{ runtime }}#}</p>
     </footer>
     <!-- 尾部end -->
 {% endblock %}
 
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://cdn.bootcss.com/clipboard.js/2.0.0/clipboard.min.js"></script>
 {% for js in statics.js %}
     <script src="{{ js }}"></script>
 {% endfor %}

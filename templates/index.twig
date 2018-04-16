@@ -1,5 +1,18 @@
 {% extends "layout.twig" %}
 
 {% block container %}
-    <h1 class="page-header text-center" style="padding: 200px;">别介意，努力建设当中....</h1>
+    <div class="text-center">
+        <h3>本站目录</h3>
+        {% for item in menus %}
+            <div>
+                <h3><a href="{{ item['url'] }}" target="_blank">{{ item['name'] }}</a></h3>
+                {% for _item in item['sub'] %}
+                    <div>
+                        <a href="{{ _item['url'] }}" target="_blank">{{ _item['name'] }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    {#<h1 class="page-header text-center" style="padding: 200px;">别介意，努力建设当中....</h1>#}
 {% endblock %}
