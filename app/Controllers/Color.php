@@ -31,8 +31,8 @@ class Color extends Base
 	public function index(Request $request, Response $response, $args)
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
-		//var_dump(Functions::genFontColor('#000000'));exit;
-		//var_dump(Functions::genFontColor('#3fef44'));exit;
+		$this->addJs('https://cdn.bootcss.com/bootstrap-colorpicker/3.0.0-beta.1/js/bootstrap-colorpicker.min.js');
+		$this->addCss('https://cdn.bootcss.com/bootstrap-colorpicker/3.0.0-beta.1/css/bootstrap-colorpicker.min.css');
 		$data['color'] = Config::get('color');
 		return $this->view('color/index.twig', $data);
 	}

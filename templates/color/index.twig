@@ -1,12 +1,86 @@
 {% extends "layout.twig" %}
 
+{% block css %}
+    <style>
+        .web-color{
+            position: relative;
+        }
+        .web-color>.copy-color{
+            display: none;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            padding: 4px;
+            cursor: pointer;
+            z-index: 10;
+            color: #767676;
+            background-color: #fff;
+            border: 1px solid #e1e1e8;
+            /*border-radius: 0 0 0 4px;*/
+        }
+        .web-color>.copy-color-hover{
+            display: block;
+        }
+        .web-color>.copy-color:hover{
+
+            background-color: #DCDCDC;
+        }
+    </style>
+    <style>
+        .colorpicker-2x .colorpicker-saturation {
+            width: 200px;
+            height: 200px;
+        }
+
+        .colorpicker-2x .colorpicker-hue,
+        .colorpicker-2x .colorpicker-alpha {
+            width: 30px;
+            height: 200px;
+        }
+
+        .colorpicker-2x .colorpicker-preview,
+        .colorpicker-2x .colorpicker-preview div {
+            height: 30px;
+            font-size: 16px;
+            line-height: 160%;
+        }
+
+        .colorpicker-saturation .colorpicker-guide,
+        .colorpicker-saturation .colorpicker-guide i {
+            height: 10px;
+            width: 10px;
+            border-radius: 10px;
+        }
+    </style>
+{% endblock %}
+
 {% block container %}
+    <h3 class="page-header">web取色器</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group col-md-10"  id="cp1"  data-color="#dd0f20">
+                <input type="text" class="form-control" placeholder="">
+                <span class="input-group-addon"><i></i></span>
+                <span class="input-group-btn" >
+                    {#<span class="glyphicon glyphicon-copy"></span>#}
+                    <button type="submit" class="btn btn-primary" id="copy-btn" data-clipboard-target="#cp1">复制</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {#<div class="input-group col-md-10"  id="cp1"  data-color="#dd0f20">
+                <input type="text" class="form-control" style="background-color: #dd0f20" id="background-color" readonly>
+            </div>#}
+            <div class="well col-md-10" style="background-color: #dd0f20" id="background-color"></div>
+        </div>
+    </div>
+    
     <h3 class="page-header">WEB标准颜色</h3>
-    <blockquote>
+    <p>
         <p>WEB标准颜色是指可以直接以英文名称形式在网页脚本中使用的一组RGB颜色，该颜色由W3C组织定义。</p>
         <p>WEB标准色共计140种，Aqua与Cyan异名同色（青色），Fuchsia与Magenta异名同色（洋红），所以实际上共有138种。WEB标准颜色是命名颜色的一个子集。</p>
         <p>由于历史原因，WEB标准色中的个别颜色并非其单词本义，备注如下：Aqua本为水色(175, 223, 238)，Fuchsia本为品红(244, 0, 161)，Azure在Web色中是一种浅色但本为湛蓝(0, 127, 255)。</p>
-    </blockquote>
+    </p>
     {#<div>
         <p>1、忠于英文原意，同时兼顾汉语表达习惯；</p>
         <p>2、除单色和两个单色构成的颜色名以及部分指代色外，不加“色”字后缀；</p>
@@ -16,10 +90,11 @@
     </div>#}
     <div class="row">
         {% for item in color %}
-        <div class="col-md-2 col-sm-3 copy-color" style="background-color: {{ item[0] }}; height: 60px" data-clipboard-text="{{ item[2] }}" title="{{ item[1] }}" data-toggle="tooltip" data-placement="top">
+        <div class="col-md-2 col-sm-3 web-color" style="background-color: {{ item[0] }}; height: 60px" data-color="{{ item[2] }}" title="{{ item[1] }}" data-toggle="tooltip" data-placement="top">
             <span style="color: {{ Functions.genFontColor(item[2])}};">{{ item[0] }}</span><br/>
             <span style="color: {{ Functions.genFontColor(item[2])}};">HEX:{{ item[2] }}</span><br/>
             <span style="color: {{ Functions.genFontColor(item[2])}};">RGB:{{ item[3] }}</span>
+            <span class="glyphicon glyphicon-copy copy-color" data-clipboard-text="{{ item[2] }}"></span>
         </div>
         {% endfor %}
     </div>
@@ -27,19 +102,52 @@
 
 {% block script %}
 <script type="text/javascript">
-    var clipboard = new ClipboardJS('.copy-color');
 
+    var CP = $('#cp1');
+    CP.colorpicker(/*{
+        container: true,
+        customClass: 'colorpicker-2x',
+        sliders: {
+            saturation: {
+                maxLeft: 200,
+                maxTop: 200
+            },
+            hue: {
+                maxTop: 200
+            },
+            alpha: {
+                maxTop: 200
+            }
+        }
+    }*/).on('colorpickerChange colorpickerCreate', function (e) {
+            $('#background-color').css('background-color', e.color.toRgbString());
+        });
+
+    var clipboard = new ClipboardJS('.copy-color');
     clipboard.on('success', function(e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
+        CP.colorpicker('setValue', e.text);
         swal_osc('复制成功:'+e.text);
         e.clearSelection();
     });
 
-    clipboard.on('error', function(e) {
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
+    var clipboard1 = new ClipboardJS('#copy-btn');
+    clipboard1.on('success', function(e) {
+        console.log(e);
+        swal_osc('复制成功');
+        e.clearSelection();
     });
+
+    var webColor = $('.web-color');
+    webColor.click(function () {
+        CP.colorpicker('setValue', $(this).data('color'));
+    })
+    webColor.mouseover(function () {
+        $(this).find('.copy-color').addClass('copy-color-hover');
+    })
+    webColor.mouseout(function () {
+        $(this).find('.copy-color').removeClass('copy-color-hover');
+    })
+
+
 </script>
 {% endblock %}
