@@ -88,6 +88,24 @@ var utils = {
         return true;
     },
 
+    htmlCompress : function (html) {
+        var sourceLength = html.length;
+        if(sourceLength==0){
+            return false;
+        }
+        var rep = /\n+/g;
+        var repone = /<!--.*?-->/ig;
+        var reptwo = /\/\*.*?\*\//ig;
+        var reptree = /[ ]+</ig;
+        //var tt = /\t+/g;
+        var sourceZero = html.replace(rep,"");
+        var sourceOne = sourceZero.replace(repone,"");
+        var sourceTwo = sourceOne.replace(reptwo,"");
+        var sourceTree = sourceTwo.replace(reptree,"<");
+        //var sourceTree = sourceTwo.replace(tt,"<");
+        return sourceTree;
+    },
+
     fullscreen : function(id) {
         var docElm = document.getElementById(id);
         if (docElm.requestFullscreen) {

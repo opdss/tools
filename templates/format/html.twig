@@ -58,5 +58,15 @@
                 "indent_size": 1, // Indentation size
             }));
         });
+
+        $('#resubmit').click(function () {
+            var obj = $(this).data('obj');
+            var arr = obj.split('|');
+            if (arr.length != 2){
+                console.log('submit operation arr error', obj);
+                return false;
+            }
+            $(arr[1]).text(utils.htmlCompress($(arr[0]).val()));
+        });
     </script>
 {% endblock %}

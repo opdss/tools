@@ -74,7 +74,7 @@ class Format extends Base
 
 
 	/**
-     * //@pattern /format/xml.html
+     * @pattern /format/xml.html
      * @menu 格式化工具|xml格式化
      * @param Request $request
      * @param Response $response
@@ -84,6 +84,8 @@ class Format extends Base
     public function toXml(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
+        $this->addStaticsDir('beautify');
+        $this->addStaticsDir('bootstrap-select');
         return $this->view('format/xml.twig', $data);
     }
 
