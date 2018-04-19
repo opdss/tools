@@ -8,7 +8,7 @@ var utils = {
      * @param special 特俗字符
      * @returns {string}
      */
-    genRandStr: function genRandStr(num, has, special) {
+    genRandStr: function(num, has, special) {
         num = num || 16;
         var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
         var specialStr = has ? (special ? special : utils.specialStr) : '';
@@ -77,6 +77,48 @@ var utils = {
         //得到现在的格林尼治时间
         var utcTime = dt.getTime() + offset + 3600000 * timezone;
         return utils.getFmtDateTime(utcTime);
+    },
+
+    isJsonFormat : function (str) {
+        try {
+            $.parseJSON(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    },
+
+    fullscreen : function(id) {
+        var docElm = document.getElementById(id);
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+        } else if (docElm.msRequestFullscreen) {
+            docElm.msRequestFullscreen();
+        } else if (docElm.mozRequestFullScreen) {
+            docElm.mozRequestFullScreen();
+        } else if (docElm.webkitRequestFullScreen) {
+            docElm.webkitRequestFullScreen();
+        } else {
+            swal("当前浏览器不支持全屏化操作！");
+            return false;
+        }
+        return true;
+    },
+
+    closeFullscreen : function () {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        } else{
+            swal("当前浏览器不支持全屏化操作！");
+            return false;
+        }
+        return true;
     },
 
     /**

@@ -43,8 +43,7 @@ class Cryption extends Base
         $data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addJs('/statics/js/sha1.js');
 		$this->addJs('/statics/js/javacrypt.js');
-		$this->addCss("https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.min.css");
-		$this->addJs("https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js");
+		$this->addStaticsDir('bootstrap-select');
         return $this->view('cryption/passwd.twig', $data);
     }
 

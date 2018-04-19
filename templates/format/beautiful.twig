@@ -1,0 +1,40 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">js代码格式化</h3>
+    <p>
+        <select class="selectpicker" id="tabsize">
+            <option value="1">Tab符缩进</option>
+            <option value="2">2个空格缩进</option>
+            <option value="4" selected="selected">4个空格缩进</option>
+            <option value="8">8个空格缩进</option>
+        </select>
+        <button class="btn btn-primary" id="beautiful-btn">美化</button>
+        <button class="btn btn-primary" id="minily-btn">压缩</button>
+        <button class="btn btn-primary btn-copy" data-obj="#origin_textarea">复制</button>
+    </p>
+    {{ Bootstrap.textarea('origin_textarea', 16)|raw }}
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        function do_js_beautify() {
+            //var js_source = $("#origin_textarea").val().replace(/^\s+/, '');
+            var js_source = $("#origin_textarea").val();
+            if(js_source.length==0)
+                return;
+            var tabsize = parseInt($('#tabsize').val());
+            //var fjs = js_beautify(js_source, tabsize, tabsize == 1 ? '\t' : ' ');
+            var fjs = js_beautify(js_source, {
+                indent_size : tabsize,
+                indent_char : tabsize == 1 ? '\t' : ' '
+            });
+            $("#origin_textarea").val(fjs);
+        }
+
+        $('#beautiful-btn').click(function () {
+            do_html_beautify();
+        });
+    </script>
+{% endblock %}

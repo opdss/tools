@@ -10,7 +10,7 @@ namespace App\Libraries;
 
 class Bootstrap
 {
-	public static function iconBtn($icon, array $arr=array(), $hasTip=true)
+	public static function iconBtn($icon, array $arr = array(), $hasTip = true)
 	{
 		$icons = array(
 			'copy' => '复制文本内容',
@@ -23,31 +23,31 @@ class Bootstrap
 			$arr['title'] = $icons[$icon];
 		}
 		$class = '';
-        if ($arr) {
+		if ($arr) {
 			foreach ($arr as $k => $v) {
-				$class .= ' '.$k.'="'.$v.'"';
+				$class .= ' ' . $k . '="' . $v . '"';
 			}
 		}
 		$tip = $hasTip ? ' data-toggle="tooltip" data-placement="top"' : '';
-		$html = '<button type="button" class="btn btn-default btn-xs btn-'.$icon.'" '.$tip.' '.$class.'>';
-		$html .= '<span class="glyphicon glyphicon-'.$icon.'"></span>';
+		$html = '<button type="button" class="btn btn-default btn-xs btn-' . $icon . '" ' . $tip . ' ' . $class . '>';
+		$html .= '<span class="glyphicon glyphicon-' . $icon . '"></span>';
 		$html .= '</button>';
 		return $html;
 	}
 
-	public static function textarea($id, $rows=10)
+	public static function textarea($id, $rows = 10, $val = '')
 	{
-		$html = '<textarea class="form-control" rows="'.$rows.'" id="'.$id.'"></textarea>';
+		$html = '<textarea class="form-control" rows="' . $rows . '" id="' . $id . '">' . $val . '</textarea>';
 		return $html;
 	}
 
 	public static function input($id)
 	{
-		$html = '<input class="form-control" id="'.$id.'"></input>';
+		$html = '<input class="form-control" id="' . $id . '"></input>';
 		return $html;
 	}
 
-	public static function button($arr, $name='提交', $style='primary')
+	public static function button($arr, $name = '提交', $style = 'primary')
 	{
 		$class = '';
 		if (isset($arr['class'])) {
@@ -57,16 +57,16 @@ class Bootstrap
 		$attr = '';
 		if ($arr) {
 			foreach ($arr as $k => $v) {
-				$attr .= ' '.$k.'="'.$v.'"';
+				$attr .= ' ' . $k . '="' . $v . '"';
 			}
 		}
-		$html = '<button class="btn btn-'.$style.' '.$class.'" '.$attr.' >'.$name.'</button>';
+		$html = '<button class="btn btn-' . $style . ' ' . $class . '" ' . $attr . ' >' . $name . '</button>';
 		return $html;
 	}
 
-	public static function span($name, $label='success', $id='')
+	public static function span($name, $label = 'success', $id = '')
 	{
-		$html = '<span class="label label-'.$label.'" id="'.$id.'">'.$name.'</span>';
+		$html = '<span class="label label-' . $label . '" id="' . $id . '">' . $name . '</span>';
 		return $html;
 	}
 }

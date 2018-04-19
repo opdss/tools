@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="author" content="{{ author|default(site.author) }}">
     <meta name="keyword" content="{{ keyword|default(site.keyword) }}">
     <meta name="description" content="{{ description|default(site.description) }}">
     <meta name="baidu-site-verification" content="4hTtFRZbky" />
-    <link rel="icon" href="#">
+    <link rel="icon" href="http://img.1tools.net/ico/2tools32.ico">
 
     <title>{{ title }}</title>
 
@@ -21,7 +20,6 @@
     {% block css %}
         {# 额外添加的css #}
     {% endblock %}
-    <![endif]-->
     <script>
         var _hmt = _hmt || [];
         (function () {
@@ -110,7 +108,7 @@
             {% endblock %}
         </div>
 
-        <div class="col-sm-{{ 12-_sm }} col-sm-offset-{{ _sm }} col-md-{{ 12-_md }} col-md-offset-{{ _md }} main">
+        <div class="col-sm-{{ 12-_sm }} col-sm-offset-{{ _sm }} col-md-{{ 12-_md }} col-md-offset-{{ _md }} main" id="main">
             {% block container %}
                 <div class="container-fluid" style="text-align: center;padding:20%"><h1>好像啥也没有。。。</h1></div>
             {% endblock %}
@@ -120,7 +118,7 @@
 
 {% block footer %}
     <!-- 尾部start -->
-    <footer id="copyright" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main text-right">
+    <footer id="copyright" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 text-right">
         <p>{{ site.copyright|raw }} | {{ site.icp|raw }} {#| 联系人：{{ site.contact|raw }}#}{# | 运行时间:{{ runtime }}#}</p>
     </footer>
     <!-- 尾部end -->

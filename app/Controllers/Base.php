@@ -38,9 +38,9 @@ class Base
 		$this->ci = $ci;
 		$this->settings = $this->ci->get('settings');
 		$this->menus = $this->getMenus();
-		$this->addJs('/statics/js/main.js');
-		$this->addCss('/statics/css/layout.css');
-		$this->addJs('/statics/js/utils.js');
+		$this->addJs('/statics/js/main.js', time());
+		$this->addCss('/statics/css/layout.css', time());
+		$this->addJs('/statics/js/utils.js', time());
 	}
 
 	protected function getMenus()
@@ -88,8 +88,13 @@ class Base
 
 	protected function addStaticsDir($dir, $dep = 1, $version = 0)
 	{
-		$path = PUBLIC_DIR . 'statics/'.ltrim($dir, '/');
-		$files = File::getFileNames($path, 1, $dep);
+		$statics = Config::get('statics');
+		if (isset($statics[$dir])) {
+			$files = $statics[$dir];
+		} else {
+			$path = PUBLIC_DIR . 'statics/'.ltrim($dir, '/');
+			$files = File::getFileNames($path, 1, $dep);
+		}
 		if ($files) {
 			foreach ($files as $item) {
 				if (substr($item, -3) == '.js') {
