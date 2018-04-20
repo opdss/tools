@@ -26,5 +26,8 @@ return array(
 		'https://cdn.bootcss.com/js-beautify/1.7.5/beautify.min.js',
 		'https://cdn.bootcss.com/js-beautify/1.7.5/beautify-css.min.js',
 		'https://cdn.bootcss.com/js-beautify/1.7.5/beautify-html.min.js'
+	),
+	'htmlminifier' => array(
+		'https://cdn.bootcss.com/html-minifier/3.5.15/htmlminifier.min.js',
 	)
 );

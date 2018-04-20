@@ -8,7 +8,7 @@ var utils = {
      * @param special 特俗字符
      * @returns {string}
      */
-    genRandStr: function(num, has, special) {
+    genRandStr: function (num, has, special) {
         num = num || 16;
         var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
         var specialStr = has ? (special ? special : utils.specialStr) : '';
@@ -79,7 +79,7 @@ var utils = {
         return utils.getFmtDateTime(utcTime);
     },
 
-    isJsonFormat : function (str) {
+    isJsonFormat: function (str) {
         try {
             $.parseJSON(str);
         } catch (e) {
@@ -88,9 +88,9 @@ var utils = {
         return true;
     },
 
-    htmlCompress : function (html) {
+    htmlCompress: function (html) {
         var sourceLength = html.length;
-        if(sourceLength==0){
+        if (sourceLength == 0) {
             return false;
         }
         var rep = /\n+/g;
@@ -98,15 +98,101 @@ var utils = {
         var reptwo = /\/\*.*?\*\//ig;
         var reptree = /[ ]+</ig;
         //var tt = /\t+/g;
-        var sourceZero = html.replace(rep,"");
-        var sourceOne = sourceZero.replace(repone,"");
-        var sourceTwo = sourceOne.replace(reptwo,"");
-        var sourceTree = sourceTwo.replace(reptree,"<");
+        var sourceZero = html.replace(rep, "");
+        var sourceOne = sourceZero.replace(repone, "");
+        var sourceTwo = sourceOne.replace(reptwo, "");
+        var sourceTree = sourceTwo.replace(reptree, "<");
         //var sourceTree = sourceTwo.replace(tt,"<");
         return sourceTree;
     },
 
-    fullscreen : function(id) {
+    xmlCompress: function (text) {
+        var str = text.replace(/\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>/g, "").replace(/[ \r\n\t]{1,}xmlns/g, ' xmlns');
+        return str.replace(/>\s{0,}</g, "><");
+    },
+
+    xmlFormat: function (text, step) {
+        function createShiftArr(step) {
+            var space = '    ';
+            if (isNaN(parseInt(step)) ) {  // argument is string
+                space = step;
+            } else { // argument is integer
+                space = new Array(step + 1).join(' '); //space is result of join (a string), not an array
+            }
+            var shift = ['\n']; // array of shifts
+            for(var ix=0;ix<100;ix++){
+                shift.push(shift[ix]+space);
+            }
+            return shift;
+        }
+
+        this.step = step || '\t';
+        this.preserveComments = false;
+        this.shift = createShiftArr(this.step);
+
+        var ar = text.replace(/>\s{0,}</g, "><")
+                .replace(/</g, "~::~<")
+                .replace(/\s*xmlns\:/g, "~::~xmlns:")
+                .replace(/\s*xmlns\=/g, "~::~xmlns=")
+                .split('~::~'),
+            len = ar.length,
+            inComment = false,
+            deep = 0,
+            str = '',
+            ix = 0;
+
+        for (ix = 0; ix < len; ix++) {
+            // start comment or <![CDATA[...]]> or <!DOCTYPE //
+            if (ar[ix].search(/<!/) > -1) {
+                str += this.shift[deep] + ar[ix];
+                inComment = true;
+                // end comment  or <![CDATA[...]]> //
+                if (ar[ix].search(/-->/) > -1 || ar[ix].search(/\]>/) > -1 || ar[ix].search(/!DOCTYPE/) > -1) {
+                    inComment = false;
+                }
+            } else
+            // end comment  or <![CDATA[...]]> //
+            if (ar[ix].search(/-->/) > -1 || ar[ix].search(/\]>/) > -1) {
+                str += ar[ix];
+                inComment = false;
+            } else
+            // <elm></elm> //
+            if (/^<\w/.exec(ar[ix - 1]) && /^<\/\w/.exec(ar[ix]) &&
+                /^<[\w:\-\.\,]+/.exec(ar[ix - 1]) == /^<\/[\w:\-\.\,]+/.exec(ar[ix])[0].replace('/', '')) {
+                str += ar[ix];
+                if (!inComment) deep--;
+            } else
+            // <elm> //
+            if (ar[ix].search(/<\w/) > -1 && ar[ix].search(/<\//) == -1 && ar[ix].search(/\/>/) == -1) {
+                str = !inComment ? str += this.shift[deep++] + ar[ix] : str += ar[ix];
+            } else
+            // <elm>...</elm> //
+            if (ar[ix].search(/<\w/) > -1 && ar[ix].search(/<\//) > -1) {
+                str = !inComment ? str += this.shift[deep] + ar[ix] : str += ar[ix];
+            } else
+            // </elm> //
+            if (ar[ix].search(/<\//) > -1) {
+                str = !inComment ? str += this.shift[--deep] + ar[ix] : str += ar[ix];
+            } else
+            // <elm/> //
+            if (ar[ix].search(/\/>/) > -1) {
+                str = !inComment ? str += this.shift[deep] + ar[ix] : str += ar[ix];
+            } else
+            // <? xml ... ?> //
+            if (ar[ix].search(/<\?/) > -1) {
+                str += this.shift[deep] + ar[ix];
+            } else
+            // xmlns //
+            if (ar[ix].search(/xmlns\:/) > -1 || ar[ix].search(/xmlns\=/) > -1) {
+                str += this.shift[deep] + ar[ix];
+            } else {
+                str += ar[ix];
+            }
+        }
+        return (str[0] == '\n') ? str.slice(1) : str;
+    },
+
+    fullscreen: function (id) {
         var docElm = document.getElementById(id);
         if (docElm.requestFullscreen) {
             docElm.requestFullscreen();
@@ -123,7 +209,7 @@ var utils = {
         return true;
     },
 
-    closeFullscreen : function () {
+    closeFullscreen: function () {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.msExitFullscreen) {
@@ -132,7 +218,7 @@ var utils = {
             document.mozCancelFullScreen();
         } else if (document.webkitCancelFullScreen) {
             document.webkitCancelFullScreen();
-        } else{
+        } else {
             swal("当前浏览器不支持全屏化操作！");
             return false;
         }
@@ -144,7 +230,7 @@ var utils = {
      * @param str
      * @returns {*}
      */
-    md5 : function (str) {
+    md5: function (str) {
         var rotateLeft = function (lValue, iShiftBits) {
             return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits));
         }
@@ -240,6 +326,7 @@ var utils = {
             }
             return output;
         };
+
         function _md5(string) {
             var x = Array();
             var k, AA, BB, CC, DD, a, b, c, d;
@@ -249,9 +336,15 @@ var utils = {
             var S41 = 6, S42 = 10, S43 = 15, S44 = 21;
             string = uTF8Encode(string);
             x = convertToWordArray(string);
-            a = 0x67452301; b = 0xEFCDAB89; c = 0x98BADCFE; d = 0x10325476;
+            a = 0x67452301;
+            b = 0xEFCDAB89;
+            c = 0x98BADCFE;
+            d = 0x10325476;
             for (k = 0; k < x.length; k += 16) {
-                AA = a; BB = b; CC = c; DD = d;
+                AA = a;
+                BB = b;
+                CC = c;
+                DD = d;
                 a = FF(a, b, c, d, x[k + 0], S11, 0xD76AA478);
                 d = FF(d, a, b, c, x[k + 1], S12, 0xE8C7B756);
                 c = FF(c, d, a, b, x[k + 2], S13, 0x242070DB);
@@ -324,6 +417,7 @@ var utils = {
             var tempValue = wordToHex(a) + wordToHex(b) + wordToHex(c) + wordToHex(d);
             return tempValue.toLowerCase();
         }
+
         return _md5(str);
     },
 

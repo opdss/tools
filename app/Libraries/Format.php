@@ -7,6 +7,8 @@
  */
 namespace App\Libraries;
 
+use App\Functions;
+
 class Format
 {
     private static $errInfo = array();
@@ -157,5 +159,60 @@ class Format
 				$space_times ++;  // 空格 +1
 			}
 			return $beauty_str;
+	}
+
+	public static function compressHtml($sourceStr, array $config = array())
+	{
+		$url = 'https://tool.lu/html/ajax.html';
+
+		$res = \Opdss\Http\Request::post($url, array('code'=>$sourceStr, 'operate'=>'compress'));
+		if ($res->httpCode() != 200) {
+			Functions::getLogger()->error('tool.lu error!', array($res->getCurlInfo(), $res->getBody()));
+			return false;
+		}
+		$data = json_decode($res->getBody(), true);
+		if ($data && $data['status']) {
+			return $data['text'];
+		}
+		if (isset($data['message'])) {
+			array_push(self::$errInfo, $data['message']);
+		}
+		Functions::getLogger()->error('tool.lu parse error!', array($res->getCurlInfo(), $res->getBody()));
+		return false;
+
+		/*$multipartBody = new \Opdss\Http\RequestMultipartBody();
+		$multipartBody->add('aaa', 'bbb');
+		$multipartBody->addFile('file', __DIR__ . '/test_multipart.php', 'test_multipart.php');
+
+		$request = \Opdss\Http\Request::factory();
+		$response = $request->post('http://www.istimer.com/multi.php', $multipartBody);*/
+	}
+
+	public static function compressCss($sourceStr, array $config = array())
+	{
+		$url = 'http://tool.oschina.net/action/jscompress/css_compress?'.($config ? http_build_query($config) : '');
+		return self::ajax($url, $sourceStr);
+	}
+
+	public static function compressJs($sourceStr, array $config = array())
+	{
+		$url = 'http://tool.oschina.net/action/jscompress/js_compress?'.($config ? http_build_query($config) : '');
+		return self::ajax($url, $sourceStr);
+	}
+
+	private static function ajax($url, $data)
+	{
+		$log = Functions::getLogger();
+		$res = \Opdss\Http\Request::post($url, $data);
+		if ($res->httpCode() != 200) {
+			$log->error('oschina error!', array($res->getCurlInfo(), $res->getBody()));
+			return false;
+		}
+		$data = json_decode($res->getBody(), true);
+		if ($data && isset($data['result'])) {
+			return $data['result'];
+		}
+		$log->error('oschina parse error!', array($res->getCurlInfo(), $res->getBody()));
+		return false;
 	}
 }

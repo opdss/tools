@@ -1,86 +1,98 @@
 {% extends "layout.twig" %}
 
 {% block container %}
-    <h3 class="page-header">在线Json格式化、在线格式化Json代码、Json代码美化器、Json在线压缩、Json \uxxxx格式解码</h3>
-
-    {#<blockquote>
-        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
-    </blockquote>#}
+    <span class="glyphicon glyphicon-fullscreen" id="fullscreen"></span>
+    <span class="glyphicon glyphicon-remove" id="close-fullscreen"></span>
+    <h3 class="page-header">在线Json格式化、在线格式化Json代码、Json代码美化器、Json在线压缩</h3>
     <div class="well">
         Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json
     </div>
-    <p class="text-muted">
-        待格式化JSON代码：
-        {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
-        {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
-    </p>
-    {{ Bootstrap.textarea('origin_textarea')|raw }}
-    <div style="margin: 10px 0px;"></div>
-    <div class="text-center">
-        {{ Bootstrap.button({'id':'submit', 'data-obj':'#origin_textarea|#result_textarea'}, 'JSON格式化&美化')|raw }}
-        {{ Bootstrap.button({'id':'resubmit', 'data-obj':'#origin_textarea|#result_textarea'}, '检查&压缩JSON')|raw }}
+
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                <select class="selectpicker" id="tabsize">
+                    <option value=0>Tab符缩进</option>
+                    <option value="2">2个空格缩进</option>
+                    <option value="4" selected="selected">4个空格缩进</option>
+                    <option value="8">8个空格缩进</option>
+                </select>
+                <button class="btn btn-primary" id="beautiful-btn">格式化</button>
+                <button class="btn btn-primary" id="compress-btn">压缩</button>
+                <button class="btn btn-primary btn-copy" data-obj="#origin_textarea">复制</button>
+                <button class="btn btn-info" id="view-btn">右侧展示节点</button>
+            </p>
+            {{ Bootstrap.textarea('origin_textarea', 16, test)|raw }}
+        </div>
+
+        <div class="col-md-6">
+            <p>
+                <select class="selectpicker" id="toggle-number">
+                    <option value="0">全部节点</option>
+                    <option value="1">第1个节点</option>
+                    <option value="2">第2个节点</option>
+                    <option value="3">第3个节点</option>
+                    <option value="4">第4个节点</option>
+                    <option value="5">第5个节点</option>
+                </select>
+                <button class="btn btn-primary view-action-btn" data-act="collapse">关闭</button>
+                <button class="btn btn-primary view-action-btn" data-act="expand">展开</button>
+            </p>
+            <div class="well code-break" id="json-view"></div>
+        </div>
     </div>
-    <p class="text-muted">
-        格式化化之后的JSON代码：
-        {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
-        {{ Bootstrap.iconBtn('remove', {'data-obj':'#result_textarea'})|raw }}
-        {{ Bootstrap.iconBtn('retweet', {'data-obj':'#origin_textarea|#result_textarea'})|raw }}
-    </p>
-    {{ Bootstrap.textarea('result_textarea')|raw }}
 
 
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript">
-        $('#submit').click(function () {
-            var obj = $(this).data('obj');
-            if (!obj) {
-                console.log('submit operation obj error', obj);
+        var getJsonStr = function () {
+            var jsonStr = $('#origin_textarea').val();
+            if (!jsonStr) {
                 return false;
             }
-            var arr = obj.split('|');
-            if (arr.length != 2){
-                console.log('submit operation arr error', obj);
+            if (!jsonStr || !utils.isJsonFormat(jsonStr)) {
+                swal('你输入的json对象语法不正确！');
                 return false;
             }
-            $.post(
-                '/api/format',
-                {'type':'json', 'action':'format', 'data':$(arr[0]).val()},
-                function (res) {
-                    if (res.errCode == 0) {
-                        $(arr[1]).val(res.data.result);
-                    }else {
-                        swal(res.errMsg);
-                    }
-                },
-                'json'
-            );
+            return jsonStr;
+        }
+        function jsonView() {
+            var json = getJsonStr();
+            if (!json) {return false}
+            $("#json-view").JSONView(json);
+        }
+        $('#view-btn').click(function () {
+            jsonView();
         });
-        
-        $('#resubmit').click(function () {
-            var obj = $(this).data('obj');
-            if (!obj) {
-                console.log('submit operation obj error', obj);
-                return false;
+        if ($('#origin_textarea').val()) {
+            jsonView();
+        }
+
+        $('#beautiful-btn').click(function () {
+            var json = getJsonStr();
+            if (!json) {return false}
+            var tabsize = parseInt($('#tabsize').val());
+            var res = JSON.stringify(JSON.parse(json), null, tabsize == 0 ? "\t" : tabsize);
+            $('#origin_textarea').val(res);
+        })
+        $('#compress-btn').click(function () {
+            var json = getJsonStr();
+            if (!json) {return false}
+            var res = JSON.stringify(JSON.parse(json));
+            $('#origin_textarea').val(res);
+        })
+
+        $('.view-action-btn').on('click', function() {
+            var node = parseInt($('#toggle-number').val());
+            var act = $(this).data('act');
+            if (!node) {
+                $('#json-view').JSONView(act);
+            } else {
+                $('#json-view').JSONView(act, node);
             }
-            var arr = obj.split('|');
-            if (arr.length != 2){
-                console.log('submit operation arr error', obj);
-                return false;
-            }
-            $.post(
-                '/api/format',
-                {'type':'json', 'action':'compress', 'data':$(arr[0]).val()},
-                function (res) {
-                    if (res.errCode == 0) {
-                        $(arr[1]).val(res.data.result);
-                    }else {
-                        swal(res.errMsg);
-                    }
-                },
-                'json'
-            );
         });
+
     </script>
 {% endblock %}

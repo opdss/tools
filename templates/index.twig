@@ -1,18 +1,26 @@
 {% extends "layout.twig" %}
 
 {% block container %}
-    <div class="text-center">
-        <h3>本站目录</h3>
-        {% for item in menus %}
-            <div>
-                <h3><a href="{{ item['url'] }}" target="_blank">{{ item['name'] }}</a></h3>
-                {% for _item in item['sub'] %}
-                    <div>
-                        <a href="{{ _item['url'] }}" target="_blank">{{ _item['name'] }}</a>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+    <div class="container">
+        <div class="text-center">
+            <h3>本站目录</h3>
+            {% for item in menus %}
+                <div>
+                    <h3><a href="{{ item['url'] }}" target="_blank">{{ item['name'] }}</a></h3>
+                    {% for _item in item['sub'] %}
+                        <div>
+                            <a href="{{ _item['url'] }}" target="_blank">{{ _item['name'] }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    {#<h1 class="page-header text-center" style="padding: 200px;">别介意，努力建设当中....</h1>#}
+{% endblock %}
+
+
+{% block footer %}
+    <footer id="copyright" class="col-sm-12 col-md-12 text-center">
+        <p>{{ site.copyright|raw }} | {{ site.icp|raw }} {#| 联系人：{{ site.contact|raw }}#}{# | 运行时间:{{ runtime }}#}</p>
+    </footer>
 {% endblock %}

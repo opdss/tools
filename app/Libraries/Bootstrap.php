@@ -14,11 +14,11 @@ class Bootstrap
 	{
 		$icons = array(
 			'copy' => '复制文本内容',
-			'remove' => '清楚文本内容',
+			'remove' => '清除文本内容',
 			'retweet' => '文本置换',
 			'cloud' => '读取链接内容',
 		);
-		if ($icon == 'copy') $hasTip = false;
+		//if ($icon == 'copy') $hasTip = false;
 		if (!isset($arr['title']) && isset($icons[$icon])) {
 			$arr['title'] = $icons[$icon];
 		}

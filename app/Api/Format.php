@@ -31,13 +31,17 @@ class Format extends Base
 	 */
 	public function index(Request $request, Response $response, $args)
 	{
+		//$res  = \App\Libraries\Format::compressHtml('var a=1;');var_dump($res);exit;
 		$type = $request->getParam('type');
-		$data = $request->getParam('data');
+		$data = trim($request->getParam('data'));
 		$action = $request->getParam('action');
+		if (empty($data)) {
+			return $this->json(1, '请输入要处理得数据!');
+		}
 		$method = $action.ucfirst($type);
 		$format = new \App\Libraries\Format;
 		if (!method_exists($format, $method)) {
-			return false;
+			return $this->json(1, '不支持当前数据处理');
 		}
 		$res = call_user_func(array($format, $method), $data);
 		if (!$res) {

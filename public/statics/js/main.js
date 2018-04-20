@@ -41,41 +41,33 @@ function swal_osc(text) {
 $('document').ready(function () {
     var clipboard_btn_copy = new ClipboardJS('.btn-copy', {
         text: function(trigger) {
-            return $($(trigger).data('obj')).val();
+            var obj = $($(trigger).data('obj'));
+            if (obj.length == 0) {
+                return '';
+            }
+            var text = '';
+            if (obj[0].nodeName == 'PRE') {
+                text = obj.text();
+            } else if (obj[0].nodeName == 'TEXTAREA' || obj[0].nodeName == 'INPUT'){
+                text = obj.val();
+            }
+            return text;
         }
     });
 
     clipboard_btn_copy.on('success', function(e) {
-        console.info('Action:', e.action);
+        /*console.info('Action:', e.action);
         console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
+        console.info('Trigger:', e.trigger);*/
         e.clearSelection();
         swal_osc("复制成功！");
     });
 
-    clipboard_btn_copy.on('error', function(e) {
-        console.error('Action:', e.action);
-        console.error('Trigger:', e.trigger);
-    });
 
     var mainClass;
     var divID = 'main';
     var main = $('#'+divID);
-    var closeFullscreen = function () {
-        if (utils.closeFullscreen()) {
-            main.removeAttr('class');
-            main.addClass(mainClass);
-            $(this).hide();
-            $('#fullscreen').show();
-        }
-    };
 
-    $(document).keydown(function (event) {
-        console.log(event.keyCode);
-        if (event.keyCode == 27) {
-            closeFullscreen();
-        }
-    })
     $('#fullscreen').click(function () {
         var divID = 'main';
         if (utils.fullscreen(divID)) {
@@ -84,14 +76,15 @@ $('document').ready(function () {
             main.addClass('fullscreen');
             $(this).hide();
             $('#close-fullscreen').show();
-            /*$(document).keydown(function (event) {
-                console.log(event.keyCode);
-                if (event.keyCode == 27) {
-                    closeFullscreen();
-                }
-            })*/
         }
     });
-    $('#close-fullscreen').click(closeFullscreen)
+    $('#close-fullscreen').click(function () {
+        if (utils.closeFullscreen()) {
+            main.removeAttr('class');
+            main.addClass(mainClass);
+            $(this).hide();
+            $('#fullscreen').show();
+        }
+    })
 });
 

@@ -171,3 +171,7 @@ body {
     border: 1px solid #e1e1e8;
     /*border-radius: 0 0 0 4px;*/
 }
+
+.code-break {
+    min-height: 300px;white-space: pre-wrap;word-wrap: break-word;
+}

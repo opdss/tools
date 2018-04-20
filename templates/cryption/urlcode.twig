@@ -44,7 +44,7 @@
                 console.log('submit operation arr error', obj);
                 return false;
             }
-            $(arr[1]).val(encodeURI($(arr[0]).val()));
+            $(arr[1]).val(encodeURIComponent($(arr[0]).val()));
         })
         $('#resubmit').click(function () {
             var obj = $(this).data('obj');
@@ -57,7 +57,7 @@
                 console.log('submit operation arr error', obj);
                 return false;
             }
-            $(arr[1]).val(decodeURI($(arr[0]).val()));
+            $(arr[1]).val(decodeURIComponent($(arr[0]).val()));
         })
     </script>
 {% endblock %}

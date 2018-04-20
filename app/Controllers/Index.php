@@ -24,13 +24,19 @@ class Index extends Base
 	 */
 	public function index(Request $request, Response $response, $args)
 	{
-		//var_dump($this->getMenus());exit;
-		/*$routes = $this->ci->get('routes');
-		foreach ($routes as $item) {
+		//return $this->view('index.twig');
+		return $this->view('index-new.twig');
+	}
 
-		}
-		$data = [];*/
-		return $this->view('index.twig');
+	/**
+	 * @pattern /new[/]
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function indexNew(Request $request, Response $response, $args)
+	{
+		return $this->view('index-new.twig');
 	}
 
     /**

@@ -1,81 +1,43 @@
 {% extends "layout.twig" %}
 
 {% block container %}
-    <h3 class="page-header">XML美化与压缩</h3>
-    <span class="glyphicon glyphicon-fullscreen" id="fullscreen"></span>
-    <span class="glyphicon glyphicon-remove" id="close-fullscreen"></span>
-
-    <div class="row">
-        <div class="col-md-6">
-            <p>
-                <select class="selectpicker" id="tabsize">
-                    <option value=0>Tab符缩进</option>
-                    <option value="2">2个空格缩进</option>
-                    <option value="4" selected="selected">4个空格缩进</option>
-                    <option value="8">8个空格缩进</option>
-                </select>
-                <button class="btn btn-primary" id="beautiful-btn">格式化</button>
-                <button class="btn btn-primary" id="minily-btn">压缩</button>
-                <button class="btn btn-primary btn-copy" data-obj="#origin_textarea">复制</button>
-            </p>
-            {{ Bootstrap.textarea('origin_textarea', 16, '{"name":"工具箱","links":[{"name":"blog","url":"http://www.istimer.com"},{"name":"古诗词","url":"http://www.isnoter.com"}],"url":"http://www.1tools.net","3Q":"谢谢使用，如有意见，反正也没提交入口"}')|raw }}
-        </div>
-
-        <div class="col-md-6">
-            <p>
-                <button class="btn btn-primary view-action-btn" data-act="collapse">关闭</button>
-                <button class="btn btn-primary view-action-btn" data-act="expand">展开</button>
-            </p>
-            <div class="well" id="json-view" style="min-height: 320px"></div>
-        </div>
-    </div>
-
-
+    <h3 class="page-header">XML在线美化压缩</h3>
+    <p>
+        待处理的XML代码：
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
+        {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
+    </p>
+    <p>{{ Bootstrap.textarea('origin_textarea', 10, test)|raw }}</p>
+    <p class="text-center">
+        <select class="selectpicker" id="tabsize">
+            <option value="0">Tab符缩进</option>
+            <option value="2">2个空格缩进</option>
+            <option value="4" selected="selected">4个空格缩进</option>
+            <option value="8">8个空格缩进</option>
+        </select>
+        {{ Bootstrap.button({'id':'beautiful-btn', 'data-obj':'#origin_textarea|#result_textarea'}, 'XML格式化&美化')|raw }}
+        {{ Bootstrap.button({'id':'compress-btn', 'data-obj':'#origin_textarea|#result_textarea'}, '压缩XML')|raw }}
+    </p>
+    <p>
+        处理结果：
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
+    </p>
+    <pre class="well code-break" id="result_textarea"></pre>
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript">
-        var getJsonStr = function () {
-            var jsonStr = $('#origin_textarea').val();
-            if (!jsonStr || !utils.isJsonFormat(jsonStr)) {
-                swal('你输入的json对象语法不正确！');
-                return false;
-            }
-            return jsonStr;
-        }
-        function jsonView() {
-            var json = getJsonStr();
-            if (!json) {return false}
-            $("#json-view").JSONView(json);
-        }
-        $('#view-btn').click(function () {
-            jsonView();
-        });
-        jsonView();
-
         $('#beautiful-btn').click(function () {
-            var json = getJsonStr();
-            if (!json) {return false}
+            var obj = $(this).data('obj');
+            var arr = obj.split('|');
             var tabsize = parseInt($('#tabsize').val());
-            var res = JSON.stringify(JSON.parse(json), null, tabsize == 0 ? "\t" : tabsize);
-            $('#origin_textarea').val(res);
-        })
-        $('#minily-btn').click(function () {
-            var json = getJsonStr();
-            if (!json) {return false}
-            var res = JSON.stringify(JSON.parse(json));
-            $('#origin_textarea').val(res);
-        })
-
-        $('.view-action-btn').on('click', function() {
-            var node = parseInt($('#toggle-number').val());
-            var act = $(this).data('act');
-            if (!node) {
-                $('#json-view').JSONView(act);
-            } else {
-                $('#json-view').JSONView(act, node);
-            }
+            $(arr[1]).text(utils.xmlFormat($(arr[0]).val(), tabsize == 0 ? '\t' : tabsize));
         });
 
+        $('#compress-btn').click(function () {
+            var obj = $(this).data('obj');
+            var arr = obj.split('|');
+            $(arr[1]).text(utils.xmlCompress($(arr[0]).val()));
+        });
     </script>
 {% endblock %}

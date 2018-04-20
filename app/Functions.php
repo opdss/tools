@@ -104,6 +104,25 @@ class Functions
 		}
 	}
 
+	public static function getLogger()
+	{
+		static $_logger;
+		if (!$_logger) {
+			$lineFormatter = new Monolog\Formatter\LineFormatter("[%datetime%] %channel%.%level_name% => %message% %context% %extra%\n", "Y-m-d H:i:s.u");
+			$uidProcessor = new Monolog\Processor\UidProcessor();
+			$memoryUsageProcessor = new Monolog\Processor\MemoryUsageProcessor();
+			$processIdProcessor = new Monolog\Processor\ProcessIdProcessor();
+			$streamHandler = new Monolog\Handler\StreamHandler(LOG_DIR .date('Y-m-d').'.log', Monolog\Logger::DEBUG);
+			$streamHandler->setFormatter($lineFormatter);
+			$_logger = new Monolog\Logger('mySSO');
+			$_logger->pushProcessor($uidProcessor)
+				->pushProcessor($memoryUsageProcessor)
+				->pushProcessor($processIdProcessor);
+			$_logger->pushHandler($streamHandler);
+		}
+		return $_logger;
+	}
+
     /**
      * curl请求
      * @param $url

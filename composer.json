@@ -23,7 +23,8 @@
         "opdss/cicache": "*",
         "opdss/http": "*",
         "opdss/nroute": "^0.2.0",
-        "mrclay/minify": "^3.0.0"
+        "mrclay/minify": "^3.0.0",
+        "wyrihaximus/html-compress" : "^1.1.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
