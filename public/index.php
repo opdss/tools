@@ -45,6 +45,7 @@ if (PHP_SAPI == 'cli') {
 	exit();
 }
 
+
 // 根据注释注册路由
 
 $nroute = \Opdss\Nroute\Nroute::factory(array('cacheDir'=>CACHE_DIR));

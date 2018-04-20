@@ -1,0 +1,25 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">http状态码详解</h3>
+    <div class="well">
+        HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码。它由 RFC 2616 规范定义的，并得到RFC 2518、RFC 2817、RFC 2295、RFC 2774、RFC 4918等规范扩展。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr><td colspan="2"  class="text-center"><b>http状态码详解</b></td></tr>
+        <tr class="text-center">
+            <td class="col-md-1">状态码</td><td>含义</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for code,info in httpCode %}
+            <tr>
+                <td class="text-center">{{ code }}</td><td>{{ info }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

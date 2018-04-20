@@ -1,0 +1,51 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">ASCII码参考</h3>
+    <div class="well">
+        ASCII（American Standard Code for Information Interchange，美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。
+        <br/>
+        请注意，ASCII是American Standard Code for Information Interchange缩写，而不是ASCⅡ(罗马数字2)，有很多人在这个地方产生误解。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+        <tr><td colspan="16"><b>ASCII码参考表</b></td></tr>
+        <tr>
+            <td>ASCII值</td><td>控制字符</td><td>ASCII值</td><td>控制字符</td><td>ASCII值</td><td>控制字符</td><td>ASCII值</td><td>控制字符</td>
+            <td>ASCII值</td><td>控制字符</td><td>ASCII值</td><td>控制字符</td><td>ASCII值</td><td>控制字符</td><td>ASCII值</td><td>控制字符</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in 1..16 %}
+        <tr>
+            {% for j in 1..8 %}
+            {% set k = (i-1)+16*(j-1) %}
+            <td>{{ k }}</td><td>{{ ascii[k] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+        <tr><td colspan="3"><b>特殊字符解释</b></td></tr>
+        <tr>
+            <td>NUL空</td><td>VT垂直制表</td><td>SYN空转同步</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr><td>STX正文开始</td><td>CR回车</td><td>CAN作废</td></tr>
+            <tr><td>ETX正文结束</td><td>SO移位输出</td><td>EM纸尽</td></tr>
+            <tr><td>EOY传输结束</td><td>SI移位输入</td><td>SUB换置</td></tr>
+            <tr><td>ENQ询问字符</td><td>DLE空格</td><td>ESC换码</td></tr>
+            <tr><td>ACK承认</td><td>DC1设备控制1</td><td>FS文字分隔符</td></tr>
+            <tr><td>BEL报警</td><td>DC2设备控制2</td><td>GS组分隔符</td></tr>
+            <tr><td>BS退一格</td><td>DC3设备控制3</td><td>RS记录分隔符</td></tr>
+            <tr><td>HT横向列表</td><td>DC4设备控制4</td><td>US单元分隔符</td></tr>
+            <tr><td>LF换行</td><td>NAK否定</td><td>DEL删除</td></tr>
+        </tbody>
+    </table>
+{% endblock %}

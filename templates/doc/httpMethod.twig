@@ -1,0 +1,31 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">http请求方法详解</h3>
+    <div class="well">
+        HTTP请求方法对照表— —HTTP Request Method共计15种
+        <br/>
+        根据HTTP标准，HTTP请求可以使用多种请求方法。
+        <br/>
+        HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。
+        <br/>
+        HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr><td colspan="2"  class="text-center"><b>http请求方法详解</b></td></tr>
+        <tr class="text-center">
+            <td class="col-md-1">请求方法</td><td>说明</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for method,info in httpMethod %}
+            <tr>
+                <td class="text-center">{{ method }}</td><td>{{ info }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

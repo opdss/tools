@@ -51,7 +51,7 @@ class Tools extends Base
 	/**
 	 * 时间戳
 	 * @pattern /timestamp.html
-	 * @menu 实用工具|Unix时间处理
+	 * @menu 实用工具|Unix时间戳转换
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args

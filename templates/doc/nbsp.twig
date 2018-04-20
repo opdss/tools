@@ -1,0 +1,35 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">HTML字符实体</h3>
+    <div class="well">
+        在 HTML 中，某些字符是预留的。
+        <br/>
+        在 HTML 中不能使用小于号（<）和大于号（>），这是因为浏览器会误认为它们是标签。
+        <br/>
+        如果希望正确地显示预留字符，我们必须在 HTML 源代码中使用字符实体（character entities）。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+        <tr><td colspan="9"><b>HTML字符实体</b></td></tr>
+        <tr>
+            <td>字符</td><td>实体编号</td><td>实体名称</td>
+            <td>字符</td><td>实体编号</td><td>实体名称</td>
+            <td>字符</td><td>实体编号</td><td>实体名称</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in 1..34 %}
+        <tr>
+            {% for j in 1..3 %}
+            {% set k = (i-1)+34*(j-1) %}
+            <td>{{ nbsp[k][2]|raw }}</td><td>{{ nbsp[k][1] }}</td><td>{{ nbsp[k][2] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">HTTP contentType类型</h3>
+
+    <div class="well">
+        Content-Type，内容类型，一般是指网页中存在的Content-Type，用于定义网络文件的类型和网页的编码，决定文件接收方将以什么形式、什么编码读取这个文件，这就是经常看到一些Asp网页点击的结果却是下载到的一个文件或一张图片的原因。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+    <table class="table table-striped table-bordered text-center">
+        <thead>
+        <tr><td colspan="8"><b>HTTP contentType类型</b></td></tr>
+        <tr>
+            <td>文件扩展名</td><td>Content-Type(Mime-Type)</td>
+            <td>文件扩展名</td><td>Content-Type(Mime-Type)</td>
+            <td>文件扩展名</td><td>Content-Type(Mime-Type)</td>
+            <td>文件扩展名</td><td>Content-Type(Mime-Type)</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in 1..86 %}
+            <tr>
+                {% for j in 1..4 %}
+                    {% set k = (i-1)+66*(j-1) %}
+                    <td>{{ contentType[k][0] }}</td><td>{{ contentType[k][1] }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

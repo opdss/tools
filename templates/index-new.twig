@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             {% for item in menus %}
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title"><a href="{{ item['url'] }}" target="_blank">{{ item['name'] }}</a></h3>
@@ -33,6 +33,7 @@
 
 
 {% block footer %}
+    <hr/>
     <footer id="copyright" class="col-sm-12 col-md-12 text-center">
         <p>{{ site.copyright|raw }} | {{ site.icp|raw }} {#| 联系人：{{ site.contact|raw }}#}{# | 运行时间:{{ runtime }}#}</p>
     </footer>

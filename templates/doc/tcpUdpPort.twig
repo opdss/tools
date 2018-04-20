@@ -1,0 +1,29 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">TCP/UDP常见端口参考</h3>
+    <div class="well">
+        下面的表格中列举了包括在红帽企业 Linux 中的服务、守护进程、和程序所使用的最常见的通信端口。该列表还可以在 /etc/services 文件中找到。要查看由互联网号码分派局（IANA）制定的“著名的已注册动态端口”官方列表，请参考以下 URL：
+        <br/>
+        <a href="http://www.iana.org/assignments/port-numbers" target="_blank">http://www.iana.org/assignments/port-numbers</a>
+        <br/>
+        “层”是指服务或协议在交通层上使用 TCP 还是 UDP。若没有列举，这个服务或协议就两者都使用。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr><td colspan="3"  class="text-center"><b>TCP/UDP常见端口参考</b></td></tr>
+        <tr class="text-center">
+            <td class="col-md-2">端口号码/层</td><td>名称</td><td>注释</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for port,info in tcpUdpPort %}
+            <tr>
+                <td class="text-center">{{ port }}</td><td>{{ info[0] }}</td><td>{{ info[1] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
