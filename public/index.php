@@ -10,6 +10,13 @@ define("TPL_DIR", ROOT . "templates" . DIRECTORY_SEPARATOR); //系统缓存目�
 define("PUBLIC_DIR", ROOT . "public" . DIRECTORY_SEPARATOR);  //web访问目录
 define("CONFIG_DIR", ROOT . 'config' . DIRECTORY_SEPARATOR);
 
+
+// 命令行模式
+if (PHP_SAPI == 'cli') {
+    exit('run mode error!');
+}
+
+
 // 自动载入类库
 if (file_exists(VENDOR_DIR . "autoload.php")) {
     require_once VENDOR_DIR . "autoload.php";
@@ -33,21 +40,15 @@ ini_set('display_errors', 1);
 \App\Functions::runTime('run');
 
 \App\Libraries\Config::setConfigPath(CONFIG_DIR);
+
 // 实例化App
-$app = new \Slim\App(array('settings' =>\App\Libraries\Config::get('settings')));
+$app = new \Slim\App(array('settings' => \App\Libraries\Config::get('settings')));
 
 // 设置依赖
 require APP_DIR . 'dependencies.php';
 
 
-// 命令行模式
-if (PHP_SAPI == 'cli') {
-	exit();
-}
-
-
 // 根据注释注册路由
-
 $nroute = \Opdss\Nroute\Nroute::factory(array('cacheDir'=>CACHE_DIR));
 $nroute->attachInfo('menu');
 $nroute->register($app, array(APP_DIR . 'Controllers' => 'App\\Controllers', APP_DIR . 'Api' => 'App\\Api'));

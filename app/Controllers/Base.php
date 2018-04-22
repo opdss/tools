@@ -29,6 +29,9 @@ class Base
 	protected $css = array();
 	protected $js = array();
 
+	protected $used = [];
+	protected $usedMenus = [];
+
 	/**
 	 * Ctrl constructor.
 	 * @param Container $ci
@@ -37,6 +40,11 @@ class Base
 	{
 		$this->ci = $ci;
 		$this->settings = $this->ci->get('settings');
+
+        if (isset($_COOKIE['used'])) {
+            $this->used = explode(',', $_COOKIE['used']);
+        }
+
 		$this->menus = $this->getMenus();
 		$this->addJs('/statics/js/main.js', time());
 		$this->addCss('/statics/css/layout.css', time());
@@ -50,12 +58,17 @@ class Base
 		foreach ($routes as $route) {
 			$sub = $route['info'];
 			if (isset($sub['menu']) && $sub['menu']) {
-				$arr = explode('|', $sub['menu'], 2);
+                $arr = explode('|', $sub['menu'], 2);
 				if (!isset($menus[$arr[0]])) {
 					$menus[$arr[0]] = array('name' => $arr[0], 'url' => $this->ci->router->pathFor($route['name']), 'sub' => []);
 				}
 				if (isset($arr[1])) {
-					$menus[$arr[0]]['sub'][$arr[1]] = ['name' => $arr[1], 'url' => $this->ci->router->pathFor($route['name'])];
+				    $one = ['name' => $arr[1], 'url' => $this->ci->router->pathFor($route['name'])];
+                    $menus[$arr[0]]['sub'][$arr[1]] = $one;
+                    //添加最近实用
+                    if (!empty($this->used) && in_array($route['name'], $this->used)) {
+                        array_unshift($this->usedMenus, $one);
+                    }
 				}
 			}
 		}
@@ -68,6 +81,11 @@ class Base
 		$routes = $this->ci->routes;
 		foreach ($routes as $route) {
 			if ($route['name'] == $currentRouteName) {
+			    if (!in_array($currentRouteName, $this->used)) {
+                    array_unshift($this->used, $currentRouteName);
+                }
+                $this->used = array_slice($this->used, 0, 8);
+			    setcookie('used', implode(',', $this->used), time()+7200, '/');
 				return isset($route['info']['menu']) && $route['info']['menu'] ? explode('|', $route['info']['menu']) : [];
 			}
 		}
@@ -137,8 +155,8 @@ class Base
 		$render_data['keyword'] = isset($render_data['current_menu']) ? implode(',', $render_data['current_menu']).',工具箱' : $render_data['site']['keyword'];
 		$render_data['description'] = $render_data['keyword'];
 		$render_data['runtime'] = round(\App\Functions::runTime('run', true), 6);
+		$render_data['used'] = $this->usedMenus;
 		return $this->ci->view->render($this->ci->response, $tpl, $render_data);
 	}
-
 
 }

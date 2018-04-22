@@ -1,11 +1,11 @@
 <?php
 /**
  * Config.php for deploy.
+ * 动态载入配置文件的数据
  * @author SamWu
  * @date 2017/7/19 19:49
  * @copyright istimer.com
  */
-
 namespace App\Libraries;
 
 /**
@@ -14,17 +14,36 @@ namespace App\Libraries;
  */
 class Config
 {
+    /**
+     * 当前已载入配置
+     * @var array
+     */
 	private static $config = array();
+
+    /**
+     * 配置目录
+     * @var null
+     */
 	private static $configDir = null;
 
+    /**
+     * 是否已载入所有配置，防止重复读取
+     * @var bool
+     */
+	private static $readAll = false;
+
+    /**
+     * 设置config目录
+     * @param $configDir
+     * @return bool
+     * @throws \Exception
+     */
 	public static function setConfigPath($configDir)
 	{
 		if (!$configDir || !is_dir($configDir)) {
-			return false;
+			throw new \Exception('配置目录设置错误：'.$configDir);
 		}
-		$configDir = rtrim($configDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-		self::$configDir = $configDir;
-		self::_readConfig();
+        self::$configDir = rtrim($configDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 		return true;
 	}
 
@@ -41,34 +60,44 @@ class Config
 	{
 		$args = count($params);
 		if ($args == 0) {
-			return self::$config;
+			return self::all();
 		}
-		if (!empty(self::$config)) {
-			if ($args == 1) {
-				$key = $params[0];
-				$key = is_string($key) && strpos($key, ',') !== false ? explode(',', $key) : $key;
-				if (is_string($key)) {
-					return self::_getConfig($key);
-				}
-				if (is_array($key)) {
-					return self::_getConfigByArr($key);
-				}
-			}
-			if ($args > 1) {
-				return self::_getConfigByArr($params);
-			}
-		}
-		return array();
+        if ($args == 1) {
+            $key = $params[0];
+            $key = is_string($key) && strpos($key, ',') !== false ? explode(',', $key) : $key;
+            if (is_string($key)) {
+                return self::_readConfig($key);
+            }
+            if (is_array($key)) {
+                return self::_getConfigByArr($key);
+            }
+        }
+        if ($args > 1) {
+            return self::_getConfigByArr($params);
+        }
 	}
 
+    /**
+     * 所有配置
+     * @return array|mixed
+     */
 	public static function all()
 	{
-		return self::get();
+		return self::_readConfig();
 	}
+
+    /**
+     * 获取当前已载入配置
+     * @return array
+     */
+	public static function getCurrentConfig()
+    {
+        return self::$config;
+    }
 
 	public static function __callStatic($name, $arguments)
 	{
-		$conf = self::_getConfig($name);
+		$conf = self::_readConfig($name);
 		$data = array();
 		if (!empty($conf)) {
 			if (is_array($conf) && count($arguments) > 0 && ($key = $arguments[0]) && !is_array($key)) {
@@ -80,42 +109,51 @@ class Config
 		return $data;
 	}
 
-	private static function _getConfig($name = null)
-	{
-		return $name === null ? self::$config : (isset(self::$config[$name]) ? self::$config[$name] : array());
-	}
-
 	private static function _getConfigByArr(array $arr)
 	{
 		$res = array();
 		foreach ($arr as $item) {
-			$res[$item] = self::_getConfig($item);
+			$res[$item] = self::_readConfig($item);
 		}
 		return $res;
 	}
 
-	private static function _readConfig()
+    /**
+     * 读取配置文件的配置
+     * @param string $name 对应的文件名，为空则读取所有
+     * @return array|mixed
+     * @throws \Exception
+     */
+	private static function _readConfig($name = '')
 	{
 		if (!self::$configDir) {
-			self::$config = array();
-			return false;
+            throw new \Exception('没有设置config目录');
 		}
-		if (empty(self::$config)) {
-			$config = array();
+		if ($name) {
+		    if (!isset(self::$config[$name])) {
+		        $file = self::$configDir.$name.'.php';
+		        if (file_exists($file)) {
+                    self::$config[$name] = include($file);
+                } else {
+                    self::$config[$name] = array();
+                }
+            }
+            return self::$config[$name];
+        } elseif (!self::$readAll) {
 			$handler = opendir(self::$configDir);
 			while (($filename = readdir($handler)) !== false) {//务必使用!==，防止目录下出现类似文件名“0”等情况
 				if ($filename != "." && $filename != "..") {
-					$php_file = self::$configDir . $filename;
-					if (is_file($php_file) && substr($php_file, -4) == '.php') {
-						$c = include_once($php_file);
-						//is_array($c) AND $config[] = array_merge($c, $config);
-						$config[substr($filename, 0, -4)] = $c;
+					if (substr($filename, -4) == '.php') { //只读取.php后缀的配置文件
+                        $name = substr($filename, 0, -4);
+                        if (!isset(self::$config[$name])) {
+                            self::$config[$name] = include(self::$configDir . $filename);
+                        }
 					}
 				}
 			}
 			closedir($handler);
-			self::$config = $config;
+            self::$readAll = true;
 		}
-		return true;
+		return self::$config;
 	}
 }

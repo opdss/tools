@@ -115,6 +115,14 @@
                                     href="{{ item.url }}"><b>{{ item.name }}</b></a></li>
                     {% endfor %}
                 </ul>
+                {#{% if used %}
+                <ul class="nav nav-sidebar">
+                    <li>最近常用<small>(试用功能)</small></li>
+                    {% for item in used %}
+                        <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}#}
                 {#<ul class="nav nav-sidebar">
                     <li><a href="">Nav item</a></li>
                 </ul>#}
