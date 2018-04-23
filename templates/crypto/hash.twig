@@ -1,0 +1,70 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">在线MD5，SHA1等hash值计算</h3>
+    <p>
+        待计算明文：
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
+        {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
+    </p>
+    <p>{{ Bootstrap.textarea('origin_textarea', 10, test)|raw }}</p>
+    <p class="text-center">
+        {#<select class="selectpicker" id="tabsize">
+            <option value="1">Tab符缩进</option>
+            <option value="2">2个空格缩进</option>
+            <option value="4" selected="selected">4个空格缩进</option>
+            <option value="8">8个空格缩进</option>
+        </select>#}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'MD5', 'data-obj':'#origin_textarea|#result_textarea'}, 'MD5')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'SHA1', 'data-obj':'#origin_textarea|#result_textarea'}, 'SHA1')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'SHA224', 'data-obj':'#origin_textarea|#result_textarea'}, 'SHA224')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'SHA256', 'data-obj':'#origin_textarea|#result_textarea'}, 'SHA256')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'SHA384', 'data-obj':'#origin_textarea|#result_textarea'}, 'SHA384')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'SHA512', 'data-obj':'#origin_textarea|#result_textarea'}, 'SHA512')|raw }}
+
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'HmacMD5', 'data-obj':'#origin_textarea|#result_textarea'}, 'HmacMD5')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'HmacSHA1', 'data-obj':'#origin_textarea|#result_textarea'}, 'HmacSHA1')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'HmacSHA224', 'data-obj':'#origin_textarea|#result_textarea'}, 'HmacSHA224')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'HmacSHA256', 'data-obj':'#origin_textarea|#result_textarea'}, 'HmacSHA256')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'HmacSHA384', 'data-obj':'#origin_textarea|#result_textarea'}, 'HmacSHA384')|raw }}
+        {{ Bootstrap.button({'class':'hash-btn', 'data-act': 'HmacSHA512', 'data-obj':'#origin_textarea|#result_textarea'}, 'HmacSHA512')|raw }}
+        {#{{ Bootstrap.button({'class':'hash-btn', 'data-act': 'PBKDF2', 'data-obj':'#origin_textarea|#result_textarea'}, 'PBKDF2')|raw }}#}
+    </p>
+    <div class="well" id="pwd-div" style="display: none;">
+        <div class="input-group col-md-12">
+            <span class="input-group-addon" id="code">密钥</span>
+            <input type="text" class="form-control" id="pwd" placeholder="请在这输入密钥">
+            {#<span class="input-group-btn">
+                {{ Bootstrap.button({'id': 'key-btn', 'data-obj':'#origin_textarea|#result_textarea'}, 'OK')|raw }}
+            </span>#}
+        </div>
+    </div>
+    <br/>
+
+    <p>
+        处理结果：
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
+    </p>
+    <p>{{ Bootstrap.textarea('result_textarea', 5, test)|raw }}</p>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $('.hash-btn').click(function () {
+            var act = $(this).data('act');
+            var obj = $(this).data('obj');
+            var arr = obj.split('|');
+            var func = CryptoJS[act];
+            var pwd_div = $('#pwd-div');
+            if (act.indexOf('Hmac') > -1) {
+                pwd_div.show();
+                $(arr[1]).val(func($(arr[0]).val(), $('#pwd').val()));
+            } else if (act.indexOf('PBKDF') > -1) {
+
+            } else {
+                pwd_div.hide();
+                $(arr[1]).val(func($(arr[0]).val()));
+            }
+        })
+    </script>
+{% endblock %}

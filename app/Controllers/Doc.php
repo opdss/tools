@@ -13,9 +13,22 @@ use Slim\Http\Response;
 
 class Doc extends Base
 {
+
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function jquery(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('doc/jquery.twig', $data);
+	}
+
     /**
      * @pattern /ascii.html
-     * @menu  web文档|Ascii码参考
+     * @menu  手册/文档|Ascii码参考
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -29,7 +42,7 @@ class Doc extends Base
 
     /**
      * @pattern /nbsp.html
-     * @menu  web文档|HTML实体名称
+     * @menu  手册/文档|HTML实体名称
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -43,7 +56,7 @@ class Doc extends Base
 
     /**
      * @pattern /contenttype.html
-     * @menu  web文档|contentType类型
+     * @menu  手册/文档|contentType类型
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -57,7 +70,7 @@ class Doc extends Base
 
     /**
      * @pattern /httpcode.html
-     * @menu  web文档|http状态码
+     * @menu  手册/文档|http状态码
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -71,7 +84,7 @@ class Doc extends Base
 
     /**
      * @pattern /httpmethod.html
-     * @menu  web文档|http请求方法
+     * @menu  手册/文档|http请求方法
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -85,7 +98,7 @@ class Doc extends Base
 
     /**
      * @pattern /tcpudpport.html
-     * @menu  web文档|TCP/UDP常用端口
+     * @menu  手册/文档|TCP/UDP常用端口
      * @link http://www.jsons.cn/portcode/
      * @param Request $request
      * @param Response $response

@@ -151,7 +151,7 @@ class Base
 		$render_data['Bootstrap'] = new Bootstrap;
 		$render_data['Functions'] = new Functions;
 		$render_data = array_merge($render_data, $data);
-		$render_data['title'] = isset($render_data['current_menu']) ? implode('-', $render_data['current_menu']) : $render_data['site']['title'];
+		$render_data['title'] = isset($render_data['current_menu']) ? implode('-', array_reverse($render_data['current_menu'])) : $render_data['site']['title'];
 		$render_data['keyword'] = isset($render_data['current_menu']) ? implode(',', $render_data['current_menu']).',工具箱' : $render_data['site']['keyword'];
 		$render_data['description'] = $render_data['keyword'];
 		$render_data['runtime'] = round(\App\Functions::runTime('run', true), 6);

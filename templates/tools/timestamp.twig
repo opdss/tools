@@ -10,6 +10,11 @@
 
 {% block container %}
     <h3 class="page-header">{{ current_menu[1] }}</h3>
+    <div class="alert alert-info" role="alert">
+        UNIX时间戳（UNIX Time Stamp）为世界协调时间（Coordinated Universal Time，即UTC）1970年01月01日00时00分00秒到现在的总秒数，与时区无关。
+        <br/>
+        以下UNIX时间戳都是基于浏览器时间！！！
+    </div>
     <blockquote>
         【Unix时间】
     </blockquote>
@@ -81,12 +86,12 @@
 
 {% block script %}
     <script>
-        console.log($('#timezone').val());
         function utime() {
             $('#local-time').val(utils.getFmtDateTime());
             $('#timestamp').val(utils.getTimestamp());
             $('#zone-time').val(utils.getZoneTime(parseInt($('#timezone').val())));
         }
+        utime();
         var utp = setInterval(utime, 1000);
         $('#stop-btn').click(function () {
             if (utp) {

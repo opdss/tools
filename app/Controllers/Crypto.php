@@ -1,6 +1,6 @@
 <?php
 /**
- * Cryption.php for tools.
+ * Crypto.php for tools.
  * @author SamWu
  * @date 2018/3/15 12:18
  * @copyright boyaa.com
@@ -12,13 +12,13 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 /**
- * Class Cryption
+ * Class Crypto
  * @package App\Controllers
  */
-class Cryption extends Base
+class Crypto extends Base
 {
 	/**
-	 * @pattern /cryption.html
+	 * @pattern /crypto.html
 	 * @menu 加解密工具|index
 	 * @param Request $request
 	 * @param Response $response
@@ -32,7 +32,7 @@ class Cryption extends Base
     /**
      * 随机密码
 	 * http://tool.oschina.net/htpasswd
-     * @pattern /cryption/passwd.html
+     * @pattern /crypto/passwd.html
      * @menu 加解密工具|生成随机密码
      * @param Request $request
      * @param Response $response
@@ -44,12 +44,12 @@ class Cryption extends Base
 		$this->addJs('/statics/js/sha1.js');
 		$this->addJs('/statics/js/javacrypt.js');
 		$this->addStaticsDir('bootstrap-select');
-        return $this->view('cryption/passwd.twig', $data);
+        return $this->view('crypto/passwd.twig', $data);
     }
 
     /**
-     * @pattern /cryption/md5.html
-     * @menu 加解密工具|散列/哈希
+     * @pattern /crypto/md5.html
+     * @menu 加解密工具|md5计算
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -59,11 +59,29 @@ class Cryption extends Base
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
         $this->addJs('/statics/js/jquery.md5.js');
-        return $this->view('cryption/md5.twig', $data);
+        return $this->view('crypto/md5.twig', $data);
     }
 
+
+	/**
+	 * @pattern /crypto/hash.html
+	 * @link http://tool.oschina.net/encrypt?type=2
+	 * @menu 加解密工具|散列/哈希
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function hash(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addStaticsDir('bootstrap-select');
+		$this->addStaticsDir('crypto-js');
+		return $this->view('crypto/hash.twig', $data);
+	}
+
     /**
-     * @pattern /cryption/base64.html
+     * @pattern /crypto/base64.html
      * @menu 加解密工具|base64编解码
      * @param Request $request
      * @param Response $response
@@ -74,11 +92,11 @@ class Cryption extends Base
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
         $this->addJs('/statics/js/base64.js');
-        return $this->view('cryption/base64.twig', $data);
+        return $this->view('crypto/base64.twig', $data);
     }
 
     /**
-     * @pattern /cryption/urlcode.html
+     * @pattern /crypto/urlcode.html
      * @menu 加解密工具|url编解码
      * @param Request $request
      * @param Response $response
@@ -88,11 +106,11 @@ class Cryption extends Base
     public function urlcode(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('cryption/urlcode.twig', $data);
+        return $this->view('crypto/urlcode.twig', $data);
     }
 
     /**
-     * //@pattern /cryption/des.html
+     * //@pattern /crypto/des.html
      * @menu 加解密工具|des加解密
      * @param Request $request
      * @param Response $response
@@ -102,11 +120,11 @@ class Cryption extends Base
     public function des(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('cryption/des.twig', $data);
+        return $this->view('crypto/des.twig', $data);
     }
 
     /**
-     * //@pattern /cryption/aes
+     * //@pattern /crypto/aes
      * @menu 加解密工具|aes加解密
      * @param Request $request
      * @param Response $response
@@ -116,6 +134,6 @@ class Cryption extends Base
     public function aes(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('cryption/pwd.twig', $data);
+        return $this->view('crypto/pwd.twig', $data);
     }
 }

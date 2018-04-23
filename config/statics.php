@@ -29,5 +29,9 @@ return array(
 	),
 	'htmlminifier' => array(
 		'https://cdn.bootcss.com/html-minifier/3.5.15/htmlminifier.min.js',
+	),
+	'crypto-js' => array(
+		'https://cdn.bootcss.com/crypto-js/3.1.9/crypto-js.min.js',
+		'https://cdn.bootcss.com/crypto-js/3.1.9/md5.min.js',
 	)
 );

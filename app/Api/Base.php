@@ -45,4 +45,39 @@ class Base
 		}
 		return $this->ci->get('response')->withJson(Functions::formatApiData($param, $data, $extra));
 	}
+
+	/**
+	 * @pattern /api/routes
+	 * @param $request
+	 * @param $response
+	 * @param $args
+	 */
+	public function routes($request, $response, $args)
+	{
+		$kw = trim($request->getParam('kw'));
+		$routes = $this->ci->routes;
+		$data = [];
+		//if ($kw) {
+			foreach ($routes as $route) {
+				if (isset($route['info']['menu']) && !empty($route['info']['menu'])) {
+					$menu_name = explode('|', $route['info']['menu'], 2);
+					$menu_name = isset($menu_name[1]) ? $menu_name[1] : $menu_name[0];
+					if ($kw) {
+						if (strpos($menu_name, $kw) !== false) {
+							$data[] = array(
+								'name' => $menu_name,
+								'url' => $this->ci->router->pathFor($route['name'])
+							);
+						}
+					} else {
+						$data[] = array(
+							'name' => $menu_name,
+							'url' => $this->ci->router->pathFor($route['name'])
+						);
+					}
+				}
+			}
+		//}
+		return $this->json($data);
+	}
 }
