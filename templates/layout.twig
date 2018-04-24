@@ -21,6 +21,8 @@
         {# 额外添加的css #}
     {% endblock %}
     <script>
+        var config = {};
+        config.version = "{{ site.version }}";
         var _hmt = _hmt || [];
         (function () {
             var hm = document.createElement("script");
@@ -43,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ base_url() }}">{{ site.title }}<small>Beta1</small></a>
+                <a class="navbar-brand" href="{{ base_url() }}">{{ site.title }}<small>Beta</small></a>
             </div>
 
             <div id="navbar" class="collapse navbar-collapse">

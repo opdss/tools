@@ -3,31 +3,30 @@
 {% block container %}
     <h3 class="page-header">{{ current_menu[1] }}</h3>
 
-    {#<blockquote>
-        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
-    </blockquote>#}
-    {#<div class="well">
-        MD5 散列值计算
-    </div>#}
+    <div class="alert alert-info">
+        Base64是网络上最常见的用于传输8Bit字节码的编码方式之一，Base64就是一种基于64个可打印字符来表示二进制数据的方法。可查看RFC2045～RFC2049，上面有MIME的详细规范。
+        <br/>
+        Base64编码要求把3个8位字节（3*8=24）转化为4个6位的字节（4*6=24），之后在6位的前面补两个0，形成8位一个字节的形式。 如果剩下的字符不足3个字节，则用0填充，输出字符使用'='，因此编码后输出的文本末尾可能会出现1或2个'='。
+
+    </div>
     <p class="text-muted">
         待编码字符串：
         {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
         {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
         {#{{ Bootstrap.iconBtn('cloud', {'data-obj':'#origin_textarea'})|raw }}#}
     </p>
-    {{ Bootstrap.textarea('origin_textarea')|raw }}
-    <div style="margin: 10px 0px;"></div>
+    <p>{{ Bootstrap.textarea('origin_textarea')|raw }}</p>
     <div class="text-center">
         {{ Bootstrap.button({'id':'submit', 'data-obj':'#origin_textarea|#result_textarea'}, 'base64编码')|raw }}
         {{ Bootstrap.button({'id':'resubmit', 'data-obj':'#origin_textarea|#result_textarea'}, 'base64解码')|raw }}
     </div>
-    <p class="text-muted">
+    <p>
         编码结果：
         {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
         {{ Bootstrap.iconBtn('remove', {'data-obj':'#result_textarea'})|raw }}
         {{ Bootstrap.iconBtn('retweet', {'data-obj':'#origin_textarea|#result_textarea'})|raw }}
     </p>
-    {{ Bootstrap.textarea('result_textarea')|raw }}
+    <p>{{ Bootstrap.textarea('result_textarea')|raw }}</p>
 
 {% endblock %}
 
@@ -35,28 +34,12 @@
     <script type="text/javascript">
         $('#submit').click(function () {
             var obj = $(this).data('obj');
-            if (!obj) {
-                console.log('submit operation obj error', obj);
-                return false;
-            }
             var arr = obj.split('|');
-            if (arr.length != 2){
-                console.log('submit operation arr error', obj);
-                return false;
-            }
             $(arr[1]).val(Base64.encode($(arr[0]).val()));
         })
         $('#resubmit').click(function () {
             var obj = $(this).data('obj');
-            if (!obj) {
-                console.log('submit operation obj error', obj);
-                return false;
-            }
             var arr = obj.split('|');
-            if (arr.length != 2){
-                console.log('submit operation arr error', obj);
-                return false;
-            }
             $(arr[1]).val(Base64.decode($(arr[0]).val()));
         })
     </script>

@@ -32,6 +32,6 @@ return array(
 	),
 	'crypto-js' => array(
 		'https://cdn.bootcss.com/crypto-js/3.1.9/crypto-js.min.js',
-		'https://cdn.bootcss.com/crypto-js/3.1.9/md5.min.js',
+		//'https://cdn.bootcss.com/crypto-js/3.1.9/md5.min.js',
 	)
 );

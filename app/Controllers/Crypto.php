@@ -30,10 +30,10 @@ class Crypto extends Base
 	}*/
 
     /**
-     * 随机密码
+     * 密码生成器
 	 * http://tool.oschina.net/htpasswd
      * @pattern /crypto/passwd.html
-     * @menu 加解密工具|生成随机密码
+     * @menu 加解密工具|随机密码生成器
      * @param Request $request
      * @param Response $response
      * @param $args
@@ -41,10 +41,24 @@ class Crypto extends Base
     public function genPwd(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
+        return $this->view('crypto/passwd.twig', $data);
+    }
+    /**
+     * htpasswd生成器
+	 * http://tool.oschina.net/htpasswd
+     * @pattern /crypto/htpasswd.html
+     * @menu 加解密工具|htpasswd生成器
+     * @param Request $request
+     * @param Response $response
+     * @param $args
+     */
+    public function htPassWd(Request $request, Response $response, $args)
+    {
+        $data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addJs('/statics/js/sha1.js');
 		$this->addJs('/statics/js/javacrypt.js');
 		$this->addStaticsDir('bootstrap-select');
-        return $this->view('crypto/passwd.twig', $data);
+        return $this->view('crypto/htpasswd.twig', $data);
     }
 
     /**
@@ -91,6 +105,7 @@ class Crypto extends Base
     public function base64(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addStaticsDir('bootstrap-select');
         $this->addJs('/statics/js/base64.js');
         return $this->view('crypto/base64.twig', $data);
     }
@@ -106,7 +121,8 @@ class Crypto extends Base
     public function urlcode(Request $request, Response $response, $args)
     {
         $data['current_menu'] = $this->getCurrentMenu($request);
-        return $this->view('crypto/urlcode.twig', $data);
+		$this->addStaticsDir('bootstrap-select');
+		return $this->view('crypto/urlcode.twig', $data);
     }
 
     /**

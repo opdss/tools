@@ -98,7 +98,7 @@ class Doc extends Base
 
     /**
      * @pattern /tcpudpport.html
-     * @menu  手册/文档|TCP/UDP常用端口
+     * @menu  手册/文档|TCP/UDP常见端口
      * @link http://www.jsons.cn/portcode/
      * @param Request $request
      * @param Response $response

@@ -3,61 +3,62 @@
 {% block container %}
     <h3 class="page-header">{{ current_menu[1] }}</h3>
 
-    {#<blockquote>
-        <p>Json代码进行美化、格式化、检查Json错误。 也可以进行Json代码压缩处理,提供Json Unicode转换为对应字符！！将json \uxxxx类，格式化相应的中文字符串！Json</p>
-    </blockquote>#}
-    {#<div class="well">
-        MD5 散列值计算
-    </div>#}
+    <div class="alert alert-info">
+        <h4><code>encodeURI</code>和<code>encodeURIComponent</code>的区别</h4>
+        <p>
+            它们都是编码URL，唯一区别就是编码的字符范围，其中
+        encodeURI方法不会对下列字符编码  ASCII字母、数字、~!@#$&*()=:/,;?+'
+        encodeURIComponent方法不会对下列字符编码 ASCII字母、数字、~!*()'
+        所以encodeURIComponent比encodeURI编码的范围更大。
+        </p>
+    </div>
+
     <p class="text-muted">
         待编码URL：
         {{ Bootstrap.iconBtn('copy', {'data-obj':'#origin_textarea'})|raw }}
         {{ Bootstrap.iconBtn('remove', {'data-obj':'#origin_textarea'})|raw }}
         {#{{ Bootstrap.iconBtn('cloud', {'data-obj':'#origin_textarea'})|raw }}#}
     </p>
-    {{ Bootstrap.textarea('origin_textarea')|raw }}
-    <div style="margin: 10px 0px;"></div>
-    <div class="text-center">
+    <p>{{ Bootstrap.textarea('origin_textarea')|raw }}</p>
+    <p class="text-center">
+        <select class="selectpicker" id="method">
+            <option value=0>encodeURI</option>
+            <option value=1>encodeURIComponent</option>
+        </select>
         {{ Bootstrap.button({'id':'submit', 'data-obj':'#origin_textarea|#result_textarea'}, 'url编码')|raw }}
         {{ Bootstrap.button({'id':'resubmit', 'data-obj':'#origin_textarea|#result_textarea'}, 'url解码')|raw }}
-    </div>
+    </p>
     <p class="text-muted">
         编码结果：
         {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
         {{ Bootstrap.iconBtn('remove', {'data-obj':'#result_textarea'})|raw }}
         {{ Bootstrap.iconBtn('retweet', {'data-obj':'#origin_textarea|#result_textarea'})|raw }}
     </p>
-    {{ Bootstrap.textarea('result_textarea')|raw }}
+    <p>{{ Bootstrap.textarea('result_textarea')|raw }}</p>
 
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript">
-        $('#submit').click(function () {
+        $('#submit').click(function (e) {
             var obj = $(this).data('obj');
-            if (!obj) {
-                console.log('submit operation obj error', obj);
-                return false;
-            }
             var arr = obj.split('|');
-            if (arr.length != 2){
-                console.log('submit operation arr error', obj);
-                return false;
+            if ($('#method').val() == 0) {
+                console.log(1);
+                $(arr[1]).val(encodeURI($(arr[0]).val()));
+            } else {
+                console.log(2);
+                $(arr[1]).val(encodeURIComponent($(arr[0]).val()));
             }
-            $(arr[1]).val(encodeURIComponent($(arr[0]).val()));
         })
-        $('#resubmit').click(function () {
+        $('#resubmit').click(function (e) {
             var obj = $(this).data('obj');
-            if (!obj) {
-                console.log('submit operation obj error', obj);
-                return false;
-            }
             var arr = obj.split('|');
-            if (arr.length != 2){
-                console.log('submit operation arr error', obj);
-                return false;
+            if ($('#method').val() == 1) {
+                $(arr[1]).val(decodeURI($(arr[0]).val()));
+            } else {
+                $(arr[1]).val(decodeURIComponent($(arr[0]).val()));
             }
-            $(arr[1]).val(decodeURIComponent($(arr[0]).val()));
         })
     </script>
 {% endblock %}

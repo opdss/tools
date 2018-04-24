@@ -1,0 +1,54 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <span class="glyphicon glyphicon-fullscreen" id="fullscreen"></span>
+    <span class="glyphicon glyphicon-remove" id="close-fullscreen"></span>
+    <h3 class="page-header">XML转JSON、JSON转XML、JSON/XML互转</h3>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                <button class="btn btn-info btn-covert" data-type="json">json转换成xml</button>
+            </p>
+            {{ Bootstrap.textarea('json_textarea', 16, test)|raw }}
+        </div>
+
+        <div class="col-md-6">
+            <p>
+                <button class="btn btn-primary btn-covert" data-type="xml">xml转换成json</button>
+            </p>
+            {{ Bootstrap.textarea('xml_textarea', 16, test)|raw }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $('.btn-covert').click(function (e) {
+            var type = $(this).data('type');
+            var xotree = new XML.ObjTree();
+            if (type == 'xml') {
+                console.log($.trim($('#xml_textarea').val()));
+                var tree = xotree.parseXML($.trim($('#xml_textarea').val()));
+                console.log(tree);
+                if (!tree.html) {
+                    $('#json_textarea').val(JSON.stringify(tree));
+                } else {
+                    alert('XML格式错误')
+                }
+            } else if (type == 'json') {
+                try {
+                    console.log($.trim($('#json_textarea').val()));
+                    var res = xotree.writeXML(JSON.parse($.trim($('#json_textarea').val())));
+                    $('#xml_textarea').val(res);
+                } catch (e) {
+                    alert('JSON格式错误')
+                }
+            }
+            e.preventDefault();
+            return false;
+        })
+    </script>
+{% endblock %}

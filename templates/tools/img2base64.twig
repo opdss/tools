@@ -1,0 +1,37 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">在线图片转换成base64编码</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <input type="file" value="请选择图片" onchange="fileSelect(this.files)">
+        </div>
+        <div class="col-md-6">
+            <img id="show_img" src="">
+        </div>
+    </div>
+    <br/>
+    <p>
+        base64编码结果：
+        {{ Bootstrap.iconBtn('copy', {'data-obj':'#result_textarea'})|raw }}
+    </p>
+    <pre class="well code-break" id="result_textarea"></pre>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function fileSelect(files) {
+            file = files[0];
+            if (!/image\/\w+/.test(file.type)) {
+                swal("请确保文件为图像类型");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                $('#result_textarea').text(this.result);
+                $('#show_img').attr('src', this.result)
+            }
+        }
+    </script>
+{% endblock %}

@@ -34,9 +34,9 @@
         <div class="input-group col-md-12">
             <span class="input-group-addon" id="code">密钥</span>
             <input type="text" class="form-control" id="pwd" placeholder="请在这输入密钥">
-            {#<span class="input-group-btn">
-                {{ Bootstrap.button({'id': 'key-btn', 'data-obj':'#origin_textarea|#result_textarea'}, 'OK')|raw }}
-            </span>#}
+            <span class="input-group-btn">
+                {{ Bootstrap.button({'id': 'genkey-btn', 'data-obj':'#origin_textarea|#result_textarea'}, '随机密钥')|raw }}
+            </span>
         </div>
     </div>
     <br/>
@@ -66,5 +66,9 @@
                 $(arr[1]).val(func($(arr[0]).val()));
             }
         })
+        $('#genkey-btn').click(function (e) {
+            $('#pwd').val(utils.genRandStrNew(16));
+        })
+        $('#genkey-btn').trigger('click');
     </script>
 {% endblock %}

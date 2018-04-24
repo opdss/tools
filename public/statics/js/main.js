@@ -56,9 +56,6 @@ $('document').ready(function () {
     });
 
     clipboard_btn_copy.on('success', function(e) {
-        /*console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);*/
         e.clearSelection();
         swal_osc("复制成功！");
     });
@@ -88,8 +85,11 @@ $('document').ready(function () {
     })
 
 
+
     if (window.localStorage) {
-        if (window.localStorage.getItem('tools')) {
+        if (window.localStorage.getItem('tools')
+            && window.localStorage.getItem('version')
+            && (window.localStorage.getItem('version') >= config.version)) {
             init_typeahead(JSON.parse(window.localStorage.getItem('tools')));
         } else {
             $.ajax({
@@ -99,6 +99,7 @@ $('document').ready(function () {
                 success: function(result){
                     if (result.errCode == 0) {
                         init_typeahead(result.data);
+                        window.localStorage.setItem('version', config.version);
                         window.localStorage.setItem('tools', JSON.stringify(result.data));
                     }
                 }

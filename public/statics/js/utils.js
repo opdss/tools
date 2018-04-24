@@ -23,6 +23,18 @@ var utils = {
         return res;
     },
 
+    genRandStrNew: function (num, charset) {
+        num = parseInt(num, 10) || 16;
+        if (!charset) {
+            charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()_+=-';
+        }
+        var res = '';
+        for (var i = 0; i < num; i++) {
+            res += charset[Math.floor(Math.random() * charset.length)];
+        }
+        return res;
+    },
+
     /**
      * 校验18位身份证是否合法
      * @param idcard
@@ -86,24 +98,6 @@ var utils = {
             return false;
         }
         return true;
-    },
-
-    htmlCompress: function (html) {
-        var sourceLength = html.length;
-        if (sourceLength == 0) {
-            return false;
-        }
-        var rep = /\n+/g;
-        var repone = /<!--.*?-->/ig;
-        var reptwo = /\/\*.*?\*\//ig;
-        var reptree = /[ ]+</ig;
-        //var tt = /\t+/g;
-        var sourceZero = html.replace(rep, "");
-        var sourceOne = sourceZero.replace(repone, "");
-        var sourceTwo = sourceOne.replace(reptwo, "");
-        var sourceTree = sourceTwo.replace(reptree, "<");
-        //var sourceTree = sourceTwo.replace(tt,"<");
-        return sourceTree;
     },
 
     xmlCompress: function (text) {

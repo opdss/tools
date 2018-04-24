@@ -175,3 +175,10 @@ body {
 .code-break {
     min-height: 300px;white-space: pre-wrap;word-wrap: break-word;
 }
+
+.span-copy {
+    cursor: pointer;
+}
+.span-copy:hover {
+    cursor: pointer;
+}

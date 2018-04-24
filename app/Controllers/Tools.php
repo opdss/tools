@@ -82,7 +82,7 @@ class Tools extends Base
 	/**
 	 * 文件对比
 	 * @pattern /diff.html
-	 * http://tool.oschina.net/diff
+	 * @link http://tool.oschina.net/diff
 	 * @menu 实用工具|文件对比
 	 * @param Request $request
 	 * @param Response $response
@@ -94,5 +94,21 @@ class Tools extends Base
 		$this->addStaticsDir('bootstrap-select');
         $this->addStaticsDir('mergely');
 		return $this->view('tools/diff.twig', $data);
+	}
+
+	/**
+	 * 文件对比
+	 * @pattern /img2base64.html
+	 * @link http://tool.oschina.net/encrypt?type=4
+	 * @menu 实用工具|图片/BASE64转换
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function img2base64(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/img2base64.twig', $data);
 	}
 }

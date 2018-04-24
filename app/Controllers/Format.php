@@ -40,9 +40,9 @@ class Format extends Base
 		$data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addStaticsDir('jsonview');
 		$this->addStaticsDir('bootstrap-select');
-		/*$data['test'] = <<<EOF
+		$data['test'] = <<<EOF
 {"name":"工具箱","links":[{"name":"blog","url":"http://www.istimer.com"},{"name":"古诗词","url":"http://www.isnoter.com"}],"url":"http://www.1tools.net","3Q":"谢谢使用，如有意见，反正也没提交入口"}
-EOF;*/
+EOF;
 		return $this->view('format/json.twig', $data);
 	}
 
@@ -127,4 +127,24 @@ EOF;*/
 
         return $this->view('format/css.twig', $data);
     }
+
+	/**
+	 * //@pattern /format/json2xml.html
+	 * @menu 格式化工具|json/xml转换
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+    public function json2xml(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addStaticsDir('beautify');
+		$this->addStaticsDir('bootstrap-select');
+		$this->addJs('/statics/js/objTree.js');
+		$data['test'] = <<<EOF
+{"name":"工具箱","links":[{"name":"blog","url":"http://www.istimer.com"},{"name":"古诗词","url":"http://www.isnoter.com"}],"url":"http://www.1tools.net","3Q":"谢谢使用，如有意见，反正也没提交入口"}
+EOF;
+		return $this->view('format/json2xml.twig', $data);
+	}
 }
