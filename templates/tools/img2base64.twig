@@ -7,7 +7,7 @@
             <input type="file" value="请选择图片" onchange="fileSelect(this.files)">
         </div>
         <div class="col-md-6">
-            <img id="show_img" src="">
+            <img id="show_img" style="max-height: 200px;;max-width: 200px;" src="">
         </div>
     </div>
     <br/>
@@ -22,6 +22,7 @@
     <script>
         function fileSelect(files) {
             file = files[0];
+            console.log(file);
             if (!/image\/\w+/.test(file.type)) {
                 swal("请确保文件为图像类型");
                 return false;

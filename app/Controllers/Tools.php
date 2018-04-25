@@ -111,4 +111,42 @@ class Tools extends Base
 		$data['current_menu'] = $this->getCurrentMenu($request);
 		return $this->view('tools/img2base64.twig', $data);
 	}
+
+	/**
+	 * 进制转换
+	 * @pattern /hexconvert.html
+	 * @link http://tool.oschina.net/hexconvert/
+	 * @menu 实用工具|进制转换
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function hexConvert(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addStaticsDir('bootstrap-select');
+		return $this->view('tools/hexconvert.twig', $data);
+	}
+
+	public function httpTest(Request $request, Response $response, $args)
+	{
+
+	}
+
+	/**
+	 * 端口扫描
+	 * @pattern /portscan.html
+	 * @link https://tool.lu/portscan/
+	 * @menu 实用工具|端口扫描
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function portScan(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/portScan.twig', $data);
+	}
 }

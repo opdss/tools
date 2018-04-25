@@ -1,0 +1,262 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">在线进制转换</h3>
+
+    <div class="alert alert-info">
+        js中规定安全整数的范围是-2^53~2^53，所以大于 9007199254740991 的数进制转换会存在精度问题
+    </div>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="num" class="col-md-1 control-label">选择进制</label>
+            <div class="col-md-10">
+                <label class="radio-inline">
+                    <input type="radio" name="from_covert" value="2">
+                    2进制
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="from_covert" value="8">
+                    8进制
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="from_covert" value="10" checked>
+                    10进制
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="from_covert" value="16">
+                    16进制
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="from_covert" value="32">
+                    32进制
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="from_covert" value="36">
+                    36进制
+                </label>
+                <label class="radio-inline">
+                    <span>更多进制：</span>
+                    <select class="selectpicker" id="input_num" onchange="convert(this.value)">
+                        {% for x in 2..36 %}
+                            <option value="{{ x }}" {% if x == 10 %}selected{% endif %}>{{ x }}进制</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">转换数字</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="input_val">
+            </div>
+            <div class="col-md-2">
+                <button type="reset" class="btn btn-primary" id="convert-btn">转换</button>
+            </div>
+        </div>
+        <hr/>
+        结果
+        <div class="form-group">
+            <label class="col-md-1 control-label">2进制</label>
+            <div class="col-md-4">
+                <input type="text" data-convert="2" class="form-control output_val">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">8进制</label>
+            <div class="col-md-2">
+                <input type="text" data-convert="8" class="form-control output_val">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">10进制</label>
+            <div class="col-md-2">
+                <input type="text" data-convert="10" class="form-control output_val">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">16进制</label>
+            <div class="col-md-2">
+                <input type="text" data-convert="16" class="form-control output_val">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-1 control-label">32进制</label>
+            <div class="col-md-2">
+                <input type="text" data-convert="32" class="form-control output_val">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">36进制</label>
+            <div class="col-md-2">
+                <input type="text" data-convert="36" class="form-control output_val">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">
+                <select class="selectpicker form-control input-group-btn" id="output_val">
+                    {% for x in 2..36 %}
+                        <option value="{{ x }}">{{ x }}进制</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <div class="col-md-2">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+
+        function pxparseFloat(x, y) {
+            x = x.toString();
+            var num = x;
+            var data = num.split(".");
+            var you = data[1].split(""); //将右边转换为数组 得到类似 [1,0,1]
+            var sum = 0;  //小数部分的和
+            for (var i = 0; i < data[1].length; i++) {
+                sum += you[i] * Math.pow(y, -1 * (i + 1))
+            }
+            return parseInt(data[0], y) + sum;
+        }
+
+        function zhengze(x) {
+            var str;
+            x = parseInt(x);
+            if (x <= 10) {
+                str = new RegExp("^[+\\-]?[0-" + (x - 1) + "]*[.]?[0-" + (x - 1) + "]*$", "gi");
+            } else {
+                var letter = "";
+                switch (x) {
+                    case 11:
+                        letter = "a";
+                        break;
+                    case 12:
+                        letter = "b";
+                        break;
+                    case 13:
+                        letter = "c";
+                        break;
+                    case 14:
+                        letter = "d";
+                        break;
+                    case 15:
+                        letter = "e";
+                        break;
+                    case 16:
+                        letter = "f";
+                        break;
+                    case 17:
+                        letter = "g";
+                        break;
+                    case 18:
+                        letter = "h";
+                        break;
+                    case 19:
+                        letter = "i";
+                        break;
+                    case 20:
+                        letter = "j";
+                        break;
+                    case 21:
+                        letter = "k";
+                        break;
+                    case 22:
+                        letter = "l";
+                        break;
+                    case 23:
+                        letter = "m";
+                        break;
+                    case 24:
+                        letter = "n";
+                        break;
+                    case 25:
+                        letter = "o";
+                        break;
+                    case 26:
+                        letter = "p";
+                        break;
+                    case 27:
+                        letter = "q";
+                        break;
+                    case 28:
+                        letter = "r";
+                        break;
+                    case 29:
+                        letter = "s";
+                        break;
+                    case 30:
+                        letter = "t";
+                        break;
+                    case 31:
+                        letter = "u";
+                        break;
+                    case 32:
+                        letter = "v";
+                        break;
+                    case 33:
+                        letter = "w";
+                        break;
+                    case 34:
+                        letter = "x";
+                        break;
+                    case 35:
+                        letter = "y";
+                        break;
+                    case 36:
+                        letter = "z";
+                        break;
+                }
+                str = new RegExp("^[+\\-]?[0-9a-" + letter + "]*[.]?[0-9a-" + letter + "]*$", "gi");
+            }
+            return str;
+        }
+
+        function convert(inp, inp_num, out_num) {
+            var flag = inp.match(zhengze(inp_num));
+            if (flag) {
+                if (flag[0].indexOf(".") == -1) {
+                    var val = parseInt(flag, inp_num);
+                } else {
+                    var val = pxparseFloat(flag, inp_num);
+                }
+                return val.toString(out_num);
+            } else {
+                return '';
+            }
+        }
+
+        $('[name=from_covert]').click(function (e) {
+            $('.selectpicker').selectpicker('val', $(this).val());
+        })
+
+        $('#convert-btn').click(function (e) {
+            var inp = $('#input_val').val();
+            if (!inp) {
+                return false;
+            }
+            var inp_num = $('#input_num').val();
+            $('.output_val').each(function (i, n) {
+                var out_num = parseInt($(n).data('convert'), 10);
+                $(n).val(convert(inp, inp_num, out_num));
+            });
+            $('#output_val').parents('div.form-group').find('input').val(convert(inp, inp_num, $('#output_val').val()));
+            e.preventDefault();
+            return false;
+        })
+
+        $('#output_val').change(function () {
+            var inp = $('#input_val').val();
+            if (inp) {
+                var inp_num = $('#input_num').val();
+                var val = convert(inp, inp_num, $(this).val());
+            } else {
+                var val = ''
+            }
+            $(this).parents('div.form-group').find('input').val(val);
+        })
+    </script>
+{% endblock %}

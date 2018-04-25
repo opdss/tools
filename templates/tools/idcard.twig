@@ -1,12 +1,11 @@
 {% extends "layout.twig" %}
 
-{% block css %}
-    <link href="https://cdn.bootcss.com/ajax-bootstrap-select/1.4.3/css/ajax-bootstrap-select.min.css" rel="stylesheet">
-{% endblock %}
-
 {% block container %}
     <div class="row">
         <h3 class="page-header">{{ current_menu[1] }}</h3>
+        <div class="alert alert-danger">
+            <b>本站免费提供身份证号码信息查询和全国各地身份证号码生成功能，身份证号码由系统随机生成，可供初级身份证号码验证，游戏防沉迷注册，或者测试娱乐使用，请勿用于非法用途！！！</b>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <form class="form-inline">
@@ -29,9 +28,11 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <h3 class="page-header">随机批量生成有效身份证号码</h3>
+        <div class="alert alert-danger">
+            <b>免责声明：下面提供的身份证号码及相关信息由系统随机组合而成，不会涉及任何隐私泄密问题，也并非现实生活中真实的身份证号码，仅供大家研究身份证号码使用，切勿用于注册网站等任何其他用途。若因使用这些身份证号码而产生任何问题和纠纷，本网站不承担任何直接或间接的责任！</b>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <form class="form-inline" id="gen-form">

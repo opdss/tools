@@ -1,0 +1,46 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">HTTP头信息参考,header参考</h3>
+    <div class="well">
+        HTTP（HyperTextTransferProtocol）是超文本传输协议的缩写，它用于传送WWW方式的数据，关于HTTP 协议的详细内容请参 考RFC2616。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求，请求头包含请求的方法、URI、协议版本、以及包含请求修饰符、客户 信息和内容的类似于MIME的消息结构。服务器以一个状态行作为响应，相应的内容包括消息协议的版本，成功或者错误编码加上包含服务器信息、实体元信息以 及可能的实体内容。
+        <br/>
+        通常HTTP消息包括客户机向服务器的请求消息和服务器向客户机的响应消息。这两种类型的消息由一个起始行，一个或者多个头域，一个只是头域结束的空行和可 选的消息体组成。HTTP的头域包括通用头，请求头，响应头和实体头四个部分。每个头域由一个域名，冒号（:）和域值三部分组成。域名是大小写无关的，域 值前可以添加任何数量的空格符，头域可以被扩展为多行，在每行开始处，使用至少一个空格或制表符。
+        <br/>
+        小窍门：<code>ctrl+f</code>快速查找
+    </div>
+
+    <h4>Requests Header | Http Header</h4>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr class="text-center"><td colspan="3"><b>Requests Header</b></td></tr>
+        <tr class="text-center">
+            <td>Header</td><td>解释</td><td>示例</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in httpHeader['request'] %}
+        <tr>
+            <td>{{ item[0] }}</td><td>{{ item[1] }}</td><td>{{ item[2] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h4>Responses Header | Http Header</h4>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr class="text-center"><td colspan="3"><b>Responses Header</b></td></tr>
+        <tr class="text-center">
+            <td>Header</td><td>解释</td><td>示例</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in httpHeader['response'] %}
+            <tr>
+                <td>{{ item[0] }}</td><td>{{ item[1] }}</td><td>{{ item[2] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

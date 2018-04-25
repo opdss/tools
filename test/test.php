@@ -6,126 +6,58 @@
  * @copyright boyaa.com
  */
 
+$errno = '';
+$errstr = '';
 
+var_dump(range(2, 4));exit;
+$fp = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+if ($fp) {
+	if (!socket_connect($fp, 'www.istimer.com', '22')) {
+		var_dump( socket_strerror(socket_last_error()));
+		exit;
+	}
+	var_dump(2222222);
+	var_dump(socket_send($fp, "get\r\n", strlen("get\r\n"), MSG_EOR));
+	var_dump(socket_recv($fp, $errno, 1024,MSG_PEEK));
+}
+var_dump($errno, $errstr);
+
+exit();
 $str = <<<EOF
-1	tcpmux	TCP 端口服务多路复用
-5	rje	远程作业入口
-7	echo	Echo 服务
-9	discard	用于连接测试的空服务
-11	systat	用于列举连接了的端口的系统状态
-13	daytime	给请求主机发送日期和时间
-17	qotd	给连接了的主机发送每日格言
-18	msp	消息发送协议
-19	chargen	字符生成服务；发送无止境的字符流
-20	ftp-data	FTP 数据端口
-21	ftp	文件传输协议（FTP）端口；有时被文件服务协议（FSP）使用
-22	ssh	安全 Shell（SSH）服务
-23	telnet	Telnet 服务
-25	smtp	简单邮件传输协议（SMTP）
-37	time	时间协议
-39	rlp	资源定位协议
-42	nameserver	互联网名称服务
-43	nicname	WHOIS 目录服务
-49	tacacs	用于基于 TCP/IP 验证和访问的终端访问控制器访问控制系统
-50	re-mail-ck	远程邮件检查协议
-53	domain	域名服务（如 BIND）
-63	whois++	WHOIS++，被扩展了的 WHOIS 服务
-67	bootps	引导协议（BOOTP）服务；还被动态主机配置协议（DHCP）服务使用
-68	bootpc	Bootstrap（BOOTP）客户；还被动态主机配置协议（DHCP）客户使用
-69	tftp	小文件传输协议（TFTP）
-70	gopher	Gopher 互联网文档搜寻和检索
-71	netrjs-1	远程作业服务
-72	netrjs-2	远程作业服务
-73	netrjs-3	远程作业服务
-73	netrjs-4	远程作业服务
-79	finger	用于用户联系信息的 Finger 服务
-80	http	用于万维网（WWW）服务的超文本传输协议（HTTP）
-88	kerberos	Kerberos 网络验证系统
-95	supdup	Telnet 协议扩展
-101	hostname	SRI-NIC 机器上的主机名服务
-102	iso-tsap	ISO 开发环境（ISODE）网络应用
-105	csnet-ns	邮箱名称服务器；也被 CSO 名称服务器使用
-107	rtelnet	远程 Telnet
-109	pop2	邮局协议版本2
-110	pop3	邮局协议版本3
-111	sunrpc	用于远程命令执行的远程过程调用（RPC）协议，被网络文件系统（NFS）使用
-113	auth	验证和身份识别协议
-115	sftp	安全文件传输协议（SFTP）服务
-117	uucp-path	Unix 到 Unix 复制协议（UUCP）路径服务
-119	nntp	用于 USENET 讨论系统的网络新闻传输协议（NNTP）
-123	ntp	网络时间协议（NTP）
-137	netbios-ns	在红帽企业 Linux 中被 Samba 使用的 NETBIOS 名称服务
-138	netbios-dgm	在红帽企业 Linux 中被 Samba 使用的 NETBIOS 数据报服务
-139	netbios-ssn	在红帽企业 Linux 中被 Samba 使用的NET BIOS 会话服务
-143	imap	互联网消息存取协议（IMAP）
-161	snmp	简单网络管理协议（SNMP）
-162	snmptrap	SNMP 的陷阱
-163	cmip-man	通用管理信息协议（CMIP）
-164	cmip-agent	通用管理信息协议（CMIP）
-174	mailq	MAILQ
-177	xdmcp	X 显示管理器控制协议
-178	nextstep	NeXTStep 窗口服务器
-179	bgp	边界网络协议
-191	prospero	Cliffod Neuman 的 Prospero 服务
-194	irc	互联网中继聊天（IRC）
-199	smux	SNMP UNIX 多路复用
-201	at-rtmp	AppleTalk 选路
-202	at-nbp	AppleTalk 名称绑定
-204	at-echo	AppleTalk echo 服务
-206	at-zis	AppleTalk 区块信息
-209	qmtp	快速邮件传输协议（QMTP）
-210	z39.50	NISO Z39.50 数据库
-213	ipx	互联网络分组交换协议（IPX），被 Novell Netware 环境常用的数据报协议
-220	imap3	互联网消息存取协议版本3
-245	link	LINK
-347	fatserv	Fatmen 服务器
-363	rsvp_tunnel	RSVP 隧道
-369	rpc2portmap	Coda 文件系统端口映射器
-370	codaauth2	Coda 文件系统验证服务
-372	ulistproc	UNIX Listserv
-389	ldap	轻型目录存取协议（LDAP）
-427	svrloc	服务位置协议（SLP）
-434	mobileip-agent	可移互联网协议（IP）代理
-435	mobilip-mn	可移互联网协议（IP）管理器
-443	https	安全超文本传输协议（HTTP）
-444	snpp	小型网络分页协议
-445	microsoft-ds	通过 TCP/IP 的服务器消息块（SMB）
-464	kpasswd	Kerberos 口令和钥匙改换服务
-468	photuris	Photuris 会话钥匙管理协议
-487	saft	简单不对称文件传输（SAFT）协议
-488	gss-http	用于 HTTP 的通用安全服务（GSS）
-496	pim-rp-disc	用于协议独立的多址传播（PIM）服务的会合点发现（RP-DISC）
-500	isakmp	互联网安全关联和钥匙管理协议（ISAKMP）
-535	iiop	互联网内部对象请求代理协议（IIOP）
-538	gdomap	GNUstep 分布式对象映射器（GDOMAP）
-546	dhcpv6-client	动态主机配置协议（DHCP）版本6客户
-547	dhcpv6-server	动态主机配置协议（DHCP）版本6服务
-554	rtsp	实时流播协议（RTSP）
-563	nntps	通过安全套接字层的网络新闻传输协议（NNTPS）
-565	whoami	whoami
-587	submission	邮件消息提交代理（MSA）
-610	npmp-local	网络外设管理协议（NPMP）本地 / 分布式排队系统（DQS）
-611	npmp-gui	网络外设管理协议（NPMP）GUI / 分布式排队系统（DQS）
-612	hmmp-ind	HMMP 指示 / DQS
-631	ipp	互联网打印协议（IPP）
-636	ldaps	通过安全套接字层的轻型目录访问协议（LDAPS）
-674	acap	应用程序配置存取协议（ACAP）
-694	ha-cluster	用于带有高可用性的群集的心跳服务
-749	kerberos-adm	Kerberos 版本5（v5）的“kadmin”数据库管理
-750	kerberos-iv	Kerberos 版本4（v4）服务
-765	webster	网络词典
-767	phonebook	网络电话簿
-873	rsync	rsync 文件传输服务
-992	telnets	通过安全套接字层的 Telnet（TelnetS）
-993	imaps	通过安全套接字层的互联网消息存取协议（IMAPS）
-994	ircs	通过安全套接字层的互联网中继聊天（IRCS）
-995	pop3s	通过安全套接字层的邮局协议版本3（POPS3）
+Accept-Ranges	表明服务器是否支持指定范围请求及哪种类型的分段请求	Accept-Ranges: bytes
+Age	从原始服务器到代理缓存形成的估算时间（以秒计，非负）	Age: 12
+Allow	对某网络资源的有效的请求行为，不允许则返回405	Allow: GET, HEAD
+Cache-Control	告诉所有的缓存机制是否可以缓存及哪种类型	Cache-Control: no-cache
+Content-Encoding	web服务器支持的返回内容压缩编码类型。	Content-Encoding: gzip
+Content-Language	响应体的语言	Content-Language: en,zh
+Content-Length	响应体的长度	Content-Length: 348
+Content-Location	请求资源可替代的备用的另一地址	Content-Location: /index.htm
+Content-MD5	返回资源的MD5校验值	Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ==
+Content-Range	在整个返回体中本部分的字节位置	Content-Range: bytes 21010-47021/47022
+Content-Type	返回内容的MIME类型	Content-Type: text/html; charset=utf-8
+Date	原始服务器消息发出的时间	Date: Tue, 15 Nov 2010 08:12:31 GMT
+ETag	请求变量的实体标签的当前值	ETag: “737060cd8c284d8af7ad3082f209582d”
+Expires	响应过期的日期和时间	Expires: Thu, 01 Dec 2010 16:00:00 GMT
+Last-Modified	请求资源的最后修改时间	Last-Modified: Tue, 15 Nov 2010 12:45:26 GMT
+Location	用来重定向接收方到非请求URL的位置来完成请求或标识新的资源	Location: http://www.zcmhi.com/archives/94.html
+Pragma	包括实现特定的指令，它可应用到响应链上的任何接收方	Pragma: no-cache
+Proxy-Authenticate	它指出认证方案和可应用到代理的该URL上的参数	Proxy-Authenticate: Basic
+refresh	应用于重定向或一个新的资源被创造，在5秒之后重定向（由网景提出，被大部分浏览器支持）	Refresh: 5; url=http://www.atool.org/httptest.php            
+Retry-After	如果实体暂时不可取，通知客户端在指定时间之后再次尝试	Retry-After: 120
+Server	web服务器软件名称	Server: Apache/1.3.27 (Unix) (Red-Hat/Linux)
+Set-Cookie	设置Http Cookie	Set-Cookie: UserID=JohnDoe; Max-Age=3600; Version=1
+Trailer	指出头域在分块传输编码的尾部存在	Trailer: Max-Forwards
+Transfer-Encoding	文件传输编码	Transfer-Encoding:chunked
+Vary	告诉下游代理是使用缓存响应还是从原始服务器请求	Vary: *
+Via	告知代理客户端响应是通过哪里发送的	Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)
+Warning	警告实体可能存在的问题	Warning: 199 Miscellaneous warning
+WWW-Authenticate	表明客户端请求实体应该使用的授权方案	WWW-Authenticate: Basic
 EOF;
 $arr = explode("\n", $str);
 $data = [];
 foreach ($arr as $item) {
     $arr1 = explode("	", $item);
-    $data[$arr1[0]] = [$arr1[1], $arr1[2]];
+    $data[] = [$arr1[0], $arr1[1], $arr1[2]];
 }
 var_export($data);
 

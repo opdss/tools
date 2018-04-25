@@ -110,4 +110,19 @@ class Doc extends Base
         $data['tcpUdpPort'] = Config::get('tcpUdpPort');
         return $this->view('doc/tcpUdpPort.twig', $data);
     }
+
+	/**
+	 * @pattern /httpheader.html
+	 * @menu  手册/文档|HTTP头信息header参考
+	 * @link http://www.jsons.cn/portcode/
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 */
+	public function httpHeader(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		$data['httpHeader'] = Config::get('httpHeader');
+		return $this->view('doc/httpHeader.twig', $data);
+	}
 }
