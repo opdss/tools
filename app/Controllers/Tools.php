@@ -100,7 +100,7 @@ class Tools extends Base
 	 * 文件对比
 	 * @pattern /img2base64.html
 	 * @link http://tool.oschina.net/encrypt?type=4
-	 * @menu 实用工具|图片/BASE64转换
+	 * @menu 实用工具|图片/BASE64转换|new
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -116,7 +116,7 @@ class Tools extends Base
 	 * 进制转换
 	 * @pattern /hexconvert.html
 	 * @link http://tool.oschina.net/hexconvert/
-	 * @menu 实用工具|进制转换
+	 * @menu 实用工具|进制转换|new
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -129,16 +129,11 @@ class Tools extends Base
 		return $this->view('tools/hexconvert.twig', $data);
 	}
 
-	public function httpTest(Request $request, Response $response, $args)
-	{
-
-	}
-
 	/**
 	 * 端口扫描
-	 * @pattern /portscan.html
+	 * //@pattern /portscan.html
 	 * @link https://tool.lu/portscan/
-	 * @menu 实用工具|端口扫描
+	 * @menu 实用工具|端口扫描|new
 	 * @param Request $request
 	 * @param Response $response
 	 * @param $args
@@ -148,5 +143,38 @@ class Tools extends Base
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
 		return $this->view('tools/portScan.twig', $data);
+	}
+
+	/**
+	 * 端口扫描
+	 * @pattern /scanport.html
+	 * @link https://tool.lu/portscan/
+	 * @menu 实用工具|端口扫描|new
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function scanPort(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/scanPort.twig', $data);
+	}
+
+	/**
+	 * 端口扫描
+	 * //@pattern /httptest.html
+	 * @link http://www.atool.org/httptest.php
+	 * @menu 实用工具|http接口调试|new
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function httpTest(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		$this->addStaticsDir('bootstrap-select');
+		return $this->view('tools/httpTest.twig', $data);
 	}
 }

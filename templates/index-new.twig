@@ -15,7 +15,7 @@
 
                                 {#<span class="label label-info" style="display: inline-block;"><a href="{{ _item['url'] }}" target="_blank">{{ _item['name'] }}</a></span>#}
                                 <div>
-                                    <a href="{{ _item['url'] }}" target="_blank">{{ _item['name'] }}</a>
+                                    <a href="{{ _item['url'] }}" target="_blank">{{ _item['name'] }}{% if _item['three'] %}<span style="background-color: red;color:white">{{ _item['three'] }}</span>{% endif %}</a>
                                 </div>
                             {% endfor %}
                         {% else %}

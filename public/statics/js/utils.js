@@ -100,6 +100,37 @@ var utils = {
         return true;
     },
 
+    range : function (start, end) {
+        return new Array(end - start).fill(start).map(function (el, i) {
+            return start + i;
+        });
+    },
+
+    parsePort : function (portStr) {
+        if (!portStr) {
+            return [];
+        }
+        var portArr = [];
+        ports = portStr.split(',');
+        $.each(ports, function (i, n) {
+            if (n.indexOf('-') > -1) {
+                var arr = n.split('-', 2);
+                arr[0] = parseInt(arr[0], 10);
+                arr[1] = parseInt(arr[1], 10);
+                if (arr[0] && arr[1]) {
+                    var res = utils.range(Math.min(arr[0], arr[1]), Math.max(arr[0], arr[1])+1)
+                    portArr = portArr.concat(res)
+                }
+            } else {
+                var _port = parseInt(n, 10);
+                if (_port) {
+                    portArr.push(_port);
+                }
+            }
+        })
+        return portArr;
+    },
+
     xmlCompress: function (text) {
         var str = text.replace(/\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>/g, "").replace(/[ \r\n\t]{1,}xmlns/g, ' xmlns');
         return str.replace(/>\s{0,}</g, "><");

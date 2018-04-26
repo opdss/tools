@@ -58,12 +58,12 @@ class Base
 		foreach ($routes as $route) {
 			$sub = $route['info'];
 			if (isset($sub['menu']) && $sub['menu']) {
-                $arr = explode('|', $sub['menu'], 2);
+                $arr = explode('|', $sub['menu'], 3);
 				if (!isset($menus[$arr[0]])) {
 					$menus[$arr[0]] = array('name' => $arr[0], 'url' => $this->ci->router->pathFor($route['name']), 'sub' => []);
 				}
 				if (isset($arr[1])) {
-				    $one = ['name' => $arr[1], 'url' => $this->ci->router->pathFor($route['name'])];
+				    $one = ['name' => $arr[1], 'url' => $this->ci->router->pathFor($route['name']), 'three'=>(isset($arr[2]) ? $arr[2] : '')];
                     $menus[$arr[0]]['sub'][$arr[1]] = $one;
                     //添加最近实用
                     if (!empty($this->used) && in_array($route['name'], $this->used)) {

@@ -1,0 +1,191 @@
+{% extends "layout.twig" %}
+
+{% block css %}
+    <style>
+        td.edit{
+            width: 50%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+{% endblock %}
+
+{% block container %}
+    <h3 class="page-header">{{ current_menu[1] }}</h3>
+
+    <div class="alert alert-info">
+        1.HTTP请求方法文档参考：<a target="_blank" href="{{ path_for('doc.httpmethod') }}">http://www.1tools.net{{ path_for('doc.httpmethod') }}</a>
+        <br/>
+        2.HTTP响应状态码参考：<a target="_blank" href="{{ path_for('doc.httpcode') }}">http://www.1tools.net{{ path_for('doc.httpcode') }}</a>
+        <br/>
+        3.HTTP头信息参考：<a target="_blank" href="{{ path_for('doc.httpheader') }}">http://www.1tools.net{{ path_for('doc.httpheader') }}</a>
+        <br/>
+        4.HTTP头信息之content-type参考:<a target="_blank" href="{{ path_for('doc.contenttype') }}">http://www.1tools.net{{ path_for('doc.contenttype') }}</a>
+    </div>
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GET <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">GET</a></li>
+                            <li><a href="#">POST</a></li>
+                            <li><a href="#">DELETE</a></li>
+                            <li><a href="#">PUT</a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control" aria-label="" id="url" value="">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="params-btn">params</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" id="send-btn">发送请求</button>
+            </div>
+        </div>
+        <!-- params输入框 -->
+        <div id="params_div" style="display: none">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td width="50%">Key</td>
+                        <td width="50%">Value</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <!-- body等等参数选项框 -->
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#headers" aria-controls="headers" role="tab" data-toggle="tab">headers</a></li>
+                <li role="presentation"><a href="#body" aria-controls="body" role="tab" data-toggle="tab">body</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="headers">1</div>
+                <div role="tabpanel" class="tab-pane" id="body">2</div>
+            </div>
+
+        </div>
+        <!-- response响应数据显示框 -->
+        <div class="">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#response_body" aria-controls="response_body" role="tab" data-toggle="tab">body</a></li>
+                <li role="presentation"><a href="#cookies" aria-controls="cookies" role="tab" data-toggle="tab">cookies</a></li>
+                <li role="presentation"><a href="#response_headers" aria-controls="response_headers" role="tab" data-toggle="tab">headers</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="response_body">1</div>
+                <div role="tabpanel" class="tab-pane" id="cookies">2</div>
+                <div role="tabpanel" class="tab-pane" id="response_headers">3</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        var T = {
+            $paramsBtn : $('#params-btn'),
+            $sendBtn : $('#send-btn'),
+            $url : $('#url'),
+            $paramsDiv : $('#params_div'),
+            paramsDivShow : false,
+
+            $paramsTmp : $('<tr><td class="edit key" contenteditable="true" spellcheck="true"></td><td class="edit val" contenteditable="true" spellcheck="true"></td></tr>'),
+
+            init : function () {
+                T.$paramsBtn.click(T.paramsBtnClick);
+                //监听url改变事件
+                T.$url.keyup(function () {
+                    T.renserParamsDiv(T.parseParams(this.value));
+                });
+                //监听params改变事件
+                console.log(T.$paramsDiv.find('td.edit'));
+                T.$paramsDiv.on('keyup', 'td.edit', function (e) {
+                    var url = T.$url.val().split('?');
+                    T.$url.val(T.genUrl(url[0], T.getDivParams()));
+                })
+            },
+            paramsBtnClick : function () {
+                if (!T.paramsDivShow) {
+                    T.paramsDivShow = true;
+                    T.$paramsDiv.show();
+                } else {
+                    T.paramsDivShow = false;
+                    T.$paramsDiv.hide();
+                }
+            },
+            parseParams : function (url) {
+                var idx=url.indexOf("?")
+                if (idx < 0) {return false;}
+                var params = {};
+                var str = url.substr(idx+1); //取得所有参数   stringvar.substr(start [, length ]
+                if (str.length == 0){
+                    return false;
+                }
+                var arr=str.split("&"); //各个参数放到数组里
+                console.log(arr)
+                for(var i=0;i < arr.length;i++){
+                    idx = arr[i].indexOf("=");
+                    if(idx > 0){
+                        params[arr[i].substring(0, idx)] = arr[i].substr(idx + 1);
+                    } else {
+                        params[arr[i].substring(0, idx)] = '';
+                    }
+                }
+                return params;
+            },
+            genUrl : function (url, params) {
+                if (!params) {
+                    return url;
+                }
+                var str = and = '';
+                $.each(params, function (k, v) {
+                    str += and + k + '=' + v;
+                    and = '&'
+                })
+                return url + '?' + str;
+            },
+            //从paramsDiv获取参数
+            getDivParams : function () {
+                var $tr = T.$paramsDiv.find('tbody tr');
+                var params = {};
+                $.each($tr, function (i, n) {
+                    var key = $(n).find('td.key').text();
+                    var val = $(n).find('td.val').text();
+                    if (key || val) {
+                        params[key] = val;
+                    }
+                })
+                return params;
+            },
+            //渲染paramsDiv
+            renserParamsDiv : function (params) {
+                var $tbody = T.$paramsDiv.find('tbody');
+                $tbody.text('');
+                if (!params) {
+                    return false;
+                }
+                $.each(params , function (k, v) {
+                    var tmp = T.$paramsTmp.clone();
+                    tmp.find('.key').text(k);
+                    tmp.find('.val').text(v);
+                    $tbody.append(tmp);
+                })
+            }
+        }
+        T.init();
+    </script>
+{% endblock %}

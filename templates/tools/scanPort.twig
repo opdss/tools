@@ -1,0 +1,79 @@
+{% extends "layout.twig" %}
+
+{% block container %}
+    <h3 class="page-header">{{ current_menu[1] }}</h3>
+
+    {#<div class="alert alert-info">
+        单次扫描端口数不要超过10个
+    </div>#}
+
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-1 control-label">服务器：</label>
+            <div class="col-sm-4">
+                <input class="col-md-2 form-control" type="text" name="server_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-1 control-label">扫描端口：</label>
+            <div class="col-sm-4">
+                <input class="col-md-2 form-control" type="text" name="server_port" value="22,80-81,443,3306,6379">
+            </div>
+        </div>
+        <div  class="form-group">
+            <div class="col-md-1 col-md-offset-1">
+                <button type="submit" class="btn btn-primary" id="scan-btn">开始扫描</button>
+            </div>
+        </div>
+    </form>
+    <hr/>
+    <h4>扫描结果</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-hover table-striped table-bordered" id="scan_info">
+                <thead>
+                <tr>
+                    <td>端口</td>
+                    <td>协议</td>
+                    <td>状态</td>
+                    {#<td>ttl</td>#}
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $('#scan-btn').click(function (e) {
+            var $form =  $(this).parents('form');
+            var ports = $.trim($form.find('[name=server_port]').val());
+            var server_name = $.trim($form.find('[name=server_name]').val());
+            if (!server_name) {
+                swal('请输入正确的服务器地址！');
+                return false;
+            }
+            var portArr = utils.parsePort(ports);
+            if (portArr) {
+                $('#scan_info').find('tbody').text('');
+                $.each(portArr, function (i, n) {
+                    $.get('/api/scanport', {'server_name':server_name, 'server_port':n}, function (res) {
+                        if (res.errCode == 0) {
+                            var v = res.data;
+                            var html = '<tr> <td>' + v.port + '</td><td>' + v.service + '</td> <td>' + (v.isOpen?'<span style="color:red">open</a>':'close') + '</td> </tr>'
+                            $('#scan_info').find('tbody').append(html);
+                        } else {
+                            swal(res.errMsg);
+                        }
+                    }, 'json');
+                })
+            }
+            e.preventDefault();
+            return false;
+        })
+    </script>
+{% endblock %}
