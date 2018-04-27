@@ -6,8 +6,28 @@
  * @copyright boyaa.com
  */
 
-$errno = '';
-$errstr = '';
+include '../vendor/autoload.php';
+
+$api = '{"mid":"222918","protocol":1,"api":"22","sig":"9e08ba8409a717d91146ef3a87e87948","sid":233,"vkey":"f4ec9f480218dfc7285c840de5d972c1","version":"7.7.1","langtype":0,"username":"BY-93668","time":1524800782,"mtkey":"f5882197b7612462261b072e8644e782","unid":"134","method":"Upload.PhotoUpload","vmid":"222918","param":{"url":"https://byheadpic-static.boyaagame.com/beauty/photo118/233/366c6_2331524799924.jpg","mid":222918,"type":2,"act":"mdf"}}';
+
+
+$req = \Opdss\Http\Request::factory();
+
+$body = new \Opdss\Http\RequestMultipartBody();
+$body->add('api', $api);
+$body->addFile('icon', './test.png', 'test.png');
+
+$res = $req->send('post', 'http://upload.boyaa.info/api/api.php', $body);
+
+var_dump($res->getHeaders());
+var_dump($res->getBody());
+var_dump($res->getCurlInfo());
+exit;
+
+
+
+
+
 
 var_dump(range(2, 4));exit;
 $fp = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);

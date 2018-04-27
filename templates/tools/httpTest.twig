@@ -6,6 +6,7 @@
             width: 50%;
             white-space: pre-wrap;
             word-wrap: break-word;
+            background-color: #feffff;
         }
     </style>
 {% endblock %}
@@ -43,11 +44,12 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-primary" id="send-btn">发送请求</button>
+                <button class="btn btn-primary" style="width: 100%" id="send-btn">发送请求</button>
             </div>
         </div>
         <!-- params输入框 -->
-        <div id="params_div" style="display: none">
+       {# <div id="params_div" style="display: none">#}
+        <div id="params_div">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -56,6 +58,8 @@
                     </tr>
                 </thead>
                 <tbody>
+                <tr><td class="edit key" contenteditable="true" spellcheck="true">aaa</td><td class="edit val" contenteditable="true" spellcheck="true">111</td></tr>
+                <tr><td class="edit key" contenteditable="true" spellcheck="true">bbb</td><td class="edit val" contenteditable="true" spellcheck="true">222</td></tr>
                 </tbody>
             </table>
         </div>
@@ -70,7 +74,20 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="headers">1</div>
+                <div role="tabpanel" class="tab-pane active" id="headers">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <td width="50%">Key</td>
+                            <td width="50%">Value</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td class="edit key" contenteditable="true" spellcheck="true">aaa</td><td class="edit val" contenteditable="true" spellcheck="true">111</td></tr>
+                        <tr><td class="edit key" contenteditable="true" spellcheck="true">bbb</td><td class="edit val" contenteditable="true" spellcheck="true">222</td></tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div role="tabpanel" class="tab-pane" id="body">2</div>
             </div>
 
