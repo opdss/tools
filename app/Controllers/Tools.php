@@ -60,6 +60,8 @@ class Tools extends Base
 	{
 		$data['current_menu'] = $this->getCurrentMenu($request);
 		$this->addStaticsDir('bootstrap-select');
+		$this->addStaticsDir('bootstrap-datetimepicker');
+		$this->addJs('/statics/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js');
 		$data['timezone'] = Config::get('timezone');
 		return $this->view('tools/timestamp.twig', $data);
 	}

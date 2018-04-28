@@ -60,14 +60,21 @@ var utils = {
      post : function () {
 
      }*/
-    getFmtDateTime: function (timestamp) {
-        var date = timestamp && typeof timestamp == 'number' ? new Date(timestamp) : new Date();
+    getFmtDateTime: function (timestamp, showMs) {
+        var date = timestamp && typeof timestamp == 'number' ? new Date(timestamp) : typeof timestamp == 'object' ? timestamp : new Date();
         var s1 = "-";
         var s2 = ":";
         var pad = function (num) {
             return num < 10 ? "0" + num.toString() : num;
         }
-        return date.getFullYear() + s1 + pad(date.getMonth() + 1) + s1 + pad(date.getDate()) + " " + pad(date.getHours()) + s2 + pad(date.getMinutes()) + s2 + pad(date.getSeconds());
+        return date.getFullYear()
+            + s1 + pad(date.getMonth() + 1)
+            + s1 + pad(date.getDate())
+            + " "
+            + pad(date.getHours())
+            + s2 + pad(date.getMinutes())
+            + s2 + pad(date.getSeconds())
+            + (showMs ? '.' + date.getMilliseconds() : '');
     },
 
     getTimestamp: function (fmtDate) {

@@ -39,7 +39,7 @@
             <label>其他时区当前时间：</label>
             <select class="selectpicker" id="timezone">
                 {% for k,name in timezone %}
-                <option value="{{ k }}">{{ name }}</option>
+                    <option value="{{ k }}">{{ name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -54,7 +54,7 @@
     </blockquote>
 
     <form class="form-inline">
-        <input type="text" class="form-control" placeholder="Unix时间戳(秒)">
+        <input type="text" class="form-control" placeholder="Unix时间戳(秒|毫秒(13位数字))">
         <button class="btn btn-primary trans-btn" data-type=0>转换</button>
         <input type="text" class="form-control" placeholder="当地时间" readonly>
         {#<div class="input-group">
@@ -71,26 +71,62 @@
     </blockquote>
 
     <form class="form-inline">
-        <input type="text" class="form-control" placeholder="yyyy-mmm-dd hh:ii:ss">
-        <button class="btn btn-primary trans-btn" data-type=1>转换</button>
-        <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
+        {#<input type="text" class="form-control" placeholder="yyyy-mm-dd hh:ii:ss">#}
         {#<div class="input-group">
-            <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-copy"></span>
+            <input type="text" class="form-control" id="date-time" placeholder="yyyy-mm-dd hh:ii:ss">
+            <span class="input-group-addon time-btn">
+                <span class="glyphicon glyphicon-time"></span>
             </span>
         </div>#}
+
+        <div class="input-group">
+            <div class='input-group date' id='datetimepicker'>
+                <input type='text' class="form-control"  placeholder="yyyy-mm-dd hh:ii:ss"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time">
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary trans-btn" data-type=1>转换</button>
+        <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
     </form>
 
 {% endblock %}
 
 {% block script %}
     <script>
+
+        $('#datetimepicker').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            format: 'yyyy-mm-dd hh:ii:ss',
+            autoclose: 1,
+            todayHighlight: 1,
+            forceParse: 1
+        });
+
+        /*$('.time-btn').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 1,
+            //minView: 5,
+            forceParse: 0
+        }).on('changeDate', function (dateText, inst) {
+            $('#date-time').val(utils.getFmtDateTime(dateText.date));
+        });*/
+
         function utime() {
             $('#local-time').val(utils.getFmtDateTime());
             $('#timestamp').val(utils.getTimestamp());
             $('#zone-time').val(utils.getZoneTime(parseInt($('#timezone').val())));
         }
+
         utime();
         var utp = setInterval(utime, 1000);
         $('#stop-btn').click(function () {
@@ -106,11 +142,16 @@
         })
         $('.trans-btn').click(function () {
             var type = $(this).data('type');
-            var val = $(this).prev().val();
             var obj = $(this).next();
             if (!type) {
-                obj.val(utils.getFmtDateTime(parseInt(val)*1000));
+                var val = parseInt($(this).prev().val());
+                if (val.toString().length == 13) {
+                    obj.val(utils.getFmtDateTime(val, 1));
+                } else {
+                    obj.val(utils.getFmtDateTime(val * 1000));
+                }
             } else {
+                var val = $('#datetimepicker').find('input').val();
                 obj.val(utils.getTimestamp(val));
             }
             return false;
