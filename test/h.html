@@ -1,0 +1,805 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>正则表达式在线测试 - 站长工具</title>
+    <meta name="keywords" content="正则表达式在线测试,正则表达式测试工具"/>
+    <meta name="description" content="该工具主要针对程序开发人员，通过该工具可以快速准备的判断所写的正则是否能正确匹配相应的字符"/>
+    <script>
+        var jsurlbase = 'http://css.tools.chinaz.com/tools/js';
+        var imgurlbase = 'http://css.tools.chinaz.com/tools/images';
+        var styleurlbase = 'http://css.tools.chinaz.com/tools/styles';
+    </script>
+    <script type="text/javascript" src="http://css.tools.chinaz.com/common/js/mobilepage.js?v=201702"></script>
+    <link rel="stylesheet" type="text/css" href="http://css.tools.chinaz.com/common/styles/all-base.css?v=201803">
+    <link rel="stylesheet" type="text/css" href="http://css.tools.chinaz.com/common/styles/publicstyle.css?v=201803">
+    <script type="text/javascript" src="http://css.tools.chinaz.com/common/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://css.tools.chinaz.com/common/js/jq-public.js?v=201708"></script>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://css.tools.chinaz.com/common/js/DD_belatedPNG.js"></script>
+    <script>    DD_belatedPNG.fix('*');</script>
+    <![ENDIF]-->
+    <link rel="stylesheet" href="http://css.tools.chinaz.com/tools/styles/toolstyle.css" type="text/css"/>
+    <script src="http://css.tools.chinaz.com/tools/js/jq-tools.js" charset="gb2312" type="text/javascript"></script>
+</head>
+
+<body>
+<!--top-public-begin-->
+<div class="ww100">
+    <!--ToolTop-begin-->
+    <div class="ToolTop bor-b1s clearfix">
+        <div class="wrapper02 SimSun">
+
+            <ul class="TnavList fl pr zI52" id="menu">
+                <li><a href="http://www.chinaz.com" class="Tnt"><span>站长之家</span></a></li>
+                <li><a href="http://bbs.chinaz.com" class="Tnt"><span>站长论坛</span></a></li>
+                <li><a href="http://tool.chinaz.com" target="_blank" class="Tnone"><span>站长工具</span><i
+                        class="corner icon"></i></a>
+                    <p class="Tntwo">
+                        <a href="http://alexa.chinaz.com" target="_blank">ALEXA排名查询</a>
+                        <a href="http://rank.chinaz.com" target="_blank">百度权重查询</a>
+                        <a href="http://seo.chinaz.com" target="_blank">SEO概况查询</a>
+                        <a href="http://link.chinaz.com" target="_blank">友情链接查询</a>
+                        <a href="http://pr.chinaz.com" target="_blank">Google PR查询</a>
+                        <a href="http://whois.chinaz.com" target="_blank">Whois信息查询</a>
+                        <a href="http://icp.chinaz.com" target="_blank">域名备案查询</a>
+                    </p>
+                </li>
+                <li><a href="http://sc.chinaz.com" target="_blank" class="Tnone"><span>站长素材</span><i
+                        class="corner icon"></i></a>
+                    <p class="Tntwo">
+                        <a href="http://font.chinaz.com/" target="_blank">字体下载</a>
+                        <a href="http://desk.chinaz.com/" target="_blank">高清壁纸</a>
+                        <a href="http://sc.chinaz.com/jianli/" target="_blank">简历模板</a>
+                        <a href="http://sc.chinaz.com/tupian/" target="_blank">高清图片</a>
+                        <a href="http://sc.chinaz.com/shiliang/" target="_blank">矢量素材</a>
+                        <a href="http://sc.chinaz.com/ppt/" target="_blank">PPT模板</a>
+                        <a href="http://sc.chinaz.com/psd/" target="_blank">PSD素材</a>
+                    </p>
+                </li>
+                <li><a href="http://down.chinaz.com" target="_blank" class="Tnt"><span>源码下载</span></a></li>
+                <li><a href="http://top.chinaz.com" target="_blank" class="Tnone"><span>网站排行</span><i
+                        class="corner icon"></i></a>
+                    <p class="Tntwo">
+                        <a href="http://top.chinaz.com/hangye/" target="_blank">行业网站排名</a>
+                        <a href="http://top.chinaz.com/diqu/" target="_blank">地区网站排名</a>
+                    </p>
+                </li>
+                <li class="w60"><a href="javascript:mobilepage();" class="Tnone"><span>手机版</span></a>
+                    <p class="Tntwo"><img src="http://css.tools.chinaz.com/tools/images/m.tool.chinaz.com.qrcode.png">
+                    </p>
+                </li>
+                <li class="Oldrig"><a href="http://old.tool.chinaz.com/" target="_blank"
+                                      class="Tnt"><span>工具旧版</span></a></li>
+                <li class="seo-top"><a href="http://tool.chinaz.com/soft" target="_blank"
+                                       class="sNew"><span>SEO工具包</span></a></li>
+            </ul>
+
+            <div class="fr TrigW" id="chinaz_topbar"></div>
+
+
+        </div>
+    </div>
+    <!--ToolTop-end-->
+
+    <!--ToolHead-begin-->
+    <div class="ToolHead">
+        <div class="wrapper clearfix">
+            <h1 class="ToolLogo fl"><a href="/"><img
+                    src="http://css.tools.chinaz.com/tools/images/public/logos/logo-index.png"></a></h1>
+            <div class="fr topTsRight ml10" id="topTxt"></div>
+            <div class="fr topTsCenter">
+                <script src="http://stats.chinaz.com/gj_g/tool_468.js" type="text/javascript"></script>
+            </div>
+        </div>
+    </div>
+    <!--ToolHead-end-->
+    <!--ToolNavbar-begin-->
+
+    <div class="ToolNavbar" id="ToolNav">
+        <div class="navbar-bg">
+            <div class="navbar-bg-top">
+                <div class="navbar-content pr">
+                    <div class="navbar-content-box">
+                        <div class="wrapper02 clearfix" id="Navbar">
+                            <ul class="w114">
+                                <li class="dt"><a href="http://tool.chinaz.com">首页</a></li>
+                                <li class="dd"><a href="http://ciku.chinaz.com/" target="_blank">站长词库</a></li>
+                            </ul>
+                            <ul class="odd">
+                                <li class="dt"><a href="http://ip.chinaz.com">域名/IP类</a></li>
+                                <li class="dd">
+                                    <a href="http://tool.chinaz.com/DomainDel/" target="_blank">域名到期查询</a>
+                                    <a href="http://del.chinaz.com" target="_blank">过期域名查询</a>
+                                    <a href="http://whois.chinaz.com" target="_blank">WHOIS查询</a>
+                                    <a href="http://ip.chinaz.com" target="_blank">IP 查询</a>
+                                    <a href="http://ip.chinaz.com/Same/" target="_blank">同IP网站查询</a>
+                                    <a href="http://tool.chinaz.com/dns/" target="_blank">DNS查询</a>
+                                </li>
+                            </ul>
+                            <ul class="both">
+                                <li class="dt"><a href="http://icp.chinaz.com">网站信息查询</a></li>
+                                <li class="dd">
+                                    <a href="http://alexa.chinaz.com" target="_blank" class="rig">Alexa排名</a>
+                                    <a href="http://icp.chinaz.com" target="_blank">网站备案查询</a>
+                                    <a href="http://tool.chinaz.com/webdetect/" target="_blank" class="rig">网页检测</a>
+                                    <a href="http://tool.chinaz.com/pagestatus/" target="_blank">HTTP状态查询</a>
+                                    <a href="http://tool.chinaz.com/Tools/pagecode.aspx" target="_blank" class="rig">查看网页源代码</a>
+                                    <a href="http://tool.chinaz.com/tools/robot.aspx" target="_blank">机器人模拟抓取</a>
+                                    <a href="http://tool.chinaz.com/robots/" target="_blank"
+                                       class="rig">robots.txt生成</a>
+                                    <a href="http://mobile.chinaz.com/fiturl_baidu.html" target="_blank">移动适配生成</a>
+                                    <a href="http://tool.chinaz.com/sitespeed" target="_blank" class="rig">网站速度测试</a>
+                                    <a href="http://ping.chinaz.com/" target="_blank">ping测试</a>
+                                    <a href="http://mobile.chinaz.com/" target="_blank" class="rig">Wap适配</a>
+                                    <a href="http://tool.chinaz.com/Gzips/" target="_blank">网站GZIP压缩</a>
+                                </li>
+                            </ul>
+                            <ul class="both">
+                                <li class="dt"><a href="http://seo.chinaz.com">SEO查询</a></li>
+                                <li class="dd">
+                                    <a href="http://seo.chinaz.com" target="_blank" class="rig">SEO综合查询</a>
+                                    <a href="http://wapseo.chinaz.com" target="_blank">移动SEO查询</a>
+                                    <a href="http://link.chinaz.com" target="_blank" class="rig">友情链接检测</a>
+                                    <a href="http://outlink.chinaz.com" target="_blank">反链查询</a>
+                                    <a href="http://tool.chinaz.com/shoulu/" target="_blank" class="rig">收录查询</a>
+                                    <a href="http://tool.chinaz.com/baidu/metadig.aspx" target="_blank">META信息挖掘</a>
+                                    <a href="http://pr.chinaz.com" target="_blank" class="rig">PR查询</a>
+                                    <a href="http://tool.chinaz.com/kws/" target="_blank">关键词排名查询</a>
+                                    <a href="http://ciku.chinaz.com/words" target="_blank" class="rig">关键词挖掘</a>
+                                    <a href="http://tool.chinaz.com/kwevaluate" target="_blank">关键词优化分析</a>
+                                    <a href="http://tool.chinaz.com/websitepk.aspx" target="_blank"
+                                       class="rig">竞争网站分析</a>
+                                    <a href="http://tool.chinaz.com/seocheck" target="_blank">SEO优化建议</a>
+                                </li>
+                            </ul>
+                            <ul class="odd">
+                                <li class="dt"><a href="http://rank.chinaz.com/all" class="pr">权重查询<span
+                                        class="ico-navNew pa"></span></a></li>
+                                <li class="dd">
+                                    <a href="http://rank.chinaz.com" target="_blank">百度权重查询</a>
+                                    <a href="http://rank.chinaz.com/baidumobile" target="_blank">百度移动权重查询</a>
+                                    <a href="http://rank.chinaz.com/sorank" target="_blank">360权重查询</a>
+                                    <a href="http://rank.chinaz.com/rank360" target="_blank">360移动权重查询</a>
+                                    <a href="http://index.chinaz.com/bid" target="_blank">关键词推广创意查询</a>
+                                    <a href="http://index.chinaz.com/" target="_blank">关键词指数</a>
+                                </li>
+                            </ul>
+                            <ul class="odd">
+                                <li class="dt"><a href="http://tool.chinaz.com/map.aspx">辅助工具</a></li>
+                                <li class="dd">
+                                    <a href="http://tool.chinaz.com/Tools/textencrypt.aspx" target="_blank">加密解密</a>
+                                    <a href="http://tool.chinaz.com/Tools/Unicode.aspx" target="_blank">编码转换</a>
+                                    <a href="http://tool.chinaz.com/Tools/JsCodeConfusion.aspx"
+                                       target="_blank">压缩格式化</a>
+                                    <a href="http://tool.chinaz.com/Tools/onlinecolor.aspx" target="_blank">配色工具</a>
+                                    <a href="http://tool.chinaz.com/port/" target="_blank">端口扫描</a>
+                                    <a href="http://tool.chinaz.com/Tracert/" target="_blank">路由器追踪</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--ToolNavbar-end-->
+    <div class="wrapper02 ptb10 ToolsWrapIM clearfix" id="navAfter"></div>
+    <div class="Map-navbar wrapper mb10 clearfix">
+        <div class="Mnav-left fl">
+            当前位置： <a href="http://tool.chinaz.com/">站长工具</a> >
+            <a href="http://tool.chinaz.com/regex/">正则测试</a>
+        </div>
+        <div class="Mnav-right02 fr" id="loc"></div>
+    </div>
+</div>
+<!--top-public-end-->
+
+<style type="text/css">
+    .smartField {
+        position: relative;
+        overflow: auto;
+        border: 1px solid #ABADB3;
+    }
+
+    #input {
+        height: 375px;
+        width: 99.75%;
+        margin-top: 10px;
+    }
+
+    .smartField pre, .smartField textarea {
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        white-space: pre-wrap; /* css-3 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+    }
+
+    .smartField pre, .smartField textarea {
+        font: 100% "courier new", monospace;
+        width: 100%;
+        background: #fff;
+    }
+
+    .smartField pre {
+        padding: 0;
+        background: #fff;
+        border: none;
+        border-radius: 0;
+    }
+
+    td, th {
+        border: 1px solid #C0C0C0;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+        border: 1px solid #C0C0C0;
+    }
+
+    .smartField {
+        border: 1px solid #CCCCCC;
+        overflow: auto;
+        position: relative;
+    }
+
+    .smartField pre, .smartField textarea {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        font: 100% "courier new", monospace;
+    }
+
+    .smartField pre {
+        text-align: left;
+        color: #F9F9F9;
+        z-index: 1;
+    }
+
+    .smartField textarea {
+        background: none repeat scroll 0 0 transparent;
+        border: 0 none;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 2;
+    }
+
+    b, i, u {
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+    }
+
+    #input b {
+        background: none repeat scroll 0 0 #FFF000;
+        color: #FFF000;
+    }
+
+    #input i {
+        background: none repeat scroll 0 0 #80C0FF;
+        color: #80C0FF;
+    }
+
+    #search b {
+        background: none repeat scroll 0 0 #AAD1F7;
+        color: #AAD1F7;
+    }
+
+    #search i {
+        background: none repeat scroll 0 0 #F9CA69;
+        color: #F9CA69;
+    }
+
+    #search i b {
+        background: none repeat scroll 0 0 #F7A700;
+        color: #F7A700;
+    }
+
+    #search i u {
+        background: none repeat scroll 0 0 #EFBA4A;
+        color: #EFBA4A;
+    }
+
+    #search b.g1 {
+        background: none repeat scroll 0 0 #D2F854;
+        color: #D2F854;
+    }
+
+    #search b.g2 {
+        background: none repeat scroll 0 0 #9EC70C;
+        color: #9EC70C;
+    }
+
+    #search b.g3 {
+        background: none repeat scroll 0 0 #ECC9F7;
+        color: #ECC9F7;
+    }
+
+    #search b.g4 {
+        background: none repeat scroll 0 0 #54B70B;
+        color: #54B70B;
+    }
+
+    #search b.g5 {
+        background: none repeat scroll 0 0 #B688CF;
+        color: #B688CF;
+    }
+
+    #search b.err {
+        background: none repeat scroll 0 0 #FF4300 !important;
+        color: #FF4300 !important;
+    }
+
+    .ResultContWrap {
+        width: 1150px;
+    }
+</style>
+<!--Tool-MainWrap-begin-->
+<div class="Tool-MainWrap wrapper">
+    <p class="ClassHead-wrap clearfix">
+        <a class="ml15" href="/tools/pagecode.aspx">查看源代码</a>
+        <a href="/tools/openweb.aspx">OPEN参数生成</a>
+        <a href="/tools/webdebugger.aspx">代码调试</a>
+
+        <a href="/tools/cssdesigner.aspx">CSS在线编辑</a>
+        <a href="/tools/htmlchar.aspx">HTML特殊符号表</a>
+        <a href="/htmlcheck.aspx">HTML标签闭合性检测</a>
+        <a href="/htmlfilter">HTML/JS/CSS过滤</a>
+        <a href="javascript:" class="CHeadcur">正则测试</a>
+        <a href="/tools/regexgenerate">正则生成代码</a>
+    </p>
+</div>
+<!--Tool-MainWrap-begin-->
+
+<!--ToolMain02-begin-->
+<div class="wrapper pt20 pb20">
+
+    <div class="RegularWrap DelHeadFilter">
+        <!--RegbuttonBarWrap-begin-->
+        <div class="RegbuttonBarWrap bg-list">
+            <p class="col-blue02 fz14">常用正则表达式</p>
+            <p class="RegBtnBar clearfix" id="regCommon">
+                <a href="javascript:" t="chines">中文字符</a><a href="javascript:" t="doubleByte">双字节字符</a><a
+                    href="javascript:" t="nullLine">空白行</a><a href="javascript:" t="email">Email地址</a><a
+                    href="javascript:" t="url">网址URL</a><a href="javascript:" t="phone">手机（国内）</a><a href="javascript:"
+                                                                                                     t="tel">电话号码（国内）</a><a
+                    href="javascript:" t="nFloat">负浮点数</a>
+                <a href="javascript:" t="interger">匹配整数</a><a href="javascript:" t="pFloat">正浮点数</a><a
+                    href="javascript:" t="qq">腾讯QQ号</a>
+                <a href="javascript:" t="postal">邮政编码</a><a href="javascript:" t="ip4">IP</a><a href="javascript:"
+                                                                                                t="cardId">身份证号</a><a
+                    href="javascript:" t="date">格式日期</a><a href="javascript:" t="pInterger">正整数</a><a href="javascript:"
+                                                                                                      t="nInterger">负整数</a><a
+                    href="javascript:" t="userName">用户名</a>
+            </p>
+        </div>
+        <!--RegbuttonBarWrap-end-->
+
+
+        <div class="filter-contlist pr clearfix casual pt15">
+            <div class="RegularSearWrite-wrap fl clearfix">
+                <span class="pr fl w600 smartField h64" id="search"><textarea spellcheck="false" id="searchText"
+                                                                              class="RegularSearWrite-cont WrapHid w600 fz12">(\w+\.){2}\w+</textarea><b
+                        class="search-hint CentHid fz12">输入正则表达式</b></span>
+
+            </div>
+            <div class="RegularSearWrite-wrap fr clearfix ml15" style="margin-top:25px;">
+                <span class="RegularSearWrite-left pr fl w412"><input type="text"
+                                                                      class="RegularSearWrite-cont WrapHid w350 fz12"
+                                                                      id="reptext"/><a href="javascript:" title="清空"
+                                                                                       class="quickdelete _CentHid"></a><b
+                        class="search-hint CentHid fz12">输入要替换的文本</b></span>
+                <span class="RegularSearWrite-right fl"><input class="RegularSearWrite-btn fz12" type="button"
+                                                               id="repbtn" value="替换匹配文本"/></span>
+            </div>
+        </div>
+    </div>
+    <!--ResultContWrap-begin-->
+    <div class="ResultContWrap bg-list auto">
+        <div class="ResultContHead clearfix pb10">
+            <div class="filter-contlist pr clearfix casual fl pt5">
+                <ol class="item js-FilterItem h24 _chkboxhide" id="_chkboxhide">
+                    <li class="pr PLcx"><p><label hidefocus="on">不区分大小写</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">对^$前后换行也支持</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">符号.匹配所有</label></p></li>
+                    <li class="autohide"></li>
+                    <li class="pr PLcx selected"><p><label hidefocus="on">对正则着色</label></p></li>
+                    <li class="pr PLcx selected"><p><label hidefocus="on">对匹配结果着色</label></p></li>
+                    <li class="pr PLcx"><p><label hidefocus="on">对无匹配结果着色</label></p></li>
+                </ol>
+                <div id="chkboxhide" class="autohide"><input type="checkbox" id="toolI"/><input type="checkbox"
+                                                                                                id="toolM"/><input
+                        type="checkbox" id="toolS"/><input type="checkbox" checked="checked" id="toolG"/><input
+                        type="checkbox" checked="checked" id="highSyntax"><input type="checkbox" checked="checked"
+                                                                                 id="highMatch"><input type="checkbox"
+                                                                                                       id="invertMatch">
+                </div>
+            </div>
+
+        </div>
+        <div class="auto smartField" id="input" style=" background:#fff">
+            <!--GuoLvWrap-begin-->
+            <textarea spellcheck="false" id="inputText" class="ResultContMainTxt h200">tool.chinaz.com|888</textarea>
+            <!--GuoLvWrap-end-->
+        </div>
+        <div id="result" style=" display:none;">
+            <p class="ptb10">匹配结果：</p>
+            <textarea class="ResultContMainTxt h200" style="width:99.75%"></textarea>
+        </div>
+
+
+    </div>
+    <!--ResultContWrap-begin-->
+
+
+</div>
+<!--ToolMain02-end-->
+<script type="text/javascript" src="http://css.tools.chinaz.com/tools/js/bak/regbase.js"></script>
+<script type="text/javascript" src="http://css.tools.chinaz.com/tools/js/bak/reg.js"></script>
+<script>    tools.regex.init();</script>
+<!--footer-public-begin-->
+<div class="wrapper mt10">
+
+    <div id="centerTxt"></div>
+    <div class="ToolsWrap" id="centerImg"></div>
+    <div class="ToolAbout wrapper03">
+        <div class="clearfix"><h4 class="HeadH4 YaHei fz16 col-blue02 fwnone fl">工具简介</h4>
+            <div class="fr fz14" id="toolsIntro">
+
+            </div>
+        </div>
+        <div class="col-gray01 ToolAbCont">
+            <div class="lh30 plr20"><b class="fb col-gray03">到底什么是正则表达式？</b></div>
+            <div class="lh30 plr20">在编写处理字符串的程序或网页时，经常有查找符合某些复杂规则的字符串的需要。正则表达式就是用于描述这些规则的工具。换句话说，正则表达式就是记录文本规则的代码。</div>
+            <div class="clearfix ptb10">
+                <div class="fl pl20 pr20">
+                    <div class="lh30"><b class="fb col-gray03">常用元字符</b></div>
+                    <table cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th scope="col">代码</th>
+                            <th scope="col">说明</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="code">.</span></td>
+                            <td><span class="desc">匹配除换行符以外的任意字符</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\w</span></td>
+                            <td><span class="desc">匹配字母或数字或下划线</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\s</span></td>
+                            <td><span class="desc">匹配任意的空白符</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\d</span></td>
+                            <td><span class="desc">匹配数字</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\b</span></td>
+                            <td><span class="desc">匹配单词的开始或结束</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">^</span></td>
+                            <td><span class="desc">匹配字符串的开始</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">$</span></td>
+                            <td><span class="desc">匹配字符串的结束</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fl pl20 pr20">
+                    <div class="lh30"><b class="fb col-gray03">常用限定符</b></div>
+                    <table cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th scope="col">代码/语法</th>
+                            <th scope="col">说明</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="code">*</span></td>
+                            <td><span class="desc">重复零次或更多次</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">+</span></td>
+                            <td><span class="desc">重复一次或更多次</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">?</span></td>
+                            <td><span class="desc">重复零次或一次</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">{n}</span></td>
+                            <td><span class="desc">重复n次</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">{n,}</span></td>
+                            <td><span class="desc">重复n次或更多次</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">{n,m}</span></td>
+                            <td><span class="desc">重复n到m次</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fl pl20">
+                    <div class="lh30"><b class="fb col-gray03">常用反义词</b></div>
+                    <table cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th scope="col">代码/语法</th>
+                            <th scope="col">说明</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><span class="code">\W</span></td>
+                            <td><span class="desc">匹配任意不是字母，数字，下划线，汉字的字符</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\S</span></td>
+                            <td><span class="desc">匹配任意不是空白符的字符</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\D</span></td>
+                            <td><span class="desc">匹配任意非数字的字符</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">\B</span></td>
+                            <td><span class="desc">匹配不是单词开头或结束的位置</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">[^x]</span></td>
+                            <td><span class="desc">匹配除了x以外的任意字符</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="code">[^aeiou]</span></td>
+                            <td><span class="desc">匹配除了aeiou这几个字母以外的任意字符</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--siteBar-begin-->
+<div class="wrapper mt10 bor-b1s06 clearfix">
+    <div class="ToFooter fl w24-0">
+        <a href="javascript:" class="ToCurt">SEO相关</a>
+        <a href="javascript:">其他工具相关</a>
+    </div>
+    <div class="fr lh43 pr10 new_fea">
+        <a href="http://icp.chinaz.com/" target="_blank">网站备案</a>
+        <a href="http://mobile.chinaz.com/" target="_blank">Wap适配</a>
+        <a href="http://tool.chinaz.com/speedcom.aspx" target="_blank">网站测速PK</a>
+        <a href="http://del.chinaz.com/" target="_blank">过期域名查询</a>
+        <a href="http://tool.chinaz.com/keywordsarea/" target="_blank">关键词异地排名</a>
+    </div>
+</div>
+<div class="GMFocusBox auto">
+    <div>
+        <div class="tFull">
+            <div class="GMFimglist02 pr">
+                <div class="Fotline"></div>
+                <ul class="siteBar wrapper clearfix">
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">域名类</h5>
+                        <p class="plist">
+                            <a href="http://whois.chinaz.com" target="_blank">WHOIS查询</a>
+                            <a href="http://tool.chinaz.com/dns/" target="_blank">DNS查询</a>
+                            <a href="http://del.chinaz.com" target="_blank">过期域名查询</a>
+                            <a href="http://tool.chinaz.com/nslookup/" target="_blank">NsLookup查询</a>
+                            <a href="http://tool.chinaz.com/DomainDel/" target="_blank">域名删除时间</a>
+                            <a href="http://icp.chinaz.com" target="_blank">备案查询</a>
+                            <a href="http://del.chinaz.com/type" target="_blank">删除域名归档</a>
+                            <a href="http://icp.chinaz.com/searchs" target="_blank">备案批量查询</a>
+                        </p>
+                    </li>
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">IP类</h5>
+                        <p class="plist">
+                            <a href="http://ip.chinaz.com" target="_blank">IP 查询</a>
+                            <a href="http://ip.chinaz.com/ipbatch" target="_blank">IP 批量</a>
+                            <a href="http://tool.chinaz.com/Same/" target="_blank">同IP网站查询</a>
+                            <a href="http://tool.chinaz.com/ipwhois/" target="_blank">IP WHOIS查询</a>
+                            <a href="http://tool.chinaz.com/port/" target="_blank">端口扫描</a>
+                        </p>
+                    </li>
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">百度相关</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/keywords" target="_blank">关键词排名</a>
+                            <a href="http://tool.chinaz.com/baidu/words.aspx" target="_blank">关键词挖掘</a>
+                            <a href="http://outlink.chinaz.com/" target="_blank">反链查询</a>
+                            <a href="http://rank.chinaz.com" target="_blank">权重查询</a>
+                            <a href="http://tool.chinaz.com/baidu/" target="_blank">收录查询</a>
+                            <a href="http://tool.chinaz.com/baidu/entry" target="_blank">收录率查询</a>
+                            <a href="http://tool.chinaz.com/kwevaluate" target="_blank">关键词优化分析</a>
+                            <a href="http://tool.chinaz.com/baidu/metadig.aspx" target="_blank">Meta信息挖掘</a>
+                        </p>
+                    </li>
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">测速/监控</h5>
+                        <p class="plist">
+                            <a href="http://ping.chinaz.com" target="_blank">PING检测</a>
+                            <a href="http://tool.chinaz.com/Tools/webcheck.aspx" target="_blank">网站被黑检测</a>
+                            <a href="http://tool.chinaz.com/speedtest.aspx" target="_blank">国内网站测速</a>
+                            <a href="http://tool.chinaz.com/history/" target="_blank">网站历史记录</a>
+                            <a href="http://tool.chinaz.com/speedworld.aspx" target="_blank">海外网站测速</a>
+                            <a href="http://tool.chinaz.com/history/" target="_blank">SEO历史记录</a>
+                            <a href="http://tool.chinaz.com/speedcom.aspx" target="_blank">国内网速对比</a>
+                            <a href="http://alexa.chinaz.com/alexa_history.aspx" target="_blank">ALexa历史报告</a>
+                        </p>
+                    </li>
+
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">网页相关</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/webdetect/" target="_blank">网页检测</a>
+                            <a href="http://tool.chinaz.com/webscan" target="_blank">网站安全检测</a>
+                            <a href="http://tool.chinaz.com/Links/" target="_blank">死链检测</a>
+                            <a href="http://tool.chinaz.com/Gzips/" target="_blank">网站GZIP压缩</a>
+                            <a href="http://tool.chinaz.com/pagestatus/" target="_blank">网页状态检测</a>
+                            <a href="http://tool.chinaz.com/Tools/Density.aspx" target="_blank">关键词密度分析</a>
+                            <a href="http://tool.chinaz.com/Tools/MetaCheck.aspx" target="_blank">META信息查询</a>
+                            <a href="http://tool.chinaz.com/Tools/PageCode.aspx" target="_blank">查看网页源代码</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="GMFocusBox auto autohide">
+    <div>
+        <div class="tFull">
+            <div class="GMFimglist02 pr">
+                <div class="Fotline"></div>
+                <ul class="siteBar wrapper clearfix">
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">配色/在线汉字</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/Tools/cj" target="_blank">中日传统色彩</a>
+                            <a href="http://tool.chinaz.com/Tools/pinyindictionary.aspx" target="_blank">拼音字典</a>
+                            <a href="http://tool.chinaz.com/Tools/img" target="_blank">传图识色</a>
+                            <a href="http://tool.chinaz.com/Tools/word_spell.aspx" target="_blank">汉字拼音</a>
+                            <a href="http://tool.chinaz.com/Tools/web" target="_blank">WEB安全色</a>
+                            <a href="http://tool.chinaz.com/Tools/lowercase-uppercase.aspx" target="_blank">英文大小写</a>
+                            <a href="http://tool.chinaz.com/Tools/use" target="_blank">网页常用色彩</a>
+                            <a href="http://tool.chinaz.com/Tools/gb_big.aspx" target="_blank">繁/简/火星文</a>
+                        </p>
+                    </li>
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">WEB相关</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/htmlcheck.aspx" target="_blank">Html标签检测</a>
+                            <a href="http://tool.chinaz.com/Tools/httptest.aspx" target="_blank">Http接口测试</a>
+                            <a href="http://tool.chinaz.com/Tools/htmlchar.aspx" target="_blank">Html特殊符号</a>
+                            <a href="http://tool.chinaz.com/Tools/regexgenerate" target="_blank">正则表达式生成</a>
+                            <a href="http://tool.chinaz.com/Tools/cssdesigner.aspx" target="_blank">Css在线编辑</a>
+                            <a href="http://tool.chinaz.com/webscan" target="_blank">网站安全检测</a>
+                            <a href="http://tool.chinaz.com/Tools/pagecode.aspx" target="_blank">查看网页源代码</a>
+                            <a href="http://tool.chinaz.com/Tools/wordcounter" target="_blank">在线字符统计</a>
+                        </p>
+                    </li>
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">加密解密</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/Tools/md5.aspx" target="_blank">MD5加密</a>
+                            <a href="http://tool.chinaz.com/Tools/jscodeconfusion.aspx" target="_blank">Js代码混淆</a>
+                            <a href="http://tool.chinaz.com/Tools/escape.aspx" target="_blank">Escape加/解密</a>
+                            <a href="http://tool.chinaz.com/Tools/jsformat.aspx" target="_blank">Js/Html格式化</a>
+                            <a href="http://tool.chinaz.com/Tools/urlcrypt.aspx" target="_blank">Url16进制</a>
+                            <a href="http://tool.chinaz.com/js.aspx" target="_blank">Js混淆压缩</a>
+                            <a href="http://tool.chinaz.com/Tools/thunder_flashget.aspx" target="_blank">Url加/解密</a>
+                            <a href="http://tool.chinaz.com/Tools/textencrypt.aspx" target="_blank">文字加/解密</a>
+                        </p>
+                    </li>
+                    <li class="fl bor-r1s">
+                        <h5 class="fz14 fwnone col-blue02 pb5">单位换算</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/Tools/angle" target="_blank">角度换算</a>
+                            <a href="http://tool.chinaz.com/Tools/time" target="_blank">时间换算</a>
+                            <a href="http://tool.chinaz.com/Tools/heat" target="_blank">热量换算</a>
+                            <a href="http://tool.chinaz.com/Tools/length" target="_blank">长度换算</a>
+                            <a href="http://tool.chinaz.com/Tools/area" target="_blank">面积换算</a>
+                            <a href="http://tool.chinaz.com/Tools/calculator" target="_blank">计算器</a>
+                            <a href="http://tool.chinaz.com/Tools/datastore" target="_blank">数据存储</a>
+                            <a href="http://tool.chinaz.com/Tools/subnetmask" target="_blank">子网掩码</a>
+                        </p>
+                    </li>
+
+                    <li class="fl">
+                        <h5 class="fz14 fwnone col-blue02 pb5">编码转换</h5>
+                        <p class="plist">
+                            <a href="http://tool.chinaz.com/Tools/unicode.aspx" target="_blank">Unicode</a>
+                            <a href="http://tool.chinaz.com/Tools/html_ubb.aspx" target="_blank">Html/UBB</a>
+                            <a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank">Unix时间戳</a>
+                            <a href="http://tool.chinaz.com/Tools/urlencode.aspx" target="_blank">UrlEncode</a>
+                            <a href="http://tool.chinaz.com/Tools/native_ascii.aspx" target="_blank">NATIVE/ASCII</a>
+                            <a href="http://tool.chinaz.com/qrcode" target="_blank">二维码生成</a>
+                            <a href="http://tool.chinaz.com/Tools/utf-8.aspx" target="_blank">UTF-8编码</a>
+                            <a href="http://tool.chinaz.com/tools/html_js.aspx" target="_blank">HTML/JS转换</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--siteBar-end-->
+
+
+<div class="wrapper mt10">
+    <div class="fotatxtd auto" id="bottomImg"></div>
+</div>
+<!--ToolFooter-begin-->
+<div class="puw100 h80 bor-t1s mt10 bg-white">
+
+    <div class="ToolFooter">
+        <p class="linkbtn"><a href="http://www.chinaz.com/aboutus/index.html" target="_blank">关于站长之家</a> | <a
+                href="http://ww.chinaz.com/aboutus/contact.php" target="_blank">联系我们 </a> | <a
+                href="http://www.chinaz.com/aboutus/ad.html" target="_blank">广告服务</a> | <a
+                href="http://www.chinaz.com/aboutus/link.html" target="_blank">友情链接</a> | <a
+                href="http://www.chinaz.com/aboutus/events.html" target="_blank">网站动态</a> | <a
+                href="http://www.chinaz.com/aboutus/announce.html" target="_blank">版权声明</a> | <a
+                href="http://www.chinaz.com/aboutus/join.html" target="_blank">人才招聘</a> | <a
+                href="http://www.chinaz.com/aboutus/help.html" target="_blank">帮助</a></p>
+        <p class="info">
+            <span>© CopyRight 2002-2018, CHINAZ.COM, Inc.All Rights Reserved.</span><span>闽ICP备08105208号</span><span>增值电信业务经营许可证闽B2-20120007号</span><a
+                href="http://www.wy.cn" rel="nofollow" target="_blank" class="col-gray02">服务器资源由唯一网络赞助</a></p>
+    </div>
+</div>
+<!--ToolFooter-end-->
+
+<!--footer-public-end-->
+<div id="ToolBox">
+    <div id="xhead"></div>
+    <ul id="xlist"></ul>
+    <div id="xfoot"></div>
+</div>
+<script src="http://stats.chinaz.com/gj_g/tool_a.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://my.chinaz.com/js/uc.js" charset="utf-8"></script>
+<div class="TFloat-item" id="toTop">
+    <a href="javascript:" id="TFloat" title="回到顶部" style="display:none;"></a> <a href="http://tool.chinaz.com/contact"
+                                                                                 class="feedback" target="_blank"></a>
+    <a href="javascript:" class="Record" id="record"></a>
+    <div class="Record-show " id="RecordShow" style="display:none;">
+        <div class="Tgroup">
+            <a href="http://seo.chinaz.com/" target="_blank">SEO查询</a>
+            <a href="http://icp.chinaz.com/" target="_blank">备案查询</a>
+            <a href="http://ip.chinaz.com/" target="_blank">IP查询</a>
+            <a href="http://tool.chinaz.com/kws/" target="_blank">关键词查询</a>
+            <a href="http://link.chinaz.com/" target="_blank">友情链接</a>
+            <a href="http://tool.chinaz.com/map.aspx" class="col-hint" target="_blank">更多工具</a>
+        </div>
+        <div class="arr"></div>
+    </div>
+</div>
+<div class="autohide">
+    <script src='http://s11.cnzz.com/stat.php?id=5082706&web_id=5082706' language='JavaScript' charset='gb2312'
+            type="text/javascript"></script>
+</div>
+<input id="enabled" type="hidden" value="1"/></body>
+</html>

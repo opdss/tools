@@ -33,5 +33,8 @@ return array(
 	'crypto-js' => array(
 		'https://cdn.bootcss.com/crypto-js/3.1.9/crypto-js.min.js',
 		//'https://cdn.bootcss.com/crypto-js/3.1.9/md5.min.js',
+	),
+	'xregexp' => array(
+		'https://cdn.bootcss.com/xregexp/3.2.0/xregexp-all.min.js',
 	)
 );

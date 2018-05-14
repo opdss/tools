@@ -113,7 +113,7 @@ class Doc extends Base
 
 	/**
 	 * @pattern /httpheader.html
-	 * @menu  手册/文档|HTTP头信息header参考|new
+	 * @menu  手册/文档|HTTP头信息header参考
 	 * @link http://www.jsons.cn/portcode/
 	 * @param Request $request
 	 * @param Response $response
