@@ -84,6 +84,25 @@ var utils = {
         return Date.parse(new Date()) / 1000;
     },
 
+    fmtSec: function (sec) {
+        var fmt = [
+            [60, '秒'],
+            [60, '分'],
+            [24, '小时'],
+            [365, '天'],
+            [1, '年'],
+        ]
+        var idx = 0, fmtStr = '', k = 0;
+        while (sec > fmt[idx][0] && idx < (fmt.length - 1)) {
+            k = parseInt(sec % fmt[idx][0])
+            sec = parseInt(sec / fmt[idx][0])
+            fmtStr = k + fmt[idx][1] + fmtStr;
+            idx++;
+        }
+        fmtStr = sec + fmt[idx][1] + fmtStr;
+        return fmtStr;
+    },
+
     //得到标准时区的时间的函数
     getZoneTime: function (timezone) {
         //参数i为时区值数字，比如北京为东八区则输进8,西5输入-5
@@ -107,13 +126,13 @@ var utils = {
         return true;
     },
 
-    range : function (start, end) {
+    range: function (start, end) {
         return new Array(end - start).fill(start).map(function (el, i) {
             return start + i;
         });
     },
 
-    parsePort : function (portStr) {
+    parsePort: function (portStr) {
         if (!portStr) {
             return [];
         }
@@ -125,7 +144,7 @@ var utils = {
                 arr[0] = parseInt(arr[0], 10);
                 arr[1] = parseInt(arr[1], 10);
                 if (arr[0] && arr[1]) {
-                    var res = utils.range(Math.min(arr[0], arr[1]), Math.max(arr[0], arr[1])+1)
+                    var res = utils.range(Math.min(arr[0], arr[1]), Math.max(arr[0], arr[1]) + 1)
                     portArr = portArr.concat(res)
                 }
             } else {
@@ -146,14 +165,14 @@ var utils = {
     xmlFormat: function (text, step) {
         function createShiftArr(step) {
             var space = '    ';
-            if (isNaN(parseInt(step)) ) {  // argument is string
+            if (isNaN(parseInt(step))) {  // argument is string
                 space = step;
             } else { // argument is integer
                 space = new Array(step + 1).join(' '); //space is result of join (a string), not an array
             }
             var shift = ['\n']; // array of shifts
-            for(var ix=0;ix<100;ix++){
-                shift.push(shift[ix]+space);
+            for (var ix = 0; ix < 100; ix++) {
+                shift.push(shift[ix] + space);
             }
             return shift;
         }

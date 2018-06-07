@@ -80,8 +80,8 @@
         </div>#}
 
         <div class="input-group">
-            <div class='input-group date' id='datetimepicker'>
-                <input type='text' class="form-control"  placeholder="yyyy-mm-dd hh:ii:ss"/>
+            <div class='input-group date datetimepicker'>
+                <input type='text' class="form-control" placeholder="yyyy-mm-dd hh:ii:ss"/>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-time">
                     </span>
@@ -93,12 +93,58 @@
         <input type="text" class="form-control" placeholder="Unix时间戳(秒)" readonly>
     </form>
 
+    <br/>
+    <blockquote>
+        【Unix时间差计算】
+    </blockquote>
+    <p class="alert alert-info">这里计算时间差是用时间一减去时间二，所以注意‘-’的区别，相差年份认为是一年365天；时间的转换是按照本地的时区和浏览器时间！</p>
+    <form class="form-inline">
+        <div class="input-group">
+            <div class='input-group date datetimepicker'>
+                <span class="input-group-addon">时间一</span>
+                <input type='text' class="form-control"  placeholder="yyyy-mm-dd hh:ii:ss"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time">
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary cal-btn">计算时间一与时间二的差值</button>
+
+        <div class="input-group">
+            <div class='input-group date datetimepicker'>
+                <span class="input-group-addon">时间二</span>
+                <input type='text' class="form-control"  placeholder="yyyy-mm-dd hh:ii:ss"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time">
+                    </span>
+                </span>
+            </div>
+        </div>
+        <br/>
+        <br/>
+    </form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group ">
+                <span class="input-group-addon">相差秒数</span>
+                <input type="text" class="form-control diff-sec">
+            </div>
+            <br/>
+            <div class="input-group ">
+                <span class="input-group-addon">相差时间</span>
+                <input type="text" class="form-control diff-fmt">
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block script %}
     <script>
 
-        $('#datetimepicker').datetimepicker({
+        $('.datetimepicker').datetimepicker({
             language: 'zh-CN',
             weekStart: 1,
             format: 'yyyy-mm-dd hh:ii:ss',
@@ -151,10 +197,22 @@
                     obj.val(utils.getFmtDateTime(val * 1000));
                 }
             } else {
-                var val = $('#datetimepicker').find('input').val();
+                var val = $(this).prev().find('input').val();
                 obj.val(utils.getTimestamp(val));
             }
             return false;
+        })
+
+        $('.cal-btn').click(function (e) {
+            var t1 = $(this).prev().find('input').val();
+            var t2 = $(this).next().find('input').val();
+            var int_t1 = utils.getTimestamp(t1) || 0;
+            var int_t2 = utils.getTimestamp(t2) || 0;
+            var diff_int = Math.abs(int_t1 - int_t2);
+            var lim = int_t1 > int_t2 ? '' : '-';
+            $('.diff-sec').val(lim + diff_int.toString());
+            $('.diff-fmt').val(lim + utils.fmtSec(diff_int));
+            e.preventDefault();
         })
     </script>
 {% endblock %}
