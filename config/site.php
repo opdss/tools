@@ -7,10 +7,10 @@
  */
 
 return array(
-	'title' => '工具箱',
-	'author' => '1tools',
-	'keyword' => '工具箱',
-	'description' => '这是一个神奇的网站！！！',
+	'title' => '工具箱APP-GJX.APP',
+	'author' => 'GJX.APP',
+	'keyword' => '工具箱,APP,工具箱APP,web工具箱,全能工具箱,开发者工具箱,gjx,gjx.app',
+	'description' => '工具箱,APP,工具箱APP,web工具箱,全能工具箱,开发者工具箱,gjx,gjx.app',
 	//'copyright' => 'Copyright © 2017  istimer.com </br>技术支持：<a href="mailto:wux@tsingning.com" style="color: #2a76fe	;">@阿新</a>',
 	'page_number' => 6,
 	'copyright' => '©2018 <a href="https://'.$_SERVER['SERVER_NAME'].'">'.$_SERVER['SERVER_NAME'].'</a>',
