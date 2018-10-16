@@ -148,6 +148,22 @@ class Tools extends Base
 	}
 
 	/**
+	 * whois查询
+	 * //@pattern /whois.html
+	 * @link https://tool.lu/portscan/
+	 * @menu 实用工具|端口扫描
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return mixed
+	 */
+	public function whois(Request $request, Response $response, $args)
+	{
+		$data['current_menu'] = $this->getCurrentMenu($request);
+		return $this->view('tools/whois.twig', $data);
+	}
+
+	/**
 	 * 端口扫描
 	 * //@pattern /httptest.html
 	 * @link http://www.atool.org/httptest.php
