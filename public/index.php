@@ -50,7 +50,7 @@ require APP_DIR . 'dependencies.php';
 
 // 根据注释注册路由
 $nroute = \Opdss\Nroute\Nroute::factory(array('cacheDir'=>CACHE_DIR));
-$nroute->attachInfo('menu');
+$nroute->attachInfoField('menu');
 $nroute->register($app, array(APP_DIR . 'Controllers' => 'App\\Controllers', APP_DIR . 'Api' => 'App\\Api'));
 
 //\Opdss\Nroute\Nroute::factory(array('cacheDir'=>CACHE_DIR))->register($app, array(APP_DIR . 'Controllers' => 'App\\Controllers'));

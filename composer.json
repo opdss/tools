@@ -22,7 +22,7 @@
         "opdss/cisession": "*",
         "opdss/cicache": "*",
         "opdss/http": "*",
-        "opdss/nroute": "^0.2.0",
+        "opdss/nroute": "*",
         "mrclay/minify": "^3.0.0",
         "wyrihaximus/html-compress" : "^1.1.0"
     },
